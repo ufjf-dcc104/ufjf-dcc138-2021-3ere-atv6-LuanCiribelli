@@ -7,8 +7,7 @@ const cena1 = new Scene(canvas);
 cena1.draw();
 
 const pc = new Sprite();
-pc.x = 100;
-pc.y = 100;
-pc.w = 20;
-pc.h = 20;
+const en1 = new Sprite({x:140,color:"red"});
+
 pc.draw(ctx);
+en1.draw(ctx);
