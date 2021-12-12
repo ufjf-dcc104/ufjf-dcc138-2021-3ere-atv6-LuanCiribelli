@@ -6,7 +6,8 @@ export default class Scene {
     this.ctx = canvas.getContext("2d");
     this.sprites = [];
     this.t0 = 0;
-    this.dt = 0
+    this.dt = 0;
+    this.idAnim = null;
   }
 
   draw() {
@@ -22,18 +23,28 @@ export default class Scene {
   }
   passo(dt) {
     this.sprites.forEach((sprite) => {
-       sprite.passo(dt);
-   });
-
+      sprite.passo(dt);
+    });
   }
 
-  quadro(t){
-      this.t0 = this.t0 ?? t;
-      this.dt = (t - this.t0)/1000;
+  quadro(t) {
+    this.t0 = this.t0 ?? t;
+    this.dt = (t - this.t0) / 1000;
 
-      this.passo(this.dt);
-      this.draw();
+    this.passo(this.dt);
+    this.draw();
+    this.iniciar();
+    this.t0 = t;
+  }
 
-      this.t0 =t;
+  iniciar() {
+    this.idAnim = requestAnimationFrame((t) => {
+      this.quadro(t);
+    });
+  }
+  parar() {
+    cancelAnimationFrame(this.idAnim);
+    this.t0 = null;
+    this.dt=0;
   }
 }
