@@ -1,5 +1,7 @@
 export default class Sprite{
-
+/*
+    Modelar objetos moveis
+*/
     constructor({x=100,y=100,w=20,h=20,color="white"}={}){
         this.x=x;
         this.y=y;
