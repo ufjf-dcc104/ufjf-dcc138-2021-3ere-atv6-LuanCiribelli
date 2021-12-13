@@ -5,21 +5,26 @@ const canvas = document.querySelector("canvas");
 
 const cena1 = new Scene(canvas);
 
-const pc = new Sprite({vx:10});
+const pc = new Sprite({ vx: 10 });
 const en1 = new Sprite({ x: 140, color: "red" });
 
 cena1.adicionar(pc);
 cena1.adicionar(en1);
+cena1.adicionar(new Sprite({ y:40, color: "red" }));
 
 
-document.addEventListener("keydown",(e)=> {switch (e.key) {
+cena1.iniciar();
+
+document.addEventListener("keydown", (e) => {
+  switch (e.key) {
     case "s":
-        cena1.iniciar();
-               
-        break;
+      cena1.iniciar();
+
+      break;
     case "p":
-        cena1.parar();
-        break;    
+      cena1.parar();
+      break;
     default:
-        break;
-}})
+      break;
+  }
+});
