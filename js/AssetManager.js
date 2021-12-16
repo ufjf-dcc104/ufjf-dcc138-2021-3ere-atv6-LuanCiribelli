@@ -7,12 +7,18 @@ export default class AssetManager {
 
   carregaImagem(chave, source) {
     const img1 = new Image();
+
+    img1.addEventListener("load", () => {
+      console.log(`imagem ${this.carregadas}/${this.aCarregar} caregada!`);
+      this.carregadas++;
+    });
     img1.src = source;
-    this.images.set(chave,img1);
+    this.images.set(chave, img1);
+    this.aCarregar++;
   }
 
-  img(chave){
-      return this.images.get(chave);
+  img(chave) {
+    return this.images.get(chave);
   }
 
   progresso() {
@@ -20,5 +26,9 @@ export default class AssetManager {
       return `${((this.carregadas / this.aCarregar) * 100).toFixed(2)}%`;
     }
     return "Tudo carregado";
+  }
+
+  acabou() {
+    return this.carregadas === this.aCarregar;
   }
 }
