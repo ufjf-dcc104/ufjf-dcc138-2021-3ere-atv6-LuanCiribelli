@@ -1,7 +1,7 @@
 export default class Scene {
   /* Desenha elementos na tela nas animações*/
 
-  constructor(canvas) {
+  constructor(canvas,assets = null) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.sprites = [];
@@ -9,6 +9,7 @@ export default class Scene {
     this.t0 = 0;
     this.dt = 0;
     this.idAnim = null;
+    this.assets = assets;
   }
 
   draw() {
@@ -17,6 +18,9 @@ export default class Scene {
     this.sprites.forEach((sprite) => {
       sprite.draw(this.ctx);
     });
+
+    this.ctx.fillStyle = "yellow";
+    this.ctx.fillText(this.assets?.progresso(),10,20)
   }
 
   adicionar(sprite) {
