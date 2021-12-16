@@ -7,12 +7,16 @@ import Sprite from "./Sprite.js";
    assets.carregaImagem("garota","assets/girl.png");
    assets.carregaImagem("orc"," assets/orc.png");
    assets.carregaImagem("skelly","assets/skelly.png");
+   assets.carregaAudio("pulo","assets/jump.wav");
   
   
 
     document.body.appendChild(assets.img("garota"));
     document.body.appendChild(assets.img("orc"));
     document.body.appendChild(assets.img("skelly"));
+    document.body.appendChild(assets.img("skelly"));
+    document.body.appendChild(assets.audio("pulo"));
+    
 
     
 

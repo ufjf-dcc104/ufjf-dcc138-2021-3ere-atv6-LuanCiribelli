@@ -15,9 +15,11 @@ export default class Scene {
   draw() {
     this.ctx.fillStyle = "grey";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.sprites.forEach((sprite) => {
-      sprite.draw(this.ctx);
-    });
+    if (this.assets.acabou()) {
+      this.sprites.forEach((sprite) => {
+        sprite.draw(this.ctx);
+      });
+    }
 
     this.ctx.fillStyle = "yellow";
     this.ctx.fillText(this.assets?.progresso(), 10, 20);
@@ -27,6 +29,7 @@ export default class Scene {
     this.sprites.push(sprite);
   }
   passo(dt) {
+    if(this.assets.acabou())
     this.sprites.forEach((sprite) => {
       sprite.passo(dt);
     });
