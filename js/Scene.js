@@ -1,7 +1,7 @@
 export default class Scene {
   /* Desenha elementos na tela nas animações*/
 
-  constructor(canvas,assets = null) {
+  constructor(canvas, assets = null) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.sprites = [];
@@ -20,7 +20,7 @@ export default class Scene {
     });
 
     this.ctx.fillStyle = "yellow";
-    this.ctx.fillText(this.assets?.progresso(),10,20)
+    this.ctx.fillText(this.assets?.progresso(), 10, 20);
   }
 
   adicionar(sprite) {
@@ -82,6 +82,6 @@ export default class Scene {
         this.sprites.splice(idx, 1);
       }
     }
-    this.aRemover =[];
+    this.aRemover = [];
   }
 }

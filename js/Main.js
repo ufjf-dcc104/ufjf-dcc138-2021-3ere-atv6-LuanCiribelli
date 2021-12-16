@@ -2,18 +2,19 @@ import AssetManager from "./AssetManager.js";
 import Scene from "./Scene.js";
 import Sprite from "./Sprite.js";
 
-    const img1= new Image();
-    img1.src="assets/girl.png";
-    const img2= new Image();
-    img2.src="assets/orc.png";
-    const img3= new Image();
-    img3.src="assets/skelly.png";
+   const assets = new AssetManager(); 
+   
+   assets.carregaImagem("garota","assets/girl.png");
+   assets.carregaImagem("orc"," assets/orc.png");
+   assets.carregaImagem("skelly","assets/skelly.png");
+  
+  
 
-    document.body.appendChild(img1);
-    document.body.appendChild(img2);
-    document.body.appendChild(img3);
+    document.body.appendChild(assets.img("garota"));
+    document.body.appendChild(assets.img("orc"));
+    document.body.appendChild(assets.img("skelly"));
 
-    const assets = new AssetManager();
+    
 
 const canvas = document.querySelector("canvas");
 
