@@ -9,16 +9,7 @@ import Sprite from "./Sprite.js";
    assets.carregaImagem("skelly","assets/skelly.png");
    assets.carregaAudio("pulo","assets/jump.wav");
   
-  
-
-    document.body.appendChild(assets.img("garota"));
-    document.body.appendChild(assets.img("orc"));
-    document.body.appendChild(assets.img("skelly"));
-    document.body.appendChild(assets.img("skelly"));
-    document.body.appendChild(assets.audio("pulo"));
-    
-
-    
+      
 
 const canvas = document.querySelector("canvas");
 

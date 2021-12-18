@@ -1,3 +1,5 @@
 {
-    "cSpell.language": "en,pt,pt-BR"
+    "cSpell.language": "en,pt,pt-BR",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active"
 }
