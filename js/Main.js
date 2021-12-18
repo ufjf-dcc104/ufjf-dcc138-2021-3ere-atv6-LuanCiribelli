@@ -2,6 +2,7 @@ import AssetManager from "./AssetManager.js";
 import Scene from "./Scene.js";
 import Sprite from "./Sprite.js";
 import Mapa from "./Mapa.js";
+import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 
 const assets = new AssetManager();
 
@@ -11,12 +12,13 @@ assets.carregaImagem("skelly", "assets/skelly.png");
 assets.carregaAudio("pulo", "assets/jump.wav");
 
 const canvas = document.querySelector("canvas");
-canvas.width=14*32;
-canvas.height=10*32;
+canvas.width = 14 * 32;
+canvas.height = 10 * 32;
 const cena1 = new Scene(canvas, assets);
 
-const mapa1 = new Mapa(10,14,32);
+const mapa1 = new Mapa(10, 14, 32);
 
+mapa1.carregaMapa(modeloMapa1);
 cena1.configuraMapa(mapa1);
 
 const pc = new Sprite({ vx: 10 });

@@ -10,7 +10,7 @@ export default class {
         this.tiles[l][c] = 0;
       }
     }
-    this.cena=null;
+    this.cena = null;
   }
 
   draw(ctx) {
@@ -32,6 +32,18 @@ export default class {
             ctx.strokeStyle = "grey";
             ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
         }
+      }
+    }
+  }
+
+  carregaMapa(modelo) {
+    this.tiles = [];
+    this.LINHAS = modelo.length;
+    this.COLUNAS = modelo[0]?.length ?? 0;
+    for (let l = 0; l < this.LINHAS; l++) {
+      this.tiles[l] = [];
+      for (let c = 0; c < this.COLUNAS; c++) {
+        this.tiles[l][c] = modelo[l][c];
       }
     }
   }
