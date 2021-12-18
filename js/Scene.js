@@ -10,11 +10,15 @@ export default class Scene {
     this.dt = 0;
     this.idAnim = null;
     this.assets = assets;
+    this.mapa=null;
   }
 
   draw() {
-    this.ctx.fillStyle = "grey";
+    this.ctx.fillStyle = "lightblue";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    this.mapa?.draw(this.ctx);
+    
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
         sprite.draw(this.ctx);
@@ -29,10 +33,10 @@ export default class Scene {
     this.sprites.push(sprite);
   }
   passo(dt) {
-    if(this.assets.acabou())
-    this.sprites.forEach((sprite) => {
-      sprite.passo(dt);
-    });
+    if (this.assets.acabou())
+      this.sprites.forEach((sprite) => {
+        sprite.passo(dt);
+      });
   }
 
   quadro(t) {
@@ -86,5 +90,10 @@ export default class Scene {
       }
     }
     this.aRemover = [];
+  }
+
+  configuraMapa(mapa){
+    this.mapa = mapa;
+    this.mapa.cena = this;
   }
 }
