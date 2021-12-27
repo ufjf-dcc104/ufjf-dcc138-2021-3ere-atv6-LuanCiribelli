@@ -30,6 +30,7 @@ export default class Scene {
   }
 
   adicionar(sprite) {
+    sprite.cena = this;
     this.sprites.push(sprite);
   }
   passo(dt) {
