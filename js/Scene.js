@@ -22,6 +22,7 @@ export default class Scene {
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
         sprite.draw(this.ctx);
+        sprite.aplicaRestricoes();
       });
     }
 
@@ -83,6 +84,7 @@ export default class Scene {
       this.aRemover.push(b);
     }
   }
+
   removerSprites() {
     for (const alvo of this.aRemover) {
       const idx = this.sprites.indexOf(alvo);
