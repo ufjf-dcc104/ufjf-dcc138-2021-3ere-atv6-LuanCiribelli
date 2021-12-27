@@ -7,9 +7,9 @@ export default class Sprite {
     y = 100,
     w = 20,
     h = 20,
-    color = "white",
     vx = 0,
     vy = 0,
+    color = "white",
   } = {}) {
     this.x = x;
     this.y = y;
@@ -53,7 +53,6 @@ export default class Sprite {
   aplicaRestricoes(dt) {
     this.aplicaRestricoesDireita(dt);
     this.aplicaRestricoesEsquerda(dt);
-
     this.aplicaRestricoesBaixo(dt);
     this.aplicaRestricoesCima(dt);
   }
@@ -66,7 +65,7 @@ export default class Sprite {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
-          W: SIZE,
+          w: SIZE,
           h: SIZE,
         };
         this.cena.ctx.strokeStyle = "white";
@@ -87,7 +86,7 @@ export default class Sprite {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
-          W: SIZE,
+          w: SIZE,
           h: SIZE,
         };
         this.cena.ctx.strokeStyle = "white";
