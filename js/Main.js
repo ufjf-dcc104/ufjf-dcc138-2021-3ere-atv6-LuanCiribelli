@@ -3,6 +3,7 @@ import Scene from "./Scene.js";
 import Sprite from "./Sprite.js";
 import Mapa from "./Mapa.js";
 import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
+import Mixer from "./Mixer.js";
 
 const assets = new AssetManager();
 
@@ -11,6 +12,8 @@ assets.carregaImagem("orc", " assets/orc.png");
 assets.carregaImagem("skelly", "assets/skelly.png");
 assets.carregaAudio("pulo", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
+
+const mixer = new Mixer(10);
 
 const canvas = document.querySelector("canvas");
 canvas.width = 14 * 32;
@@ -41,11 +44,11 @@ document.addEventListener("keydown", (e) => {
       cena1.parar();
       break;
     case "c":
-      assets.audio("pulo").play();
+      mixer.play(assets.audio("pulo").play());
       break;
-      case "b":
-        assets.audio("boom").play();
-        break;
+    case "b":
+      mixer.play(assets.audio("boom").play());
+      break;
     default:
       break;
   }
