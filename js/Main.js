@@ -5,7 +5,9 @@ import Mapa from "./Mapa.js";
 import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 import Mixer from "./Mixer.js";
 
-const assets = new AssetManager();
+
+const mixer = new Mixer(10);
+const assets = new AssetManager(mixer);
 
 assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", " assets/orc.png");
@@ -13,7 +15,6 @@ assets.carregaImagem("skelly", "assets/skelly.png");
 assets.carregaAudio("pulo", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
 
-const mixer = new Mixer(10);
 
 const canvas = document.querySelector("canvas");
 canvas.width = 14 * 32;
@@ -44,10 +45,10 @@ document.addEventListener("keydown", (e) => {
       cena1.parar();
       break;
     case "c":
-      mixer.play(assets.audio("pulo").play());
+      assets.play("pulo");
       break;
     case "b":
-      mixer.play(assets.audio("boom").play());
+      assets.play("boom");
       break;
     default:
       break;

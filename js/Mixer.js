@@ -23,7 +23,6 @@ export default class Mixer {
         canal.audio.src = audio.src;
         canal.fim = agora + audio.duration * 1000;
         canal.audio.play();
-        console.log(`play canal ${c} ${canal.fim}`);
         break;
       }
     }
