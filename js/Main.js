@@ -10,6 +10,7 @@ assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", " assets/orc.png");
 assets.carregaImagem("skelly", "assets/skelly.png");
 assets.carregaAudio("pulo", "assets/jump.wav");
+assets.carregaAudio("boom", "assets/boom.wav");
 
 const canvas = document.querySelector("canvas");
 canvas.width = 14 * 32;
@@ -21,7 +22,7 @@ const mapa1 = new Mapa(10, 14, 32);
 mapa1.carregaMapa(modeloMapa1);
 cena1.configuraMapa(mapa1);
 
-const pc = new Sprite({ x: 50,y:90, vx: 10 });
+const pc = new Sprite({ x: 50, y: 90, vx: 10 });
 const en1 = new Sprite({ x: 160, vx: -10, color: "red" });
 
 cena1.adicionar(pc);
@@ -35,11 +36,16 @@ document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "s":
       cena1.iniciar();
-
       break;
     case "p":
       cena1.parar();
       break;
+    case "c":
+      assets.audio("pulo").play();
+      break;
+      case "b":
+        assets.audio("boom").play();
+        break;
     default:
       break;
   }
