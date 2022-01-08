@@ -4,10 +4,12 @@ import Sprite from "./Sprite.js";
 import Mapa from "./Mapa.js";
 import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 import Mixer from "./Mixer.js";
+import InputManager from "./InputManager.js";
 
-
+const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
+
 
 assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", " assets/orc.png");
@@ -19,6 +21,15 @@ assets.carregaAudio("boom", "assets/boom.wav");
 const canvas = document.querySelector("canvas");
 canvas.width = 14 * 32;
 canvas.height = 10 * 32;
+
+
+input.configurarTeclado({
+"ArrowLeft":"MOVE-ESQUERDA",
+"ArrowRight":"MOVE-DIREITA",
+});
+
+
+
 const cena1 = new Scene(canvas, assets);
 
 const mapa1 = new Mapa(10, 14, 32);
