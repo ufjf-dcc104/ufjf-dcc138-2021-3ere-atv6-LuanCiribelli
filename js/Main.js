@@ -10,25 +10,22 @@ const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
 
-
 assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", " assets/orc.png");
 assets.carregaImagem("skelly", "assets/skelly.png");
 assets.carregaAudio("pulo", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
 
-
 const canvas = document.querySelector("canvas");
 canvas.width = 14 * 32;
 canvas.height = 10 * 32;
 
-
 input.configurarTeclado({
-"ArrowLeft":"MOVE-ESQUERDA",
-"ArrowRight":"MOVE-DIREITA",
+  ArrowLeft: "MOVE_ESQUERDA",
+  ArrowRight: "MOVE_DIREITA",
+  ArrowUp: "MOVE_CIMA",
+  ArrowDown: "MOVE_BAIXO",
 });
-
-
 
 const cena1 = new Scene(canvas, assets);
 
@@ -37,7 +34,21 @@ const mapa1 = new Mapa(10, 14, 32);
 mapa1.carregaMapa(modeloMapa1);
 cena1.configuraMapa(mapa1);
 
-const pc = new Sprite({ x: 50, y: 90, vx: 10 });
+const pc = new Sprite({ x: 50, y: 90 });
+pc.controlar = function (dt) {
+  if (input.comandos.get("MOVE_ESQUERDA")) {
+    this.vx = -50;
+  }
+  if (input.comandos.get("MOVE_DIREITA")) {
+    this.vx = +50;
+  }
+  if (input.comandos.get("MOVE_CIMA")) {
+    this.vy = -50;
+  }
+  if (input.comandos.get("MOVE_BAIXO")) {
+    this.vy = +50;
+  }
+};
 const en1 = new Sprite({ x: 160, vx: -10, color: "red" });
 
 cena1.adicionar(pc);

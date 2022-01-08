@@ -13,16 +13,17 @@ export default class InputManager {
 
     const that = this;
     addEventListener("keydown", function (e) {
-      const tecla = that.get(e.key);
-      if(comando){
-          that.comandos.set(comando,true);
+      const comando = that.teclas.get(e.key);
+      if (comando) {
+        that.comandos.set(comando, true);
       }
     });
-    addEventListener("keyUp", function (e) {
-        const tecla = that.get(e.key);
-        if(comando){
-            that.comandos.set(comando,false);
-        }
-      });
+
+    addEventListener("keyup", function (e) {
+      const comando = that.teclas.get(e.key);
+      if (comando) {
+        that.comandos.set(comando, false);
+      }
+    });
   }
 }
