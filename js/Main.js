@@ -53,8 +53,8 @@ pc.controlar = function (dt) {
 cena1.adicionar(pc);
 
 function perseguePC(dt) {
-  this.vx = 0 * Math.sign(pc.x - this.x);
-  this.vy = 0 * Math.sign(pc.y - this.y);
+  this.vx = 15 * Math.sign(pc.x - this.x);
+  this.vy = 15 * Math.sign(pc.y - this.y);
 }
 
 const en1 = new Sprite({ x: 360, color: "red", controlar: perseguePC });
