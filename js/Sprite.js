@@ -69,13 +69,13 @@ export default class Sprite {
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my);
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my + 1);
     //Baixo
-   // this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1);
+    this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1);
     this.aplicaRestricoesBaixo(this.mx, this.my + 1);
-   // this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1);
+    this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1);
     //Cima
-   // this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
+    this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
     this.aplicaRestricoesCima(this.mx, this.my - 1);
-    //this.aplicaRestricoesCima(this.mx + 1, this.my - 1);
+    this.aplicaRestricoesCima(this.mx + 1, this.my - 1);
   }
   aplicaRestricoesDireita(pmx, pmy) {
     const SIZE = this.cena.mapa.SIZE;
