@@ -116,8 +116,8 @@ export default class Sprite {
     }
   }
   aplicaRestricoesBaixo(pmx, pmy) {
-    const SIZE = this.cena.mapa.SIZE;
     if (this.vy > 0) {
+      const SIZE = this.cena.mapa.SIZE;
       if (this.cena.mapa.tiles[pmy][pmx] != 0) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
@@ -133,8 +133,8 @@ export default class Sprite {
     }
   }
   aplicaRestricoesCima(pmx, pmy) {
-    const SIZE = this.cena.mapa.SIZE;
     if (this.vy < 0) {
+      const SIZE = this.cena.mapa.SIZE;
       if (this.cena.mapa.tiles[pmy][pmx] != 0) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
