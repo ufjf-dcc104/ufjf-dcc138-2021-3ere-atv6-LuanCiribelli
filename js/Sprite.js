@@ -10,6 +10,7 @@ export default class Sprite {
     vx = 0,
     vy = 0,
     color = "white",
+    controlar = ()=>{}
   } = {}) {
     this.x = x;
     this.y = y;
@@ -21,6 +22,7 @@ export default class Sprite {
     this.my = 0;
     this.color = color;
     this.cena = null;
+    this.controlar = controlar;
   }
   draw(ctx) {
     ctx.fillStyle = this.color;
@@ -36,7 +38,7 @@ export default class Sprite {
 
   controlar(dt) {}
 
-  
+
   mover(dt) {
     this.x = this.x + this.vx * dt;
     this.y = this.y + this.vy * dt;
