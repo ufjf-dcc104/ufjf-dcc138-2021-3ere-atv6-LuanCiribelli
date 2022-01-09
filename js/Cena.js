@@ -1,4 +1,4 @@
-export default class Scene {
+export default class Cena {
   /* Desenha elementos na tela nas animações*/
 
   constructor(canvas, assets = null) {

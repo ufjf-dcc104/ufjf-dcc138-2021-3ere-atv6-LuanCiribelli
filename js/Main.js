@@ -1,5 +1,5 @@
 import AssetManager from "./AssetManager.js";
-import Scene from "./Scene.js";
+import Cena from "./Cena.js";
 import Sprite from "./Sprite.js";
 import Mapa from "./Mapa.js";
 import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
@@ -27,7 +27,7 @@ input.configurarTeclado({
   ArrowDown: "MOVE_BAIXO",
 });
 
-const cena1 = new Scene(canvas, assets);
+const cena1 = new Cena(canvas, assets);
 
 const mapa1 = new Mapa(10, 14, 32);
 
