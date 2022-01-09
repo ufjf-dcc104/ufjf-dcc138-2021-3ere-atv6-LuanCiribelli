@@ -1,5 +1,5 @@
 export default class Game {
-  constructor(canvas, assets,input) {
+  constructor(canvas, assets, input) {
     this.canvas = canvas;
     this.assets = assets;
     this.input = input;
@@ -12,5 +12,21 @@ export default class Game {
     cena.canvas = this.canvas;
     cena.assets = this.assets;
     cena.input = this.input;
+    if (this.cena === null) {
+      this.cena = cena;
+    }
+  }
+
+  selecionarCena(chave) {
+    if (this.cenas.has(chave)) {
+      this.cena = this.cenas.get(chave);
+    }
+  }
+
+  iniciar() {
+    this.cena?.iniciar();
+  }
+  parar() {
+    this.cena?.parar();
   }
 }
