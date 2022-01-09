@@ -10,7 +10,7 @@ export default class Sprite {
     vx = 0,
     vy = 0,
     color = "white",
-    controlar = ()=>{}
+    controlar = () => {},
   } = {}) {
     this.x = x;
     this.y = y;
@@ -37,7 +37,6 @@ export default class Sprite {
   }
 
   controlar(dt) {}
-
 
   mover(dt) {
     this.x = this.x + this.vx * dt;
