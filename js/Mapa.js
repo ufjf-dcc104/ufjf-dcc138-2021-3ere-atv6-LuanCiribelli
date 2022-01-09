@@ -41,9 +41,11 @@ export default class {
   }
 
   carregaMapa(modelo) {
-    this.tiles = [];
     this.LINHAS = modelo.length;
     this.COLUNAS = modelo[0]?.length ?? 0;
+    
+    this.tiles = [];
+
     for (let l = 0; l < this.LINHAS; l++) {
       this.tiles[l] = [];
       for (let c = 0; c < this.COLUNAS; c++) {
