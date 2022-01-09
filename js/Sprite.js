@@ -11,6 +11,7 @@ export default class Sprite {
     vy = 0,
     color = "white",
     controlar = () => {},
+    tags = [],
   } = {}) {
     this.x = x;
     this.y = y;
@@ -23,6 +24,10 @@ export default class Sprite {
     this.color = color;
     this.cena = null;
     this.controlar = controlar;
+    this.tags = new Set();
+    tags.forEach((tag) => {
+      this.tags.add(tag);
+    });
   }
   draw(ctx) {
     ctx.fillStyle = this.color;
@@ -69,11 +74,11 @@ export default class Sprite {
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my + 1);
     //Baixo
     this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1);
-    this.aplicaRestricoesBaixo(this.mx, this.my + 1);
+    this.aplicaRestricoesBaixo(this.mx    , this.my + 1);
     this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1);
     //Cima
     this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
-    this.aplicaRestricoesCima(this.mx, this.my - 1);
+    this.aplicaRestricoesCima(this.mx    , this.my - 1);
     this.aplicaRestricoesCima(this.mx + 1, this.my - 1);
   }
   aplicaRestricoesDireita(pmx, pmy) {
