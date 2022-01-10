@@ -45,8 +45,8 @@ export default class CenaJogo extends Cena {
     this.adicionar(pc);
 
     function perseguePC(dt) {
-      this.vx = 15 * Math.sign(pc.x - this.x);
-      this.vy = 15 * Math.sign(pc.y - this.y);
+      this.vx = 5 * Math.sign(pc.x - this.x);
+      this.vy = 5 * Math.sign(pc.y - this.y);
     }
 
     const en1 = new Sprite({
