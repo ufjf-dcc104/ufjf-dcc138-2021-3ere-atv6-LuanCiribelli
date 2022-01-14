@@ -12,14 +12,18 @@ const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
 
-assets.carregaImagem("paredes", "../assets/mapa.png");
-// assets.carregaImagem("orc", " assets/orc.png");
+assets.carregaImagem("chao", "assets/grass.png");
+assets.carregaImagem("paredes", "assets/barrel.png");
+
+
 assets.carregaImagem("skelly", "assets/skelly.png");
+
+
 assets.carregaAudio("pulo", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
 assets.carregaAudio("derrota", "assets/lose.wav");
 assets.carregaAudio("vitoria", "assets/victory.wav");
-assets.carregaAudio("gameOver", "assets/GAMEOVER.wav");
+assets.carregaAudio("theme", "assets/GAMEOVER.wav");
 
 const canvas = document.querySelector("canvas");
 canvas.width = 19 * 32;
