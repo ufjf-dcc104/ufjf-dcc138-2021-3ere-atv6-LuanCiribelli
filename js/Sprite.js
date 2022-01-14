@@ -65,20 +65,25 @@ export default class Sprite {
 
   aplicaRestricoes(dt) {
     //Direita
-    this.aplicaRestricoesDireita(this.mx + 1, this.my - 1);
+
     this.aplicaRestricoesDireita(this.mx + 1, this.my);
+    this.aplicaRestricoesEsquerda(this.mx - 1, this.my);
+    this.aplicaRestricoesBaixo(this.mx, this.my + 1);
+    this.aplicaRestricoesCima(this.mx, this.my - 1);
+
+    this.aplicaRestricoesDireita(this.mx + 1, this.my - 1);
     this.aplicaRestricoesDireita(this.mx + 1, this.my + 1);
     //Esquerda
+
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my - 1);
-    this.aplicaRestricoesEsquerda(this.mx - 1, this.my);
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my + 1);
     //Baixo
+
     this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1);
-    this.aplicaRestricoesBaixo(this.mx    , this.my + 1);
     this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1);
     //Cima
+
     this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
-    this.aplicaRestricoesCima(this.mx    , this.my - 1);
     this.aplicaRestricoesCima(this.mx + 1, this.my - 1);
   }
   aplicaRestricoesDireita(pmx, pmy) {
@@ -92,7 +97,12 @@ export default class Sprite {
           h: SIZE,
         };
         this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(tile.x-SIZE/2,tile.y-SIZE/2,SIZE,SIZE)
+        this.cena.ctx.strokeRect(
+          tile.x - SIZE / 2,
+          tile.y - SIZE / 2,
+          SIZE,
+          SIZE
+        );
         if (this.colidiuCom(tile)) {
           this.vx = 0;
           this.x = tile.x - tile.w / 2 - this.w / 2 - 1;
@@ -111,7 +121,12 @@ export default class Sprite {
           h: SIZE,
         };
         this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(tile.x-SIZE/2,tile.y-SIZE/2,SIZE,SIZE)
+        this.cena.ctx.strokeRect(
+          tile.x - SIZE / 2,
+          tile.y - SIZE / 2,
+          SIZE,
+          SIZE
+        );
 
         if (this.colidiuCom(tile)) {
           this.vx = 0;
@@ -127,11 +142,16 @@ export default class Sprite {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
-          W: SIZE,
+          w: SIZE,
           h: SIZE,
         };
         this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(tile.x-SIZE/2,tile.y-SIZE/2,SIZE,SIZE)
+        this.cena.ctx.strokeRect(
+          tile.x - SIZE / 2,
+          tile.y - SIZE / 2,
+          SIZE,
+          SIZE
+        );
 
         if (this.colidiuCom(tile)) {
           this.vy = 0;
@@ -147,11 +167,16 @@ export default class Sprite {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
-          W: SIZE,
+          w: SIZE,
           h: SIZE,
         };
         this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(tile.x-SIZE/2,tile.y-SIZE/2,SIZE,SIZE)
+        this.cena.ctx.strokeRect(
+          tile.x - SIZE / 2,
+          tile.y - SIZE / 2,
+          SIZE,
+          SIZE
+        );
 
         if (this.colidiuCom(tile)) {
           this.vy = 0;

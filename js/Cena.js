@@ -45,10 +45,12 @@ export default class Cena {
     this.draw();
     this.checaColisao();
     this.removerSprites();
+    this.checaFim();
 
    if(this.rodando){ this.iniciar();}
     this.t0 = t;
   }
+  checaFim(){}
 
   iniciar() {
     this.rodando = true;
@@ -108,4 +110,5 @@ export default class Cena {
     
     this.rodando = true;
   }
+
 }

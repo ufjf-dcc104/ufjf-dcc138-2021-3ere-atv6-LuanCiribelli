@@ -8,7 +8,6 @@ export default class CenaJogo extends Cena {
     if (!this.aRemover.includes(a)) {
       this.aRemover.push(a);
     }
-
     if (!this.aRemover.includes(b)) {
       this.aRemover.push(b);
     }
@@ -16,15 +15,22 @@ export default class CenaJogo extends Cena {
       this.rodando = false;
       this.game.selecionaCena("fim");
     }
+  
   }
 
+  checaFim(){
+    if (this.sprites.length == 1) {
+      this.rodando = false;
+      this.game.selecionaCena("vitoria");
+    }
+  }
   preparar() {
     super.preparar();
     const mapa1 = new Mapa(10, 14, 32);
     mapa1.carregaMapa(modeloMapa1);
     this.configuraMapa(mapa1);
-    
-    const pc = new Sprite({ x: 50, y: 90 });
+
+    const pc = new Sprite({ x: 300, y: 90 });
     pc.tags.add("pc");
     const cena = this;
     pc.controlar = function (dt) {
@@ -45,8 +51,8 @@ export default class CenaJogo extends Cena {
     this.adicionar(pc);
 
     function perseguePC(dt) {
-      this.vx = 5 * Math.sign(pc.x - this.x);
-      this.vy = 5 * Math.sign(pc.y - this.y);
+      this.vx = 20 * Math.sign(pc.x - this.x);
+      this.vy = 20 * Math.sign(pc.y - this.y);
     }
 
     const en1 = new Sprite({
@@ -56,25 +62,32 @@ export default class CenaJogo extends Cena {
       tags: ["enemy"],
     });
     this.adicionar(en1);
-    this.adicionar(
-      new Sprite({
-        x: 115,
-        y: 70,
-        vy: 10,
-        color: "red",
-        controlar: perseguePC,
-        tags: ["enemy"],
-      })
-    );
-    this.adicionar(
-      new Sprite({
-        x: 115,
-        y: 160,
-        vy: -10,
-        color: "red",
-        controlar: perseguePC,
-        tags: ["enemy"],
-      })
-    );
+    const en2 = new Sprite({
+      x: 115,
+      y: 70,
+      vy: 10,
+      color: "red",
+      controlar: perseguePC,
+      tags: ["enemy"],
+    });
+    this.adicionar(en2);
+    const en3 = new Sprite({
+      x: 400,
+      y: 120,
+      vy: 10,
+      color: "red",
+      controlar: perseguePC,
+      tags: ["enemy"],
+    });
+    this.adicionar(en3);
+    const en4 = new Sprite({
+      x: 115,
+      y: 160,
+      vy: -10,
+      color: "red",
+      controlar: perseguePC,
+      tags: ["enemy"],
+    });
+    this.adicionar(en4);
   }
 }
