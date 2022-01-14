@@ -13,15 +13,15 @@ const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
 
-assets.carregaImagem("garota", "assets/girl.png");
-assets.carregaImagem("orc", " assets/orc.png");
-assets.carregaImagem("skelly", "assets/skelly.png");
+assets.carregaImagem("pareds", "assets/mapa.png");
+// assets.carregaImagem("orc", " assets/orc.png");
+// assets.carregaImagem("skelly", "assets/skelly.png");
 assets.carregaAudio("pulo", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
 
 const canvas = document.querySelector("canvas");
-canvas.width = 14 * 32;
-canvas.height = 10 * 32;
+canvas.width = 19 * 32;
+canvas.height = 12 * 32;
 
 input.configurarTeclado({
   ArrowLeft: "MOVE_ESQUERDA",
