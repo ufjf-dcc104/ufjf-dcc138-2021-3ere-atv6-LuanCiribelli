@@ -30,12 +30,13 @@ export default class CenaFim extends Cena {
 
     if (this.assets.acabou())
       if (this.input.comandos.get("PROXIMA_CENA")) {
+        this.game.cena.assets.stop("gameOver");
         this.game.selecionaCena("jogo");
         return;
       }
 
     this.draw();
-
+    this.assets?.play("gameOver");
     this.iniciar();
     this.t0 = t;
   }

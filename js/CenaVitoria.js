@@ -5,6 +5,7 @@ export default class CenaVitoria extends Cena {
     this.ctx.fillStyle = "black";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
+    this.assets?.play("vitoria");
     this.ctx.font = "20px Impact ";
     this.ctx.fillStyle = "red";
     this.ctx.textAlign = "center";

@@ -8,16 +8,18 @@ import CenaCarregando from "./CenaCarregando.js";
 import CenaFim from "./CenaFim.js";
 import CenaVitoria from "./CenaVitoria.js";
 
-
 const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
 
-assets.carregaImagem("pareds", "assets/mapa.png");
+assets.carregaImagem("paredes", "../assets/mapa.png");
 // assets.carregaImagem("orc", " assets/orc.png");
-// assets.carregaImagem("skelly", "assets/skelly.png");
+assets.carregaImagem("skelly", "assets/skelly.png");
 assets.carregaAudio("pulo", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
+assets.carregaAudio("derrota", "assets/lose.wav");
+assets.carregaAudio("vitoria", "assets/victory.wav");
+assets.carregaAudio("gameOver", "assets/GAMEOVER.wav");
 
 const canvas = document.querySelector("canvas");
 canvas.width = 19 * 32;
@@ -31,42 +33,33 @@ input.configurarTeclado({
   " ": "PROXIMA_CENA",
 });
 
-const game = new Game(canvas,assets,input);
+const game = new Game(canvas, assets, input);
 
 const cena0 = new CenaCarregando();
 const cena1 = new CenaJogo();
 const cena2 = new CenaFim();
 const cena3 = new CenaVitoria();
 
-
-game.adicionarCena("carregando",cena0);
-game.adicionarCena("jogo",cena1);
-game.adicionarCena("fim",cena2);
-game.adicionarCena("vitoria",cena3);
-
+game.adicionarCena("carregando", cena0);
+game.adicionarCena("jogo", cena1);
+game.adicionarCena("fim", cena2);
+game.adicionarCena("vitoria", cena3);
 
 
 game.iniciar();
 
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
-  
     case "p":
-      if(game.cena.rodando){
-      game.parar();
-      }
-      else{
+      if (game.cena.rodando) {
+        game.parar();
+      } else {
         game.iniciar();
       }
       break;
-    case "c":
-      assets.play("pulo");
-      break;
-    case "b":
-      assets.play("boom");
-      break;
-      case "r":
-     game.cena.preparar();
+    
+    case "r":
+      game.cena.preparar();
       break;
     default:
       break;

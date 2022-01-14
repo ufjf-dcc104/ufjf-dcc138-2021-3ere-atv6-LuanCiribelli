@@ -3,6 +3,12 @@ import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
 import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+}
+
 export default class CenaJogo extends Cena {
   onColisao(a, b) {
     if (!this.aRemover.includes(a)) {
@@ -13,6 +19,7 @@ export default class CenaJogo extends Cena {
     }
     if (a.tags.has("pc") && b.tags.has("enemy")) {
       this.rodando = false;
+      this.game.cena.assets.play("derrota");
       this.game.selecionaCena("fim");
     }
   
@@ -24,13 +31,41 @@ export default class CenaJogo extends Cena {
       this.game.selecionaCena("vitoria");
     }
   }
+  /*
+checaTempo(t0){
+  if(t0>=10){
+
+    let randX = getRandomIntInclusive(32,576);
+    let randy = getRandomIntInclusive(32,352);
+
+
+    if(this.mapa1[parseInt(Math.floor((randX)/32))][parseInt(Math.floor((randy)/32))] == 1){
+    if( this.sprites.find('pc').x != randX 
+    &&this.sprites.get('pc').y != randy ){
+
+      randX = getRandomIntInclusive(32,576);
+      randy = getRandomIntInclusive(32,352);
+
+    }
+
+    this.adicionar( new Sprite({
+      x: randX,
+      y: randy,
+      color: "red",
+      controlar: perseguePC,
+      tags: ["enemy"],
+    }))
+ // }
+  }
+}
+*/
   preparar() {
     super.preparar();
-    const mapa1 = new Mapa(10, 14, 32);
+    const mapa1 = new Mapa(12, 15, 32);
     mapa1.carregaMapa(modeloMapa1);
     this.configuraMapa(mapa1);
-
-    const pc = new Sprite({ x: 300, y: 90 });
+ 
+    const pc = new Sprite({ x: (32*2), y: (32*2) });
     pc.tags.add("pc");
     const cena = this;
     pc.controlar = function (dt) {
@@ -56,38 +91,13 @@ export default class CenaJogo extends Cena {
     }
 
     const en1 = new Sprite({
-      x: 360,
+      x: (32*3),
+      y: (32*2),
       color: "red",
       controlar: perseguePC,
       tags: ["enemy"],
     });
     this.adicionar(en1);
-    const en2 = new Sprite({
-      x: 115,
-      y: 70,
-      vy: 10,
-      color: "red",
-      controlar: perseguePC,
-      tags: ["enemy"],
-    });
-    this.adicionar(en2);
-    const en3 = new Sprite({
-      x: 400,
-      y: 120,
-      vy: 10,
-      color: "red",
-      controlar: perseguePC,
-      tags: ["enemy"],
-    });
-    this.adicionar(en3);
-    const en4 = new Sprite({
-      x: 115,
-      y: 160,
-      vy: -10,
-      color: "red",
-      controlar: perseguePC,
-      tags: ["enemy"],
-    });
-    this.adicionar(en4);
+
   }
 }
