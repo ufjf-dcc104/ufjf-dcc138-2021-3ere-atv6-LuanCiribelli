@@ -64,7 +64,11 @@ export default class Sprite {
   }
 
   aplicaRestricoes(dt) {
+
     //Direita
+
+  
+   
 
     this.aplicaRestricoesDireita(this.mx + 1, this.my);
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my);
@@ -85,11 +89,13 @@ export default class Sprite {
 
     this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
     this.aplicaRestricoesCima(this.mx + 1, this.my - 1);
+    
+    
   }
   aplicaRestricoesDireita(pmx, pmy) {
     const SIZE = this.cena.mapa.SIZE;
     if (this.vx > 0) {
-      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
+      if (this.cena.mapa.tiles[pmy][pmx] == 1) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
@@ -113,7 +119,7 @@ export default class Sprite {
   aplicaRestricoesEsquerda(pmx, pmy) {
     const SIZE = this.cena.mapa.SIZE;
     if (this.vx < 0) {
-      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
+      if (this.cena.mapa.tiles[pmy][pmx]== 1) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
@@ -138,7 +144,7 @@ export default class Sprite {
   aplicaRestricoesBaixo(pmx, pmy) {
     if (this.vy > 0) {
       const SIZE = this.cena.mapa.SIZE;
-      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
+      if (this.cena.mapa.tiles[pmy][pmx] == 1) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
@@ -163,7 +169,7 @@ export default class Sprite {
   aplicaRestricoesCima(pmx, pmy) {
     if (this.vy < 0) {
       const SIZE = this.cena.mapa.SIZE;
-      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
+      if (this.cena.mapa.tiles[pmy][pmx] == 1) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
