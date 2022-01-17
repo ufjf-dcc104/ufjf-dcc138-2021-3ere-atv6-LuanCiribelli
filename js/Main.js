@@ -23,7 +23,7 @@ assets.carregaAudio("pulo", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
 assets.carregaAudio("derrota", "assets/lose.wav");
 assets.carregaAudio("vitoria", "assets/victory.wav");
-assets.carregaAudio("theme", "assets/GAMEOVER.wav");
+assets.carregaAudio("gameOver", "assets/GAMEOVER.wav");
 
 const canvas = document.querySelector("canvas");
 canvas.width = 19 * 32;
