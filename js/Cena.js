@@ -46,13 +46,17 @@ export default class Cena {
     this.checaColisao();
     this.removerSprites();
     this.checaFim();
-    this.criaInimigo();
-
+    if (this.contador== 1000) {
+      this.criaInimigo();
+      this.contador=0;
+    }
     if (this.rodando) {
+      this.contador += 1;
       this.iniciar();
     }
     this.t0 = t;
   }
+
   checaFim() {}
   criaInimigo() {}
 
@@ -111,7 +115,7 @@ export default class Cena {
     this.dt = 0;
     this.idAnim = null;
     this.mapa = null;
-
+    this.contador = 0;
     this.rodando = true;
   }
 }
