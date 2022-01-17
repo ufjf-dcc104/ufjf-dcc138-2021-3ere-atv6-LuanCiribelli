@@ -17,25 +17,26 @@ export default class CenaJogo extends Cena {
     if (!this.aRemover.includes(b)) {
       this.aRemover.push(b);
     }
+    
     if (a.tags.has("pc") && b.tags.has("enemy")) {
       this.rodando = false;
       this.assets.play("derrota");
       this.game.selecionaCena("fim");
-    }
-  }
+    }else{
+
+    this.assets.play("colisaoInimigos");
+  }}
 
   checaFim() {
-    if (this.sprites.length == 1) {
+    if (this.sprites.length == 1 && this.sprites[0].tags.has("pc")) {
       this.rodando = false;
       this.game.selecionaCena("vitoria");
     }
   }
 
   criaInimigo() {
-
-
     let quadrante = getRandomIntInclusive(1, 4);
-console.log(quadrante)
+
     let randX;
     let randy;
     switch (quadrante) {
@@ -49,14 +50,13 @@ console.log(quadrante)
         break;
       case 3:
         randX = getRandomIntInclusive(3, 6);
-        randy = getRandomIntInclusive(7,10 );
+        randy = getRandomIntInclusive(7, 10);
         break;
       case 4:
         randX = getRandomIntInclusive(12, 16);
         randy = getRandomIntInclusive(8, 10);
         break;
     }
-    
 
     let socorro = true;
 
@@ -72,13 +72,11 @@ console.log(quadrante)
 
     const cena = this;
 
-
-
     function perseguePC2() {
       this.vx = 20 * Math.sign(this.cena.pcCenaJogo.x - this.x);
       this.vy = 20 * Math.sign(this.cena.pcCenaJogo.y - this.y);
     }
-    console.log(`RandX ${randX} randY ${randy}`);
+
     this.adicionar(
       new Sprite({
         x: randX * 32,

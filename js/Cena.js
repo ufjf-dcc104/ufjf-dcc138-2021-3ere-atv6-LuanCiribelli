@@ -46,9 +46,9 @@ export default class Cena {
     this.checaColisao();
     this.removerSprites();
     this.checaFim();
-    if (this.contador== 1000) {
+    if (this.contador == 1000) {
       this.criaInimigo();
-      this.contador=0;
+      this.contador = 0;
     }
     if (this.rodando) {
       this.contador += 1;

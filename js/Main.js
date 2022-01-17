@@ -15,11 +15,9 @@ const assets = new AssetManager(mixer);
 assets.carregaImagem("chao", "assets/grass.png");
 assets.carregaImagem("paredes", "assets/barrel.png");
 
-
 assets.carregaImagem("skelly", "assets/skelly.png");
 
-
-assets.carregaAudio("pulo", "assets/jump.wav");
+assets.carregaAudio("colisaoInimigos", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
 assets.carregaAudio("derrota", "assets/lose.wav");
 assets.carregaAudio("vitoria", "assets/victory.wav");
@@ -49,7 +47,6 @@ game.adicionarCena("jogo", cena1);
 game.adicionarCena("fim", cena2);
 game.adicionarCena("vitoria", cena3);
 
-
 game.iniciar();
 
 document.addEventListener("keydown", (e) => {
@@ -61,7 +58,7 @@ document.addEventListener("keydown", (e) => {
         game.iniciar();
       }
       break;
-    
+
     case "r":
       game.cena.preparar();
       break;

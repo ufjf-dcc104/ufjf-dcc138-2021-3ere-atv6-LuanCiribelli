@@ -1,4 +1,3 @@
-
 export default class {
   constructor(linhas = 8, colunas = 12, tamanho = 32) {
     this.LINHAS = linhas;
@@ -17,7 +16,6 @@ export default class {
   draw(ctx) {
     for (let l = 0; l < this.LINHAS; l++) {
       for (let c = 0; c < this.COLUNAS; c++) {
-        
         switch (this.tiles[l][c]) {
           case 1:
             ctx.drawImage(
@@ -76,19 +74,19 @@ export default class {
               this.SIZE
             );
             break;
-            case 4:
-              ctx.drawImage(
-                this.cena.assets.img("chao"),
-                32 * 2,
-                32 * 5,
-                32,
-                32,
-                c * this.SIZE,
-                l * this.SIZE,
-                this.SIZE,
-                this.SIZE
-              );
-              break;
+          case 4:
+            ctx.drawImage(
+              this.cena.assets.img("chao"),
+              32 * 2,
+              32 * 5,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
         }
       }
     }
@@ -109,10 +107,7 @@ export default class {
   }
 
   retornaPosicao(linha, coluna) {
-    if (
-      linha < this.LINHAS &&
-      coluna < this.COLUNAS 
-      ) {
+    if (linha < this.LINHAS && coluna < this.COLUNAS) {
       return this.tiles[linha][coluna];
     } else {
       return false;
