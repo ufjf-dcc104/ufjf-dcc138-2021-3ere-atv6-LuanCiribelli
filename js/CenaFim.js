@@ -35,7 +35,7 @@ export default class CenaFim extends Cena {
       }
 
     this.draw();
-   // this.assets?.play("gameOver");
+    // this.assets?.play("gameOver");
     this.iniciar();
     this.t0 = t;
   }
