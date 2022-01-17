@@ -6,7 +6,7 @@ import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
 export default class CenaJogo extends Cena {
@@ -19,55 +19,93 @@ export default class CenaJogo extends Cena {
     }
     if (a.tags.has("pc") && b.tags.has("enemy")) {
       this.rodando = false;
-      this.game.cena.assets.play("derrota");
+      this.assets.play("derrota");
       this.game.selecionaCena("fim");
     }
-  
   }
 
-  checaFim(){
+  checaFim() {
     if (this.sprites.length == 1) {
       this.rodando = false;
       this.game.selecionaCena("vitoria");
     }
   }
-  /*
-checaTempo(t0){
-  if(t0>=10){
 
-    let randX = getRandomIntInclusive(32,576);
-    let randy = getRandomIntInclusive(32,352);
+  criaInimigo() {
 
 
-    if(this.mapa1[parseInt(Math.floor((randX)/32))][parseInt(Math.floor((randy)/32))] == 1){
-    if( this.sprites.find('pc').x != randX 
-    &&this.sprites.get('pc').y != randy ){
+    let quadrante = getRandomIntInclusive(1, 4);
+console.log(quadrante)
+    let randX;
+    let randy;
+    switch (quadrante) {
+      case 1:
+        randX = getRandomIntInclusive(3, 6);
+        randy = getRandomIntInclusive(3, 5);
+        break;
+      case 2:
+        randX = getRandomIntInclusive(12, 16);
+        randy = getRandomIntInclusive(3, 5);
+        break;
+      case 3:
+        randX = getRandomIntInclusive(3, 6);
+        randy = getRandomIntInclusive(7,10 );
+        break;
+      case 4:
+        randX = getRandomIntInclusive(12, 16);
+        randy = getRandomIntInclusive(8, 10);
+        break;
+    }
+    
 
-      randX = getRandomIntInclusive(32,576);
-      randy = getRandomIntInclusive(32,352);
+    let socorro = true;
 
+    while (socorro) {
+      if (this.mapa.retornaPosicao(randX, randy) != 1) {
+        socorro = false;
+        break;
+      }
+
+      randX = getRandomIntInclusive(4, 6);
+      randy = getRandomIntInclusive(5, 10);
     }
 
-    this.adicionar( new Sprite({
-      x: randX,
-      y: randy,
-      color: "red",
-      controlar: perseguePC,
-      tags: ["enemy"],
-    }))
- // }
+    const cena = this;
+
+
+
+    function perseguePC2() {
+      this.vx = 20 * Math.sign(this.cena.pcCenaJogo.x - this.x);
+      this.vy = 20 * Math.sign(this.cena.pcCenaJogo.y - this.y);
+    }
+    console.log(`RandX ${randX} randY ${randy}`);
+    this.adicionar(
+      new Sprite({
+        x: randX * 32,
+        y: randy * 32,
+        vx: 0,
+        vy: 0,
+        color: "red",
+        controlar: perseguePC2,
+        tags: ["enemy"],
+      })
+    );
   }
-}
-*/
+
   preparar() {
     super.preparar();
-    const mapa1 = new Mapa(12, 15, 32);
+    const mapa1 = new Mapa(19, 12, 32);
     mapa1.carregaMapa(modeloMapa1);
     this.configuraMapa(mapa1);
- 
-    const pc = new Sprite({ x: (32*2), y: (32*2) });
+    this.mapa = mapa1;
+
+    this.contador = 0;
+
+    const pc = new Sprite({ x: 32 * 2, y: 32 * 2 });
     pc.tags.add("pc");
+    this.pcCenaJogo = pc;
     const cena = this;
+
     pc.controlar = function (dt) {
       if (cena.input.comandos.get("MOVE_ESQUERDA")) {
         this.vx = -50;
@@ -91,13 +129,12 @@ checaTempo(t0){
     }
 
     const en1 = new Sprite({
-      x: (32*3),
-      y: (32*2),
+      x: 32 * 10,
+      y: 32 * 2,
       color: "red",
       controlar: perseguePC,
       tags: ["enemy"],
     });
     this.adicionar(en1);
-
   }
 }

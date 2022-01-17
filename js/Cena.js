@@ -6,7 +6,7 @@ export default class Cena {
     this.ctx = canvas?.getContext("2d");
     this.assets = assets;
     this.game = null;
-    this.preparar()
+    this.preparar();
   }
 
   draw() {
@@ -46,11 +46,15 @@ export default class Cena {
     this.checaColisao();
     this.removerSprites();
     this.checaFim();
+    this.criaInimigo();
 
-   if(this.rodando){ this.iniciar();}
+    if (this.rodando) {
+      this.iniciar();
+    }
     this.t0 = t;
   }
-  checaFim(){}
+  checaFim() {}
+  criaInimigo() {}
 
   iniciar() {
     this.rodando = true;
@@ -59,7 +63,7 @@ export default class Cena {
     });
   }
   parar() {
-    this.rodando =false;
+    this.rodando = false;
     cancelAnimationFrame(this.idAnim);
     this.t0 = null;
     this.dt = 0;
@@ -100,15 +104,14 @@ export default class Cena {
     this.mapa.cena = this;
   }
 
-  preparar(){
+  preparar() {
     this.sprites = [];
     this.aRemover = [];
     this.t0 = null;
     this.dt = 0;
     this.idAnim = null;
     this.mapa = null;
-    
+
     this.rodando = true;
   }
-
 }
