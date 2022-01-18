@@ -51,12 +51,12 @@ export default class Cena {
     this.checaColisao();
     this.removerSprites();
     this.checaFim();
-    if (this.contador == 1000) {
+    if (this.contador > 2) {
       this.criaInimigo();
       this.contador = 0;
     }
     if (this.rodando) {
-      this.contador += 1;
+      this.contador += 1*this.dt;
       this.iniciar();
     }
     this.t0 = t;
