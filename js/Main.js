@@ -12,6 +12,7 @@ import CenaJogoModoInsano from "./CenaJogoModoInsano.js";
 const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
+const instrucoes = document.getElementById("instruction-container");
 
 assets.carregaImagem("chao", "assets/grass.png");
 assets.carregaImagem("paredes", "assets/barrel.png");
@@ -34,7 +35,7 @@ input.configurarTeclado({
   ArrowUp: "MOVE_CIMA",
   ArrowDown: "MOVE_BAIXO",
   " ": "PROXIMA_CENA",
-  "i": "MODO_INSANO",
+  i: "MODO_INSANO",
 });
 
 const game = new Game(canvas, assets, input);
@@ -66,6 +67,14 @@ document.addEventListener("keydown", (e) => {
     case "r":
       game.timer = new Date();
       game.cena.preparar();
+      break;
+    case "h":
+      if (instrucoes.style.visibility == "hidden") {
+        instrucoes.style.visibility = "visible";
+      } else {
+        instrucoes.style.visibility = "hidden";
+      }
+
       break;
     default:
       break;
