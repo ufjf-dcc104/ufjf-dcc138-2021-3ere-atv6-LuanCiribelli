@@ -102,17 +102,17 @@ export default class CenaJogoModoInsano extends Cena {
         break;
       }
 
-      randX = getRandomIntInclusive(4, 6);
-      randy = getRandomIntInclusive(5, 10);
+      randX = getRandomIntInclusive(12, 16);
+      randy = getRandomIntInclusive(8, 10);
     }
 
     const cena = this;
 
     function perseguePC2() {
       this.vx =
-        20 * this.dificuldade * Math.sign(this.cena.pcCenaJogo.x - this.x);
+        20 * (this.dificuldade * this.cena.dt)* Math.sign(this.cena.pcCenaJogo.x - this.x);
       this.vy =
-        20 * this.dificuldade * Math.sign(this.cena.pcCenaJogo.y - this.y);
+        20 * (this.dificuldade * this.cena.dt) * Math.sign(this.cena.pcCenaJogo.y - this.y);
     }
 
     this.adicionar(
