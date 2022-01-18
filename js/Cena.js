@@ -22,8 +22,13 @@ export default class Cena {
       });
     }
 
-    this.ctx.fillStyle = "yellow";
-    this.ctx.fillText(this.assets?.progresso(), 10, 20);
+    
+    this.ctx.fillStyle = "orange";
+    let end = new Date();
+    let timeDiff = end - this.game.timer;
+    timeDiff /= 1000;
+    var seconds = Math.round(timeDiff);
+    this.ctx.fillText(`Timer: ${seconds}`, 32*17, 20);
   }
 
   adicionar(sprite) {

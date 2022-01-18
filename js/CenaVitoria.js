@@ -10,7 +10,7 @@ export default class CenaVitoria extends Cena {
     this.ctx.fillStyle = "red";
     this.ctx.textAlign = "center";
     this.ctx.fillText(
-      "Parabéns, você concluiu o jogo!!",
+      "Parabéns, você Passou de fase!!",
       this.canvas.width / 2,
       this.canvas.height / 2
     );

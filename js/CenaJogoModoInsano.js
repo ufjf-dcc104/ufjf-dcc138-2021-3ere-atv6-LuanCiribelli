@@ -1,7 +1,7 @@
 import Cena from "./Cena.js";
 import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
-import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
+import { mapa2 as modeloMapa2 } from "../maps/mapa2.js";
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -9,7 +9,58 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
-export default class CenaJogo extends Cena {
+export default class CenaJogoModoInsano extends Cena {
+  
+  draw() {
+    this.ctx.fillStyle = "lightblue";
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.mapa?.draw(this.ctx);
+
+    if (this.assets.acabou()) {
+      this.sprites.forEach((sprite) => {
+        sprite.draw(this.ctx);
+        sprite.aplicaRestricoes();
+      });
+    }
+
+    this.ctx.fillStyle = "yellow";
+    this.ctx.fillText(`Level : ${this.dificuldade}`, 20, 20);
+
+    this.ctx.fillStyle = "orange";
+    let end = new Date();
+    let timeDiff = end - this.game.timer;
+    timeDiff /= 1000;
+    var seconds = Math.round(timeDiff);
+    this.ctx.fillText(`Segundos vivo:  ${seconds}`, 32*17, 20);
+
+  }
+  
+  
+  quadro(t) {
+    this.t0 = this.t0 ?? t;
+    this.dt = (t - this.t0) / 1000;
+
+    this.passo(this.dt);
+    this.draw();
+    this.checaColisao();
+    this.removerSprites();
+    this.checaSubiuLevel();
+
+    if (this.rodando) {
+      this.iniciar();
+    }
+
+    this.t0 = t;
+  }
+
+  passo(dt) {
+    if (this.assets.acabou())
+      this.sprites.forEach((sprite) => {
+        sprite.passo(dt);
+      });
+  }
+
   onColisao(a, b) {
     if (!this.aRemover.includes(a)) {
       this.aRemover.push(a);
@@ -17,46 +68,31 @@ export default class CenaJogo extends Cena {
     if (!this.aRemover.includes(b)) {
       this.aRemover.push(b);
     }
-    
+
     if (a.tags.has("pc") && b.tags.has("enemy")) {
       this.rodando = false;
       this.assets.play("derrota");
       this.game.selecionaCena("fim");
-    }else{
+    } else {
+      this.assets.play("colisaoInimigos");
+    }
+  }
 
-    this.assets.play("colisaoInimigos");
-  }}
-
-  checaFim() {
+  checaSubiuLevel() {
     if (this.sprites.length == 1 && this.sprites[0].tags.has("pc")) {
-      this.rodando = false;
-      this.game.selecionaCena("vitoria");
+      this.dificuldade += 1;
+      for (let z = 0; z < this.dificuldade; z++) {
+       this.criaInimigo();
+      }
     }
   }
 
   criaInimigo() {
-    let quadrante = getRandomIntInclusive(1, 4);
-
     let randX;
     let randy;
-    switch (quadrante) {
-      case 1:
-        randX = getRandomIntInclusive(3, 6);
-        randy = getRandomIntInclusive(3, 5);
-        break;
-      case 2:
-        randX = getRandomIntInclusive(12, 16);
-        randy = getRandomIntInclusive(3, 5);
-        break;
-      case 3:
-        randX = getRandomIntInclusive(3, 6);
-        randy = getRandomIntInclusive(7, 10);
-        break;
-      case 4:
-        randX = getRandomIntInclusive(12, 16);
-        randy = getRandomIntInclusive(8, 10);
-        break;
-    }
+
+    randX = getRandomIntInclusive(12, 16);
+    randy = getRandomIntInclusive(8, 10);
 
     let socorro = true;
 
@@ -73,8 +109,10 @@ export default class CenaJogo extends Cena {
     const cena = this;
 
     function perseguePC2() {
-      this.vx = 20 * Math.sign(this.cena.pcCenaJogo.x - this.x);
-      this.vy = 20 * Math.sign(this.cena.pcCenaJogo.y - this.y);
+      this.vx =
+        20 * this.dificuldade * Math.sign(this.cena.pcCenaJogo.x - this.x);
+      this.vy =
+        20 * this.dificuldade * Math.sign(this.cena.pcCenaJogo.y - this.y);
     }
 
     this.adicionar(
@@ -91,11 +129,12 @@ export default class CenaJogo extends Cena {
   }
 
   preparar() {
+    this.dificuldade = 1;
     super.preparar();
-    const mapa1 = new Mapa(19, 12, 32);
-    mapa1.carregaMapa(modeloMapa1);
-    this.configuraMapa(mapa1);
-    this.mapa = mapa1;
+    const mapa2 = new Mapa(19, 12, 32);
+    mapa2.carregaMapa(modeloMapa2);
+    this.configuraMapa(mapa2);
+    this.mapa = mapa2;
 
     this.contador = 0;
 
@@ -127,12 +166,21 @@ export default class CenaJogo extends Cena {
     }
 
     const en1 = new Sprite({
-      x: 32 * 10,
+      x: 32 * 14,
       y: 32 * 2,
       color: "red",
       controlar: perseguePC,
       tags: ["enemy"],
     });
     this.adicionar(en1);
+
+    const en2 = new Sprite({
+      x: 32 * 14,
+      y: 32 * 10,
+      color: "red",
+      controlar: perseguePC,
+      tags: ["enemy"],
+    });
+    this.adicionar(en2);
   }
 }

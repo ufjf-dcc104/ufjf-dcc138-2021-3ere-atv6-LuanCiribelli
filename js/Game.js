@@ -30,6 +30,7 @@ export default class Game {
   }
 
   iniciar() {
+    this.timer = new Date();
     this.cena?.iniciar();
   }
   parar() {

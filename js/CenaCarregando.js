@@ -20,6 +20,13 @@ export default class CenaCarregando extends Cena {
         this.canvas.width / 2,
         this.canvas.height / 2 + 40
       );
+      
+      this.ctx.font = this.ctx.font.replace(/\d+px/, "12px");
+      this.ctx.fillText(
+        "Aperte I para modo insano",
+        this.canvas.width / 2,
+        this.canvas.height /1.15 + 40
+      );
     }
   }
 
@@ -30,6 +37,11 @@ export default class CenaCarregando extends Cena {
     if (this.assets.acabou())
       if (this.input.comandos.get("PROXIMA_CENA")) {
         this.game.selecionaCena("jogo");
+        return;
+      }
+
+      if (this.input.comandos.get("MODO_INSANO")) {
+        this.game.selecionaCena("modoInsano");
         return;
       }
 

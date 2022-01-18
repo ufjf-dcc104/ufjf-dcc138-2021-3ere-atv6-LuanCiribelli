@@ -31,14 +31,14 @@ export default class Sprite {
   }
   draw(ctx) {
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
-    ctx.strokeStyle = "blue";
-    ctx.strokeRect(
-      this.mx * this.cena.mapa.SIZE,
-      this.my * this.cena.mapa.SIZE,
-      this.cena.mapa.SIZE,
-      this.cena.mapa.SIZE
-    );
+   ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+   // ctx.strokeStyle = "blue";
+  //  / ctx.strokeRect(
+  //     this.mx * this.cena.mapa.SIZE,
+  //     this.my * this.cena.mapa.SIZE,
+  //     this.cena.mapa.SIZE,
+  //     this.cena.mapa.SIZE
+  //   );
   }
 
   controlar(dt) {}
@@ -96,13 +96,7 @@ export default class Sprite {
           w: SIZE,
           h: SIZE,
         };
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
+      
         if (this.colidiuCom(tile)) {
           this.vx = 0;
           this.x = tile.x - tile.w / 2 - this.w / 2 - 1;
@@ -120,14 +114,7 @@ export default class Sprite {
           w: SIZE,
           h: SIZE,
         };
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
-
+       
         if (this.colidiuCom(tile)) {
           this.vx = 0;
           this.x = tile.x + tile.w / 2 + this.w / 2 + 1;
@@ -145,13 +132,7 @@ export default class Sprite {
           w: SIZE,
           h: SIZE,
         };
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
+       
 
         if (this.colidiuCom(tile)) {
           this.vy = 0;
@@ -170,14 +151,7 @@ export default class Sprite {
           w: SIZE,
           h: SIZE,
         };
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
-
+      
         if (this.colidiuCom(tile)) {
           this.vy = 0;
           this.y = tile.y + tile.h / 2 + this.h / 2 + 1;
