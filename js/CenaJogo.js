@@ -73,8 +73,8 @@ export default class CenaJogo extends Cena {
     const cena = this;
 
     function perseguePC2() {
-      this.vx = 20 * Math.sign(this.cena.pcCenaJogo.x - this.x);
-      this.vy = 20 * Math.sign(this.cena.pcCenaJogo.y - this.y);
+      this.vx = 30 * Math.sign(this.cena.pcCenaJogo.x - this.x);
+      this.vy = 30 * Math.sign(this.cena.pcCenaJogo.y - this.y);
     }
 
     this.adicionar(
