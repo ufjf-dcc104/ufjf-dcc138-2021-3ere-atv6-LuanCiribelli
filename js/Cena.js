@@ -22,13 +22,12 @@ export default class Cena {
       });
     }
 
-    
     this.ctx.fillStyle = "orange";
     let end = new Date();
     let timeDiff = end - this.game.timer;
     timeDiff /= 1000;
     var seconds = Math.round(timeDiff);
-    this.ctx.fillText(`Timer: ${seconds}`, 32*17, 20);
+    this.ctx.fillText(`Timer: ${seconds}`, 32 * 17, 20);
   }
 
   adicionar(sprite) {
@@ -51,12 +50,12 @@ export default class Cena {
     this.checaColisao();
     this.removerSprites();
     this.checaFim();
-    if (this.contador > 2) {
+    if (this.contador > 10) {
       this.criaInimigo();
       this.contador = 0;
     }
     if (this.rodando) {
-      this.contador += 1*this.dt;
+      this.contador += 1 * this.dt;
       this.iniciar();
     }
     this.t0 = t;

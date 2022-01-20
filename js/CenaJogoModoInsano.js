@@ -91,8 +91,7 @@ export default class CenaJogoModoInsano extends Cena {
     let randX;
     let randy;
 
-    randX = getRandomIntInclusive(12, 16);
-    randy = getRandomIntInclusive(8, 10);
+ 
 
     let socorro = true;
 
@@ -117,8 +116,8 @@ export default class CenaJogoModoInsano extends Cena {
 
     this.adicionar(
       new Sprite({
-        x: randX * 32,
-        y: randy * 32,
+        x: 256,
+        y: 256,
         vx: 0,
         vy: 0,
         color: "red",
