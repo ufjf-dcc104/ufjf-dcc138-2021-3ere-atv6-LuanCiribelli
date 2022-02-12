@@ -40,6 +40,7 @@ export default class CenaJogo extends Cena {
     mapa1.carregaMapa(modeloMapa1);
     this.configuraMapa(mapa1);
     this.mapa = mapa1;
+   
 
     this.contador = 0;
 
@@ -56,12 +57,13 @@ export default class CenaJogo extends Cena {
         this.vx = +50;
       }
       if (cena.input.comandos.get("PULA")) {
-        if (this.vy >= 0) {
+        if (this.vy == 0 ) {
           this.vy = -100;
         }
       }
     };
 
+   
     this.adicionar(pc);
   }
 }

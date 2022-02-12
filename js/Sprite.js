@@ -24,7 +24,7 @@ export default class Sprite {
     this.color = color;
     this.cena = null;
     this.controlar = controlar;
-    this.gravidade = 50;
+    this.gravidade = 100;
     this.tags = new Set();
     tags.forEach((tag) => {
       this.tags.add(tag);
@@ -39,14 +39,6 @@ export default class Sprite {
   }
 
   drawPC(ctx, dt) {
-    if (this.vx < 0) {
-      this.posePC = 9;
-    }
-
-    if (this.vx > 0) {
-      this.posePC = 11;
-    }
-
     const POSES = [
       { qmax: 7, pv: 7 },
       { qmax: 7, pv: 7 },
@@ -80,6 +72,14 @@ export default class Sprite {
         ? 0
         : this.quadroPC + POSES[this.posePC].pv * dt;
 
+    if (this.vx < 0) {
+      this.posePC = 9;
+    }else     if (this.vx > 0) {
+      this.posePC = 11;
+    }else    if (this.vx == 0) {
+      this.posePC = 2;
+      this.quadroPC = 0;
+    }
     ctx.drawImage(
       this.cena.assets.img("pc"),
       64 * Math.floor(this.quadroPC),
@@ -96,7 +96,8 @@ export default class Sprite {
   controlar(dt) {}
 
   mover(dt) {
-    //this.y = +(this.gravidade * dt) + this.y  + this.vy * dt;
+    //y = y + vydt +gdt*dt
+    this.vy += this.gravidade * dt;
     this.y = +this.y + this.vy * dt;
     this.x = this.x + this.vx * dt;
     this.mx = Math.floor(this.x / this.cena.mapa.SIZE);
@@ -117,10 +118,10 @@ export default class Sprite {
   }
 
   aplicaRestricoes(dt) {
-    this.aplicaRestricoesCima(this.mx, this.my - 1);
     this.aplicaRestricoesDireita(this.mx + 1, this.my);
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my);
     this.aplicaRestricoesBaixo(this.mx, this.my + 1);
+    this.aplicaRestricoesCima(this.mx, this.my - 1);
 
     this.aplicaRestricoesDireita(this.mx + 1, this.my - 1);
     this.aplicaRestricoesDireita(this.mx + 1, this.my + 1);
