@@ -19,9 +19,9 @@ export default class {
         switch (this.tiles[l][c]) {
           case 1:
             ctx.drawImage(
-              this.cena.assets.img("chao"),
-              32 * 0,
-              32 * 5,
+              this.cena.assets.img("tiles"),
+              32 * 2,
+              32 * 5.7,
               32,
               32,
               c * this.SIZE,
@@ -29,43 +29,28 @@ export default class {
               this.SIZE,
               this.SIZE
             );
-
-            if (this.cena.assets.img("paredes")) {
-              ctx.drawImage(
-                this.cena.assets.img("paredes"),
-                0,
-                10,
-                32,
-                38,
-                c * this.SIZE,
-                l * this.SIZE - 6,
-                32,
-                38
-              );
-            } else {
-              ctx.fillStyle = "grey";
-              ctx.lineWidth = 1;
-              ctx.strokeStyle = "black";
-            }
             break;
           case 2:
             ctx.drawImage(
-              this.cena.assets.img("chao"),
-              32 * 0,
-              32 * 5,
+              this.cena.assets.img("tiles"),
+              32 * 3,
+              32 * 7,
               32,
-              32,
+              64,
               c * this.SIZE,
               l * this.SIZE,
               this.SIZE,
               this.SIZE
             );
-         
+          default:
+            ctx.fillStyle = "grey";
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "black";
+            break;
         }
       }
     }
   }
-
   carregaMapa(modelo) {
     this.LINHAS = modelo.length;
     this.COLUNAS = modelo[0]?.length ?? 0;

@@ -38,7 +38,7 @@ export default class Sprite {
     ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
 
-  drawPC(ctx, dt) {
+  drawPC(ctx, dt, acao) {
     const POSES = [
       { qmax: 7, pv: 7 },
       { qmax: 7, pv: 7 },
@@ -72,13 +72,13 @@ export default class Sprite {
         ? 0
         : this.quadroPC + POSES[this.posePC].pv * dt;
 
-    if (this.vx < 0) {
-      this.posePC = 9;
-    }else     if (this.vx > 0) {
-      this.posePC = 11;
-    }else    if (this.vx == 0) {
-      this.posePC = 2;
+    if (acao == null || acao == "PARADO") {
+      this.posePC = 10;
       this.quadroPC = 0;
+    } else if ((acao = "MOVENDO_PARA_ESQUERDA")) {
+      this.posePC = 9;
+    } else if ((acao = "MOVENDO_PARA_DIREITA")) {
+      this.posePC = 11;
     }
     ctx.drawImage(
       this.cena.assets.img("pc"),
@@ -141,7 +141,7 @@ export default class Sprite {
   aplicaRestricoesDireita(pmx, pmy) {
     const SIZE = this.cena.mapa.SIZE;
     if (this.vx > 0) {
-      if (this.cena.mapa.tiles[pmy][pmx] == 1) {
+      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
@@ -159,7 +159,7 @@ export default class Sprite {
   aplicaRestricoesEsquerda(pmx, pmy) {
     const SIZE = this.cena.mapa.SIZE;
     if (this.vx < 0) {
-      if (this.cena.mapa.tiles[pmy][pmx] == 1) {
+      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
@@ -177,7 +177,7 @@ export default class Sprite {
   aplicaRestricoesBaixo(pmx, pmy) {
     if (this.vy > 0) {
       const SIZE = this.cena.mapa.SIZE;
-      if (this.cena.mapa.tiles[pmy][pmx] == 1) {
+      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,
@@ -195,7 +195,7 @@ export default class Sprite {
   aplicaRestricoesCima(pmx, pmy) {
     if (this.vy < 0) {
       const SIZE = this.cena.mapa.SIZE;
-      if (this.cena.mapa.tiles[pmy][pmx] == 1) {
+      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
         const tile = {
           x: pmx * SIZE + SIZE / 2,
           y: pmy * SIZE + SIZE / 2,

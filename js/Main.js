@@ -13,8 +13,7 @@ const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
 const instrucoes = document.getElementById("instruction-container");
 
-assets.carregaImagem("chao", "assets/grass.png");
-assets.carregaImagem("paredes", "assets/barrel.png");
+assets.carregaImagem("tiles", "assets/tileset.png");
 assets.carregaImagem("pc", "assets/PC.png");
 
 instrucoes.style.visibility = "hidden";
@@ -34,7 +33,8 @@ input.configurarTeclado({
   ArrowRight: "MOVE_DIREITA",
   ArrowUp: "PULA",
   " ": "PROXIMA_CENA",
-
+  "G": "BATER",
+  "F": "ATIRAR",
 });
 
 const game = new Game(canvas, assets, input);

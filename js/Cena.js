@@ -7,6 +7,7 @@ export default class Cena {
     this.assets = assets;
     this.game = null;
     this.preparar();
+    this.acaoNoMomento = "PARADO";
   }
 
   draw() {
@@ -17,19 +18,13 @@ export default class Cena {
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
         if (sprite.tags.has("pc")) {
-          sprite.drawPC(this.ctx,this.dt);
-        }else{
-        sprite.draw(this.ctx);
-      }sprite.aplicaRestricoes();
+          sprite.drawPC(this.ctx, this.dt,this.acaoNoMomento);
+        } else {
+          sprite.draw(this.ctx);
+        }
+        sprite.aplicaRestricoes();
       });
     }
-
-    this.ctx.fillStyle = "orange";
-    let end = new Date();
-    let timeDiff = end - this.game.timer;
-    timeDiff /= 1000;
-    var seconds = Math.round(timeDiff);
-    this.ctx.fillText(`Timer: ${seconds}`, 32 * 17, 20);
   }
 
   adicionar(sprite) {

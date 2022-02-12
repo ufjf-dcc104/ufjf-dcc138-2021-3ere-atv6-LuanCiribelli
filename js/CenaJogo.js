@@ -40,10 +40,9 @@ export default class CenaJogo extends Cena {
     mapa1.carregaMapa(modeloMapa1);
     this.configuraMapa(mapa1);
     this.mapa = mapa1;
-   
 
     this.contador = 0;
-
+    const acao = null;
     const pc = new Sprite({ x: 32 * 10, y: 32 * 10, h: 32, w: 32 });
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
@@ -52,18 +51,32 @@ export default class CenaJogo extends Cena {
     pc.controlar = function (dt) {
       if (cena.input.comandos.get("MOVE_ESQUERDA")) {
         this.vx = -50;
-      }
+        cena.acaoNoMomento = "MOVENDO_PARA_ESQUERDA";
+       }
       if (cena.input.comandos.get("MOVE_DIREITA")) {
         this.vx = +50;
+        cena.acaoNoMomento  = "MOVENDO_PARA_DIREITA";
       }
+      if (
+        cena.input.comandos.get("MOVE_ESQUERDA") ===
+        cena.input.comandos.get("MOVE_DIREITA")
+      ) {
+        this.vx = 0;
+        cena.acaoNoMomento  = "PARADO";
+      }
+
       if (cena.input.comandos.get("PULA")) {
-        if (this.vy == 0 ) {
+        if (this.vy == 0) {
           this.vy = -100;
+          cena.acaoNoMomento  = "PULANDO";
         }
       }
+      if (cena.input.comandos.get("ATIRAR")) {
+        cena.acaoNoMomento  = "ATIRANDO";
+      }
+
     };
 
-   
     this.adicionar(pc);
   }
 }
