@@ -31,11 +31,59 @@ export default class Sprite {
     });
     this.quadroPC = 0;
     this.posePC = 0;
+    this.quadroMagia = 0;
+    this.poseMagia = 0;
+    this.contadorDePose = 0;
   }
 
   draw(ctx) {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+  }
+  drawMagia(ctx, dt) {
+
+    const POSES2 = [
+      { qmax: 7, pv: 7 },
+      { qmax: 7, pv: 7 }];
+
+    if(this.quadroMagia <= 4){
+    this.quadroMagia =
+    this.quadroMagia >= POSES[this.poseMagia].qmax 
+      ? 0
+      : this.quadroMagia + POSES[this.poseMagia].pv * dt;
+
+
+      ctx.drawImage(
+        this.cena.assets.img("tiro"),
+        32 * Math.floor(this.quadroMagia),
+        32 * Math.floor(this.poseMagia),
+        32,
+        32,
+        this.x - this.w / 2,
+        this.y - this.h / 2,
+        this.w,
+        this.h
+      );
+
+
+    }
+    else{
+      ctx.drawImage(
+        this.cena.assets.img("tiro"),
+        32 * 3,
+        32 * 2,
+        32,
+        32,
+        this.x - this.w / 2,
+        this.y - this.h / 2,
+        this.w,
+        this.h
+      );
+
+    }
+      
+
+
   }
 
   drawPC(ctx, dt, acao) {
@@ -72,14 +120,25 @@ export default class Sprite {
         ? 0
         : this.quadroPC + POSES[this.posePC].pv * dt;
 
-    if (acao == null || acao == "PARADO") {
+if(this.contadorDePose == 0){
+    if (acao == null || acao == "PARADO" ) {
       this.posePC = 10;
       this.quadroPC = 0;
-    } else if ((acao = "MOVENDO_PARA_ESQUERDA")) {
+    } else if ((acao == "PULANDO")) {
+      this.posePC = 19;
+      this.contadorDePose = 7 * POSES[this.posePC].pv;
+    } else if ((acao == "MOVENDO_PARA_ESQUERDA")) {
       this.posePC = 9;
-    } else if ((acao = "MOVENDO_PARA_DIREITA")) {
+    } else if ((acao == "MOVENDO_PARA_DIREITA")) {
       this.posePC = 11;
+    }else if ((acao == "ATIRANDO")) {
+      this.posePC = 7;
+      this.contadorDePose = 7 * POSES[this.posePC].pv;
     }
+  }
+  if(this.contadorDePose > 0){
+  this.contadorDePose += -1; 
+  }
     ctx.drawImage(
       this.cena.assets.img("pc"),
       64 * Math.floor(this.quadroPC),

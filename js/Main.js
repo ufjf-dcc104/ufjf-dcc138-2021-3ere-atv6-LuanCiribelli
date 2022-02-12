@@ -15,6 +15,7 @@ const instrucoes = document.getElementById("instruction-container");
 
 assets.carregaImagem("tiles", "assets/tileset.png");
 assets.carregaImagem("pc", "assets/PC.png");
+assets.carregaImagem("tiro", "assets/tiro.png");
 
 instrucoes.style.visibility = "hidden";
 
@@ -33,8 +34,8 @@ input.configurarTeclado({
   ArrowRight: "MOVE_DIREITA",
   ArrowUp: "PULA",
   " ": "PROXIMA_CENA",
-  "G": "BATER",
-  "F": "ATIRAR",
+  "g": "BATER",
+  "f": "ATIRAR",
 });
 
 const game = new Game(canvas, assets, input);

@@ -72,7 +72,8 @@ export default class CenaJogo extends Cena {
         }
       }
       if (cena.input.comandos.get("ATIRAR")) {
-        cena.acaoNoMomento  = "ATIRANDO";
+        cena.acaoNoMomento   = "ATIRANDO";
+        
       }
 
     };
