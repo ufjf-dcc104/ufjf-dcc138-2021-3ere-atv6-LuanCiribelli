@@ -7,7 +7,6 @@ import CenaJogo from "./CenaJogo.js";
 import CenaCarregando from "./CenaCarregando.js";
 import CenaFim from "./CenaFim.js";
 import CenaVitoria from "./CenaVitoria.js";
-import CenaJogoModoInsano from "./CenaJogoModoInsano.js";
 
 const input = new InputManager();
 const mixer = new Mixer(10);
@@ -17,7 +16,7 @@ const instrucoes = document.getElementById("instruction-container");
 assets.carregaImagem("chao", "assets/grass.png");
 assets.carregaImagem("paredes", "assets/barrel.png");
 
-assets.carregaImagem("skelly", "assets/skelly.png");
+
 
 assets.carregaAudio("colisaoInimigos", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
@@ -35,7 +34,7 @@ input.configurarTeclado({
   ArrowUp: "MOVE_CIMA",
   ArrowDown: "MOVE_BAIXO",
   " ": "PROXIMA_CENA",
-  i: "MODO_INSANO",
+
 });
 
 const game = new Game(canvas, assets, input);
@@ -44,13 +43,13 @@ const cena0 = new CenaCarregando();
 const cena1 = new CenaJogo();
 const cena2 = new CenaFim();
 const cena3 = new CenaVitoria();
-const insaneMode = new CenaJogoModoInsano();
+
 
 game.adicionarCena("carregando", cena0);
 game.adicionarCena("jogo", cena1);
 game.adicionarCena("fim", cena2);
 game.adicionarCena("vitoria", cena3);
-game.adicionarCena("modoInsano", insaneMode);
+
 
 game.iniciar();
 
