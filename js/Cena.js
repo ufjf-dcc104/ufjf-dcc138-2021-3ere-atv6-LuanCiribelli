@@ -14,11 +14,13 @@ export default class Cena {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.mapa?.draw(this.ctx);
-
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
+        if (sprite.tags.has("pc")) {
+          sprite.drawPC(this.ctx,this.dt);
+        }else{
         sprite.draw(this.ctx);
-        sprite.aplicaRestricoes();
+      }sprite.aplicaRestricoes();
       });
     }
 

@@ -60,33 +60,7 @@ export default class {
               this.SIZE,
               this.SIZE
             );
-            break;
-          case 3:
-            ctx.drawImage(
-              this.cena.assets.img("chao"),
-              32 * 1,
-              32 * 5,
-              32,
-              32,
-              c * this.SIZE,
-              l * this.SIZE,
-              this.SIZE,
-              this.SIZE
-            );
-            break;
-          case 4:
-            ctx.drawImage(
-              this.cena.assets.img("chao"),
-              32 * 2,
-              32 * 5,
-              32,
-              32,
-              c * this.SIZE,
-              l * this.SIZE,
-              this.SIZE,
-              this.SIZE
-            );
-            break;
+         
         }
       }
     }

@@ -15,8 +15,9 @@ const instrucoes = document.getElementById("instruction-container");
 
 assets.carregaImagem("chao", "assets/grass.png");
 assets.carregaImagem("paredes", "assets/barrel.png");
+assets.carregaImagem("pc", "assets/PC.png");
 
-
+instrucoes.style.visibility = "hidden";
 
 assets.carregaAudio("colisaoInimigos", "assets/jump.wav");
 assets.carregaAudio("boom", "assets/boom.wav");
@@ -31,8 +32,7 @@ canvas.height = 12 * 32;
 input.configurarTeclado({
   ArrowLeft: "MOVE_ESQUERDA",
   ArrowRight: "MOVE_DIREITA",
-  ArrowUp: "MOVE_CIMA",
-  ArrowDown: "MOVE_BAIXO",
+  ArrowUp: "PULA",
   " ": "PROXIMA_CENA",
 
 });
