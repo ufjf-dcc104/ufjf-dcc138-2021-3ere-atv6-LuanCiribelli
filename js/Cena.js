@@ -51,6 +51,7 @@ export default class Cena {
     this.checaColisao();
     this.removerSprites();
     this.checaFim();
+    this.mudaMapa();
     if (this.contador > 10) {
       this.criaInimigo();
       this.contador = 0;
@@ -64,6 +65,7 @@ export default class Cena {
 
   checaFim() {}
   criaInimigo() {}
+  mudaMapa() {}
 
   iniciar() {
     this.rodando = true;

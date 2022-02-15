@@ -1,7 +1,9 @@
 import Cena from "./Cena.js";
 import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
-import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
+
+import { mapa4 as modeloMapa4 } from "../maps/mapa4.js";
+
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -9,7 +11,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
-export default class CenaJogo extends Cena {
+export default class CenaJogo4 extends Cena {
   onColisao(a, b) {
     if (!this.aRemover.includes(a)) {
       this.aRemover.push(a);
@@ -28,22 +30,23 @@ export default class CenaJogo extends Cena {
   }
 
   checaFim() {
-    if (this.sprites.length == 1 && this.sprites[0].tags.has("pc")) {
-      //   this.rodando = false;
-      //   this.game.selecionaCena("vitoria");
+    if (this.pcCenaJogo.x>591) {
+      this.game.selecionaCena("fase5");
+    }else if( this.pcCenaJogo.x<1){
+      this.game.selecionaCena("fase3");
     }
   }
-
+  
   preparar() {
     super.preparar();
-    const mapa1 = new Mapa(19, 12, 32);
-    mapa1.carregaMapa(modeloMapa1);
-    this.configuraMapa(mapa1);
-    this.mapa = mapa1;
-
+    const mapa4 = new Mapa(19, 12, 32);
+    mapa4.carregaMapa(modeloMapa4);
+    this.configuraMapa(mapa4);
+    this.mapa = mapa4;
+    this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new Sprite({ x: 32 * 10, y: 32 * 10, h: 32, w: 32 });
+    const pc = new Sprite({ x: 32 * 1, y: 32 * 10, h: 32, w: 32 });
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
     const cena = this;
@@ -74,11 +77,13 @@ export default class CenaJogo extends Cena {
       if (cena.input.comandos.get("ATIRAR")) {
         cena.acaoNoMomento = "ATIRANDO";
         var tiro = new Sprite({
-          x: this.x+50,
+          x: this.x + 50,
           y: this.y,
-          vx: Math.sign(this.vx)* 100,
+          vx: Math.sign(this.vx) * 100,
           tags: [tiro],
-          controlar:()=>{ this.vx= this.vx * dt}
+          controlar: () => {
+            this.vx = this.vx * dt;
+          },
         });
         this.cena.adicionar(tiro);
       }
@@ -87,7 +92,9 @@ export default class CenaJogo extends Cena {
         var batida = new Sprite({
           x: this.x,
           y: this.y,
-          controlar:()=>{ this.vx= this.vx * dt}
+          controlar: () => {
+            this.vx = this.vx * dt;
+          },
         });
         this.cena.adicionar(batida);
       }
