@@ -3,7 +3,6 @@ import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
 import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 
-
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -29,8 +28,12 @@ export default class CenaJogo extends Cena {
   }
 
   checaFim() {
-    if (this.pcCenaJogo.x>591) {
+    
+    if (this.pcCenaJogo.x > 591) {
       this.game.selecionaCena("fase2");
+    }
+    if (this.sprites.length == 0) {
+      this.game.selecionaCena("fim");
     }
   }
 

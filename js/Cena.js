@@ -25,7 +25,9 @@ export default class Cena {
         if (sprite.tags.has("tiro")) {
           drawMagia(this.ctx, this.dt, this.acaoNoMomento);
         } else {
-          sprite.aplicaRestricoes();
+          if(sprite.aplicaRestricoes()){
+            this.onColisao(sprite, sprite);
+          };
         }
       });
     }

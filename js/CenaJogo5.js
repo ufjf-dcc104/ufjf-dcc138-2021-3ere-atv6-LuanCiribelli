@@ -32,6 +32,8 @@ export default class CenaJogo5 extends Cena {
 
     if( this.pcCenaJogo.x<1){
       this.game.selecionaCena("fase4");
+    }    if(this.sprites.length == 0){
+      this.game.selecionaCena("gameOver");
     }
   }
   
