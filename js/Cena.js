@@ -18,11 +18,15 @@ export default class Cena {
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
         if (sprite.tags.has("pc")) {
-          sprite.drawPC(this.ctx, this.dt,this.acaoNoMomento);
+          sprite.drawPC(this.ctx, this.dt, this.acaoNoMomento);
         } else {
           sprite.draw(this.ctx);
         }
-        sprite.aplicaRestricoes();
+        if (sprite.tags.has("tiro")) {
+          drawMagia(this.ctx, this.dt, this.acaoNoMomento);
+        } else {
+          sprite.aplicaRestricoes();
+        }
       });
     }
   }

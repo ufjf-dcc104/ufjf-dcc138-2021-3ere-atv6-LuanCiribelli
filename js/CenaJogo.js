@@ -52,30 +52,45 @@ export default class CenaJogo extends Cena {
       if (cena.input.comandos.get("MOVE_ESQUERDA")) {
         this.vx = -50;
         cena.acaoNoMomento = "MOVENDO_PARA_ESQUERDA";
-       }
+      }
       if (cena.input.comandos.get("MOVE_DIREITA")) {
         this.vx = +50;
-        cena.acaoNoMomento  = "MOVENDO_PARA_DIREITA";
+        cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
       }
       if (
         cena.input.comandos.get("MOVE_ESQUERDA") ===
         cena.input.comandos.get("MOVE_DIREITA")
       ) {
         this.vx = 0;
-        cena.acaoNoMomento  = "PARADO";
+        cena.acaoNoMomento = "PARADO";
       }
 
       if (cena.input.comandos.get("PULA")) {
         if (this.vy == 0) {
           this.vy = -100;
-          cena.acaoNoMomento  = "PULANDO";
+          cena.acaoNoMomento = "PULANDO";
         }
       }
       if (cena.input.comandos.get("ATIRAR")) {
-        cena.acaoNoMomento   = "ATIRANDO";
-        
+        cena.acaoNoMomento = "ATIRANDO";
+        var tiro = new Sprite({
+          x: this.x+50,
+          y: this.y,
+          vx: Math.sign(this.vx)* 100,
+          tags: [tiro],
+          controlar:()=>{ this.vx= this.vx * dt}
+        });
+        this.cena.adicionar(tiro);
       }
-
+      if (cena.input.comandos.get("BATER")) {
+        cena.acaoNoMomento = "BATENDO";
+        var batida = new Sprite({
+          x: this.x,
+          y: this.y,
+          controlar:()=>{ this.vx= this.vx * dt}
+        });
+        this.cena.adicionar(batida);
+      }
     };
 
     this.adicionar(pc);
