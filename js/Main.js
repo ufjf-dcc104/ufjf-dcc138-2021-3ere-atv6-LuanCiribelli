@@ -40,6 +40,7 @@ input.configurarTeclado({
   " ": "PROXIMA_CENA",
   "g": "BATER",
   "f": "ATIRAR",
+  "d": "DASH",
 });
 
 const game = new Game(canvas, assets, input);

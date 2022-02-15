@@ -59,6 +59,9 @@ export default class CenaJogo extends Cena {
       if (cena.input.comandos.get("MOVE_DIREITA")) {
         this.vx = +50;
         cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
+      }if (cena.input.comandos.get("DASH")) {
+        this.vx = +500;
+        cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
       }
       if (
         cena.input.comandos.get("MOVE_ESQUERDA") ===
