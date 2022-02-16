@@ -40,8 +40,6 @@ export default class Sprite {
     ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
   drawMagia(ctx, dt) {
-
-
     if (this.quadroMagia <= 4) {
       this.quadroMagia += 1;
 
@@ -119,11 +117,16 @@ export default class Sprite {
       } else if (acao == "ATIRANDO") {
         this.posePC = 7;
         this.contadorDePose = 7 * POSES[this.posePC].pv;
-      }
-      else if (acao == "BATENDO"){
-        this.posePC = 22;
-        this.contadorDePose = 7 * POSES[this.posePC].pv;
-        this.quadroPC = 2* this.quadroPC;
+      } else if (acao == "BATENDO") {
+        if (this.vx < 0) {
+          this.posePC = 22;
+          this.contadorDePose = 7 * POSES[this.posePC].pv;
+          this.quadroPC = 2 * this.quadroPC;
+        } else {
+          this.posePC = 24;
+          this.contadorDePose = 7 * POSES[this.posePC].pv;
+          this.quadroPC = 2 * this.quadroPC;
+        }
       }
     }
     if (this.contadorDePose > 0) {
@@ -180,12 +183,12 @@ export default class Sprite {
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my + 1);
     //Baixo
 
-   if(this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1)){
-     return true;
-   };
-    if(this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1)){
+    if (this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1)) {
       return true;
-    };
+    }
+    if (this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1)) {
+      return true;
+    }
     //Cima
 
     this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
@@ -231,7 +234,6 @@ export default class Sprite {
     if (this.vy > 0) {
       const SIZE = this.cena.mapa.SIZE;
       if (this.cena.mapa.tiles[pmy][pmx] == 4) {
-
         return true;
       }
 
@@ -248,7 +250,6 @@ export default class Sprite {
           this.y = tile.y - tile.h / 2 - this.h / 2 - 1;
         }
       }
-    
     }
   }
   aplicaRestricoesCima(pmx, pmy) {
@@ -267,6 +268,7 @@ export default class Sprite {
           this.y = tile.y + tile.h / 2 + this.h / 2 + 1;
         }
       }
-    }4
+    }
+    4;
   }
 }

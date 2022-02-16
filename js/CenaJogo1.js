@@ -11,13 +11,17 @@ function getRandomIntInclusive(min, max) {
 
 export default class CenaJogo extends Cena {
   onColisao(a, b) {
+    if(a.tags.has("pc") && b.tags.has("tiro"))
+    {
+
+    }else{
     if (!this.aRemover.includes(a)) {
       this.aRemover.push(a);
     }
     if (!this.aRemover.includes(b)) {
       this.aRemover.push(b);
     }
-
+  
     if (a.tags.has("pc") && b.tags.has("enemy")) {
       this.rodando = false;
       this.assets.play("derrota");
@@ -26,6 +30,8 @@ export default class CenaJogo extends Cena {
       this.assets.play("colisaoInimigos");
     }
   }
+}
+  
 
   checaFim() {
     if (this.pcCenaJogo.x > 591) {
@@ -61,7 +67,6 @@ export default class CenaJogo extends Cena {
         cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
       }
       if (cena.input.comandos.get("DASH")) {
-        console.log(cena.dashCD);
         if (cena.dashCD <= 0) {
           if (this.vx > 0) {
             this.vx = +500;
@@ -119,11 +124,15 @@ export default class CenaJogo extends Cena {
           var batida = new Sprite({
             x: this.x - 32,
             y: this.y,
+            tags: [tiro],
+            color: "rgba(255, 0, 0, 0)",
           });
         } else {
           var batida = new Sprite({
             x: this.x + 32,
             y: this.y,
+            color: "rgba(255, 0, 0, 0)",
+            tags: [tiro],
           });
         }
         this.cena.adicionar(batida);

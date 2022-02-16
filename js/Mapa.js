@@ -41,7 +41,55 @@ export default class {
               l * this.SIZE,
               this.SIZE,
               this.SIZE
-            );
+            ); break;
+            case 5: 
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              32 * 18,
+              32 * 8,
+              32,
+              31,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            ); break;
+            case 6: 
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              32 * 19,
+              32 * 8,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            ); break;
+            case 7: 
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              32 * 19,
+              32 * 7,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            ); break;
+            case 8: 
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              532,
+              59,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            ); break;
           default:
             ctx.fillStyle = "grey";
             ctx.lineWidth = 1;

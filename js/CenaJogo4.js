@@ -64,7 +64,6 @@ export default class CenaJogo4 extends Cena {
         cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
       }
       if (cena.input.comandos.get("DASH")) {
-        console.log(cena.dashCD);
         if (cena.dashCD <= 0) {
           if (this.vx > 0) {
             this.vx = +500;
