@@ -28,7 +28,6 @@ export default class CenaJogo extends Cena {
   }
 
   checaFim() {
-    
     if (this.pcCenaJogo.x > 591) {
       this.game.selecionaCena("fase2");
     }
@@ -49,6 +48,7 @@ export default class CenaJogo extends Cena {
     const pc = new Sprite({ x: 32 * 2, y: 32 * 10, h: 32, w: 32 });
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
+    this.dashCD = 0;
     const cena = this;
 
     pc.controlar = function (dt) {
@@ -59,9 +59,20 @@ export default class CenaJogo extends Cena {
       if (cena.input.comandos.get("MOVE_DIREITA")) {
         this.vx = +50;
         cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
-      }if (cena.input.comandos.get("DASH")) {
-        this.vx = +500;
-        cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
+      }
+      if (cena.input.comandos.get("DASH")) {
+        console.log(cena.dashCD);
+        if (cena.dashCD <= 0) {
+          if (this.vx > 0) {
+            this.vx = +500;
+            cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
+            cena.dashCD = 0.5;
+          } else if (this.vx < 0) {
+            this.vx = -500;
+            cena.acaoNoMomento = "MOVENDO_PARA_ESQUERDA";
+            cena.dashCD = 0.5;
+          }
+        }
       }
       if (
         cena.input.comandos.get("MOVE_ESQUERDA") ===
@@ -79,26 +90,42 @@ export default class CenaJogo extends Cena {
       }
       if (cena.input.comandos.get("ATIRAR")) {
         cena.acaoNoMomento = "ATIRANDO";
-        var tiro = new Sprite({
-          x: this.x + 50,
-          y: this.y,
-          vx: Math.sign(this.vx) * 100,
-          tags: [tiro],
-          controlar: () => {
-            this.vx = this.vx * dt;
-          },
-        });
+        if (this.vx < 0) {
+          var tiro = new Sprite({
+            x: this.x - 50,
+            y: this.y,
+            vx: -100,
+            tags: [tiro],
+            controlar: () => {
+              this.vx = this.vx * dt;
+            },
+          });
+        } else {
+          var tiro = new Sprite({
+            x: this.x + 50,
+            y: this.y,
+            vx: +100,
+            tags: [tiro],
+            controlar: () => {
+              this.vx = this.vx * dt;
+            },
+          });
+        }
         this.cena.adicionar(tiro);
       }
       if (cena.input.comandos.get("BATER")) {
         cena.acaoNoMomento = "BATENDO";
-        var batida = new Sprite({
-          x: this.x,
-          y: this.y,
-          controlar: () => {
-            this.vx = this.vx * dt;
-          },
-        });
+        if (this.vx < 0) {
+          var batida = new Sprite({
+            x: this.x - 32,
+            y: this.y,
+          });
+        } else {
+          var batida = new Sprite({
+            x: this.x + 32,
+            y: this.y,
+          });
+        }
         this.cena.adicionar(batida);
       }
     };

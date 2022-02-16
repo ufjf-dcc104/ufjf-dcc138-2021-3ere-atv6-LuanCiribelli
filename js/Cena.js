@@ -8,6 +8,7 @@ export default class Cena {
     this.game = null;
     this.preparar();
     this.acaoNoMomento = "PARADO";
+    this.dashCD = 0;
   }
 
   draw() {
@@ -60,6 +61,7 @@ export default class Cena {
     }
     if (this.rodando) {
       this.contador += 1 * this.dt;
+      this.dashCD+=-1*this.dt;
       this.iniciar();
     }
     this.t0 = t;
