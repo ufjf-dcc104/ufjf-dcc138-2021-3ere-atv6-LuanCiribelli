@@ -12,19 +12,27 @@ function getRandomIntInclusive(min, max) {
 
 export default class CenaJogo5 extends Cena {
   onColisao(a, b) {
-    if (!this.aRemover.includes(a)) {
-      this.aRemover.push(a);
-    }
-    if (!this.aRemover.includes(b)) {
-      this.aRemover.push(b);
-    }
-
-    if (a.tags.has("pc") && b.tags.has("enemy")) {
-      this.rodando = false;
-      this.assets.play("derrota");
-      this.game.selecionaCena("fim");
+    if (
+      (a.tags.has("pc") && b.tags.has("tiro")) ||
+      (a.tags.has("pc") && b.tags.has("espada")) ||
+      (b.tags.has("pc") && a.tags.has("tiro")) ||
+      (b.tags.has("pc") && a.tags.has("espada"))
+    ) {
     } else {
-      this.assets.play("colisaoInimigos");
+      if (!this.aRemover.includes(a)) {
+        this.aRemover.push(a);
+      }
+      if (!this.aRemover.includes(b)) {
+        this.aRemover.push(b);
+      }
+
+      if (a.tags.has("pc") && b.tags.has("enemy")) {
+        this.rodando = false;
+        this.assets.play("derrota");
+        this.game.selecionaCena("fim");
+      } else {
+        this.assets.play("colisaoInimigos");
+      }
     }
   }
 
@@ -95,7 +103,7 @@ export default class CenaJogo5 extends Cena {
             x: this.x - 50,
             y: this.y,
             vx: -100,
-            tags: [tiro],
+
             controlar: () => {
               this.vx = this.vx * dt;
             },
@@ -105,12 +113,13 @@ export default class CenaJogo5 extends Cena {
             x: this.x + 50,
             y: this.y,
             vx: +100,
-            tags: [tiro],
+
             controlar: () => {
               this.vx = this.vx * dt;
             },
           });
         }
+        tiro.tags.add("tiro");
         this.cena.adicionar(tiro);
       }
       if (cena.input.comandos.get("BATER")) {
@@ -119,12 +128,17 @@ export default class CenaJogo5 extends Cena {
           var batida = new Sprite({
             x: this.x - 32,
             y: this.y,
+
+            color: "rgba(255, 0, 0, 0)",
           });
+          batida.tags.add("espada");
         } else {
           var batida = new Sprite({
             x: this.x + 32,
             y: this.y,
+            color: "rgba(255, 0, 0, 0)",
           });
+          batida.tags.add("espada");
         }
         this.cena.adicionar(batida);
       }
