@@ -1,7 +1,9 @@
 import Cena from "./Cena.js";
 import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
-
+import PC from "./PC.js";
+import Magia from "./Magia.js";
+import Espadada from "./Espadada.js";
 import { mapa2 as modeloMapa2 } from "../maps/mapa2.js";
 
 function getRandomIntInclusive(min, max) {
@@ -55,7 +57,7 @@ export default class CenaJogo2 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new Sprite({ x: 32 * 1, y: 32 * 10, h: 32, w: 32 });
+    const pc = new PC({ x: 32 * 1, y: 32 * 10, h: 32, w: 32 });
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
     this.dashCD = 0;
@@ -100,44 +102,36 @@ export default class CenaJogo2 extends Cena {
       if (cena.input.comandos.get("ATIRAR")) {
         cena.acaoNoMomento = "ATIRANDO";
         if (this.vx < 0) {
-          var tiro = new Sprite({
+          var tiro = new Magia({
             x: this.x - 50,
             y: this.y,
             vx: -100,
-
-            controlar: () => {
-              this.vx = this.vx * dt;
-            },
           });
         } else {
-          var tiro = new Sprite({
+          var tiro = new Magia({
             x: this.x + 50,
             y: this.y,
             vx: +100,
-
-            controlar: () => {
-              this.vx = this.vx * dt;
-            },
           });
         }
         tiro.tags.add("tiro");
         this.cena.adicionar(tiro);
+        tiro.mover(0);
       }
       if (cena.input.comandos.get("BATER")) {
         cena.acaoNoMomento = "BATENDO";
         if (this.vx < 0) {
-          var batida = new Sprite({
+          var batida = new Espadada({
             x: this.x - 32,
             y: this.y,
-
-            color: "rgba(255, 0, 0, 0)",
+            color: "rgba(255, 0, 0, 1)",
           });
           batida.tags.add("espada");
         } else {
-          var batida = new Sprite({
+          var batida = new Espadada({
             x: this.x + 32,
             y: this.y,
-            color: "rgba(255, 0, 0, 0)",
+            color: "rgba(255, 0, 0, 1)",
           });
           batida.tags.add("espada");
         }

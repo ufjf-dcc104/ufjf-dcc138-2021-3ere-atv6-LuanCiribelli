@@ -18,17 +18,9 @@ export default class Cena {
     this.mapa?.draw(this.ctx);
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
-        if (sprite.tags.has("pc")) {
-          sprite.drawPC(this.ctx, this.dt, this.acaoNoMomento);
-        } else {
-          sprite.draw(this.ctx);
-        }
-        if (sprite.tags.has("tiro")) {
-          drawMagia(this.ctx, this.dt, this.acaoNoMomento);
-        } else {
-          if(sprite.aplicaRestricoes()){
-            this.onColisao(sprite, sprite);
-          };
+        sprite.draw(this.ctx,this.dt,this.acaoNoMomento);
+        if (sprite.aplicaRestricoes()) {
+          this.onColisao(sprite, sprite);
         }
       });
     }
@@ -61,7 +53,7 @@ export default class Cena {
     }
     if (this.rodando) {
       this.contador += 1 * this.dt;
-      this.dashCD+=-1*this.dt;
+      this.dashCD += -1 * this.dt;
       this.iniciar();
     }
     this.t0 = t;
