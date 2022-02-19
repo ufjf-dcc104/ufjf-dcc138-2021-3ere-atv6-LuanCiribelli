@@ -20,11 +20,11 @@ export default class Game {
     }
   }
 
-  selecionaCena(chave) {
+  selecionaCena(chave,porta) {
     if (this.cenas.has(chave)) {
       this.parar();
       this.cena = this.cenas.get(chave);
-      this.cena.preparar();
+      this.cena.preparar(porta);
       this.iniciar();
     }
   }

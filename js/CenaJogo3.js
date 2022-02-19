@@ -40,16 +40,16 @@ export default class CenaJogo3 extends Cena {
 
   checaFim() {
     if (this.pcCenaJogo.x > 591) {
-      this.game.selecionaCena("fase4");
+      this.game.selecionaCena("fase4", 1);
     } else if (this.pcCenaJogo.x < 17) {
-      this.game.selecionaCena("fase2");
+      this.game.selecionaCena("fase2", 2);
     }
     if (this.sprites.length == 0) {
-      this.game.selecionaCena("fim");
+      this.game.selecionaCena("fim", 0);
     }
   }
 
-  preparar() {
+  preparar(porta) {
     super.preparar();
     const mapa3 = new Mapa(19, 12, 32);
     mapa3.carregaMapa(modeloMapa3);
@@ -58,10 +58,17 @@ export default class CenaJogo3 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ x: 32 * 1, y: 32 * 10, h: 32, w: 32 });
+    const pc = new PC({ h: 32, w: 32 });
+    if (porta == 1) {
+      pc.x = 32 * 1;
+      pc.y = 32 * 10;
+    } else {
+      pc.x = 32 * 18;
+      pc.y = 32 * 10;
+    }
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
-    this.dashCD = 0;
+    this.CoolDown = 0;
     const cena = this;
 
     pc.controlar = function (dt) {
@@ -74,15 +81,15 @@ export default class CenaJogo3 extends Cena {
         cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
       }
       if (cena.input.comandos.get("DASH")) {
-        if (cena.dashCD <= 0) {
+        if (cena.CoolDown <= 0) {
           if (this.vx > 0) {
             this.vx = +500;
             cena.acaoNoMomento = "MOVENDO_PARA_DIREITA";
-            cena.dashCD = 0.5;
+            cena.CoolDown = 0.4;
           } else if (this.vx < 0) {
             this.vx = -500;
             cena.acaoNoMomento = "MOVENDO_PARA_ESQUERDA";
-            cena.dashCD = 0.5;
+            cena.CoolDown = 0.4;
           }
         }
       }
@@ -101,42 +108,49 @@ export default class CenaJogo3 extends Cena {
         }
       }
       if (cena.input.comandos.get("ATIRAR")) {
-        cena.acaoNoMomento = "ATIRANDO";
-        if (this.vx < 0) {
-          var tiro = new Magia({
-            x: this.x - 50,
-            y: this.y,
-            vx: -100,
-          });
-        } else {
-          var tiro = new Magia({
-            x: this.x + 50,
-            y: this.y,
-            vx: +100,
-          });
+        if (cena.CoolDown <= 0) {
+          cena.acaoNoMomento = "ATIRANDO";
+          if (this.vx < 0) {
+            var tiro = new Magia({
+              x: this.x - 50,
+              y: this.y,
+              vx: -100,
+            });
+          } else {
+            var tiro = new Magia({
+              x: this.x + 50,
+              y: this.y,
+              vx: +100,
+            });
+          }
+          tiro.tags.add("tiro");
+          this.cena.adicionar(tiro);
+          tiro.mover(0);
+          cena.CoolDown = 0.4;
         }
-        tiro.tags.add("tiro");
-        this.cena.adicionar(tiro);
-        tiro.mover(0);
       }
       if (cena.input.comandos.get("BATER")) {
-        cena.acaoNoMomento = "BATENDO";
-        if (this.vx < 0) {
-          var batida = new Espadada({
-            x: this.x - 32,
-            y: this.y,
-            color: "rgba(255, 0, 0, 1)",
-          });
-          batida.tags.add("espada");
-        } else {
-          var batida = new Espadada({
-            x: this.x + 32,
-            y: this.y,
-            color: "rgba(255, 0, 0, 1)",
-          });
-          batida.tags.add("espada");
+        console.log(cena.CoolDown);
+        if (cena.CoolDown <= 0) {
+          cena.acaoNoMomento = "BATENDO";
+          if (this.vx < 0) {
+            var batida = new Espadada({
+              x: this.x - 32,
+              y: this.y,
+              color: "rgba(255, 0, 0, 1)",
+            });
+            batida.tags.add("espada");
+          } else {
+            var batida = new Espadada({
+              x: this.x + 32,
+              y: this.y,
+              color: "rgba(255, 0, 0, 1)",
+            });
+            batida.tags.add("espada");
+          }
+          cena.CoolDown = 0.4;
+          this.cena.adicionar(batida);
         }
-        this.cena.adicionar(batida);
       }
     };
 

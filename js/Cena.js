@@ -8,7 +8,7 @@ export default class Cena {
     this.game = null;
     this.preparar();
     this.acaoNoMomento = "PARADO";
-    this.dashCD = 0;
+    this.CoolDown = 0;
   }
 
   draw() {
@@ -53,7 +53,7 @@ export default class Cena {
     }
     if (this.rodando) {
       this.contador += 1 * this.dt;
-      this.dashCD += -1 * this.dt;
+      this.CoolDown += -1 * this.dt;
       this.iniciar();
     }
     this.t0 = t;
@@ -111,7 +111,7 @@ export default class Cena {
     this.mapa.cena = this;
   }
 
-  preparar() {
+  preparar(porta) {
     this.sprites = [];
     this.aRemover = [];
     this.t0 = null;
@@ -120,5 +120,6 @@ export default class Cena {
     this.mapa = null;
     this.contador = 0;
     this.rodando = true;
+    this.porta = porta
   }
 }
