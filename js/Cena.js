@@ -18,7 +18,7 @@ export default class Cena {
     this.mapa?.draw(this.ctx);
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
-        sprite.draw(this.ctx,this.dt,this.acaoNoMomento);
+        sprite.draw(this.ctx, this.dt, this.acaoNoMomento);
         if (sprite.aplicaRestricoes()) {
           this.onColisao(sprite, sprite);
         }
@@ -120,6 +120,6 @@ export default class Cena {
     this.mapa = null;
     this.contador = 0;
     this.rodando = true;
-    this.porta = porta
+    this.porta = porta;
   }
 }

@@ -129,21 +129,20 @@ export default class CenaJogo extends Cena {
         }
       }
       if (cena.input.comandos.get("BATER")) {
-        console.log(cena.CoolDown);
         if (cena.CoolDown <= 0) {
           cena.acaoNoMomento = "BATENDO";
           if (this.vx < 0) {
             var batida = new Espadada({
               x: this.x - 32,
               y: this.y,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batida.tags.add("espada");
           } else {
             var batida = new Espadada({
               x: this.x + 32,
               y: this.y,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batida.tags.add("espada");
           }

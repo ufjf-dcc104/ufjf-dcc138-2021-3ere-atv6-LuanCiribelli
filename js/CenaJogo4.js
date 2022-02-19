@@ -136,14 +136,14 @@ export default class CenaJogo4 extends Cena {
             var batida = new Espadada({
               x: this.x - 32,
               y: this.y,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batida.tags.add("espada");
           } else {
             var batida = new Espadada({
               x: this.x + 32,
               y: this.y,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batida.tags.add("espada");
           }
