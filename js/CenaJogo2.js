@@ -56,7 +56,7 @@ export default class CenaJogo2 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 32, w: 32 });
+    const pc = new PC({ h: 16, w: 16 });
     if (porta == 1) {
       pc.x = 32 * 1;
       pc.y = 32 * 10;

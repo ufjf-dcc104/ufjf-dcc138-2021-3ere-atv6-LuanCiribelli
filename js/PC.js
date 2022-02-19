@@ -102,8 +102,8 @@ export default class PC extends Sprite {
           64,
           this.x - this.w / 2,
           this.y - this.h / 2,
-          this.w,
-          this.h
+          this.w +16,
+          this.h +16,
         );
     
         ctx.strokeRect(this.x - this.w / 2,

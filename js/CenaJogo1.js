@@ -38,6 +38,27 @@ export default class CenaJogo extends Cena {
     }
   }
 
+  draw() {
+    this.ctx.fillStyle = "lightblue"; 
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.ctx.drawImage(
+      this.assets.img("back1"),0,0,
+      this.canvas.width,
+      this.canvas.height
+    );
+
+    this.mapa?.draw(this.ctx);
+    if (this.assets.acabou()) {
+      this.sprites.forEach((sprite) => {
+        sprite.draw(this.ctx, this.dt, this.acaoNoMomento);
+        if (sprite.aplicaRestricoes()) {
+          this.onColisao(sprite, sprite);
+        }
+      });
+    }
+  }
+
   checaFim() {
     if (this.pcCenaJogo.x > 591) {
       this.game.selecionaCena("fase2", 1);
@@ -56,7 +77,7 @@ export default class CenaJogo extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 32, w: 32 });
+    const pc = new PC({ h: 16, w: 16 });
 
     if (porta == 1) {
       pc.x = 32 * 1;
