@@ -31,7 +31,7 @@ export default class CenaVitoria extends Cena {
 
     if (this.assets.acabou())
       if (this.input.comandos.get("PROXIMA_CENA")) {
-        this.game.selecionaCena("jogo");
+        this.game.selecionaCena("fase1",1);
         return;
       }
 

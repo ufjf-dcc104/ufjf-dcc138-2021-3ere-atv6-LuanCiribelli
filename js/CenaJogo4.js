@@ -138,7 +138,7 @@ export default class CenaJogo4 extends Cena {
     this.CoolDown = 0;
 
     
-    this.dirOrc = "direita";
+
     this.OrcCD = 4;
     const cena = this;
 
