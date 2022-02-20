@@ -30,7 +30,7 @@ export default class CenaCarregando extends Cena {
 
     if (this.assets.acabou())
       if (this.input.comandos.get("PROXIMA_CENA")) {
-        this.game.selecionaCena("fase3",1);
+        this.game.selecionaCena("fase1",1);
         return;
       }
 

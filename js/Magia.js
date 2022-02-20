@@ -92,4 +92,69 @@ export default class Magia extends Sprite {
       }
     }
   }
+
+  aplicaRestricoes(dt) {
+   if (this.aplicaRestricoesDireita(this.mx + 1, this.my)){
+    return true;
+   };
+    if(this.aplicaRestricoesEsquerda(this.mx - 1, this.my)){
+      return true;
+    };
+    this.aplicaRestricoesBaixo(this.mx, this.my + 1);
+    this.aplicaRestricoesCima(this.mx, this.my - 1);
+
+    if(this.aplicaRestricoesDireita(this.mx + 1, this.my - 1)){
+      return true;
+    };
+    if(this.aplicaRestricoesDireita(this.mx + 1, this.my + 1)){
+      return true;
+    };
+
+    this.aplicaRestricoesEsquerda(this.mx - 1, this.my - 1);
+    this.aplicaRestricoesEsquerda(this.mx - 1, this.my + 1);
+
+    this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1);
+    this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1);
+
+    this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
+    this.aplicaRestricoesCima(this.mx + 1, this.my - 1);
+  }
+  aplicaRestricoesDireita(pmx, pmy) {
+    const SIZE = this.cena.mapa.SIZE;
+    if (this.vx > 0) {
+      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
+        const tile = {
+          x: pmx * SIZE + SIZE / 2,
+          y: pmy * SIZE + SIZE / 2,
+          w: SIZE,
+          h: SIZE,
+        };
+
+        if (this.colidiuCom(tile)) {
+          this.vx = 0;
+          this.x = tile.x - tile.w / 2 - this.w / 2 - 1;
+          return true;
+        }
+      }
+    }
+  }
+  aplicaRestricoesEsquerda(pmx, pmy) {
+    const SIZE = this.cena.mapa.SIZE;
+    if (this.vx < 0) {
+      if (this.cena.mapa.tiles[pmy][pmx] != 0) {
+        const tile = {
+          x: pmx * SIZE + SIZE / 2,
+          y: pmy * SIZE + SIZE / 2,
+          w: SIZE,
+          h: SIZE,
+        };
+
+        if (this.colidiuCom(tile)) {
+          this.vx = 0;
+          this.x = tile.x + tile.w / 2 + this.w / 2 + 1;
+          return true;
+        }
+      }
+    }
+  }
 }

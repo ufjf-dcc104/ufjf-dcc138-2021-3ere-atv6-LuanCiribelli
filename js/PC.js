@@ -118,7 +118,9 @@ export default class PC extends Sprite {
   aplicaRestricoes(dt) {
     this.aplicaRestricoesDireita(this.mx + 1, this.my);
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my);
-    this.aplicaRestricoesBaixo(this.mx, this.my + 1);
+    if(this.aplicaRestricoesBaixo(this.mx, this.my + 1)){
+      return true;
+    };
     this.aplicaRestricoesCima(this.mx, this.my - 1);
 
     this.aplicaRestricoesDireita(this.mx + 1, this.my - 1);
@@ -129,12 +131,8 @@ export default class PC extends Sprite {
     this.aplicaRestricoesEsquerda(this.mx - 1, this.my + 1);
     //Baixo
 
-    if (this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1)) {
-      return true;
-    }
-    if (this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1)) {
-      return true;
-    }
+    this.aplicaRestricoesBaixo(this.mx - 1, this.my + 1)
+    this.aplicaRestricoesBaixo(this.mx + 1, this.my + 1)
     //Cima
     this.aplicaRestricoesCima(this.mx - 1, this.my - 1);
     this.aplicaRestricoesCima(this.mx + 1, this.my - 1);

@@ -24,6 +24,7 @@ assets.carregaImagem("tiro2", "assets/tiro.png");
 assets.carregaImagem("back1", "assets/backCena1.jpg");
 assets.carregaImagem("orcBase", "assets/OrcsBasicos.png");
 assets.carregaImagem("orcXama", "assets/OrcXama.png");
+assets.carregaImagem("MagiaInimigo", "assets/magiaInimigo.png");
 
 instrucoes.style.visibility = "hidden";
 
