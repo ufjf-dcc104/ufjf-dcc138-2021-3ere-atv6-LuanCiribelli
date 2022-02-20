@@ -103,7 +103,7 @@ export default class PC extends Sprite {
       this.h + 16
     );
 
-    ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+   // ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
 
   mover(dt) {
