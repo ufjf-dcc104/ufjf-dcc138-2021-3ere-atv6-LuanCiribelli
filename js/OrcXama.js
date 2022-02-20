@@ -1,6 +1,6 @@
 import Sprite from "./Sprite.js";
 
-export default class OrcXama  extends Sprite {
+export default class OrcXama extends Sprite {
   constructor({
     x = 100,
     y = 32 * 10,
@@ -34,7 +34,7 @@ export default class OrcXama  extends Sprite {
     this.contadorDePose = 0;
   }
 
-  draw(ctx, dt, a, acao) {
+  draw(ctx, dt, a, b,acao ) {
     const POSES = [
       { qmax: 7, pv: 7 },
       { qmax: 7, pv: 7 },
@@ -64,19 +64,16 @@ export default class OrcXama  extends Sprite {
         ? 0
         : this.quadroORC + POSES[this.poseORC].pv * dt;
 
-      
     if (this.contadorDePose == 0) {
       if (acao == null || acao == "PARADO") {
         this.poseORC = 7;
         this.quadroORC = 0;
-      } else if (acao == "PARA_DIREITA") {
-        this.poseORC = 5;
+      } else if (acao == "PARADO_ESQUERDA") {
+        this.poseORC = 9;
         this.quadroORC = 0;
       } else if (acao == "MOVENDO_PARA_ESQUERDA") {
-   
         this.poseORC = 9;
       } else if (acao == "MOVENDO_PARA_DIREITA") {
-      
         this.poseORC = 11;
       } else if (acao == "BATENDO") {
         if (this.vx < 0) {
@@ -86,6 +83,13 @@ export default class OrcXama  extends Sprite {
           this.poseORC = 7;
           this.contadorDePose = 10 * POSES[this.poseORC].pv;
         }
+      } else if (acao == "ATIRANDO") {
+        if (this.vx <= 0) {
+          this.poseORC = 1;
+        } else {
+          this.poseORC = 3;
+        }
+        this.contadorDePose = 10 * POSES[this.poseORC].pv;
       }
     }
     if (this.contadorDePose > 0) {

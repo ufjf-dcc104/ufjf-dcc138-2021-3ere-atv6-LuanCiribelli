@@ -34,7 +34,13 @@ export default class CenaJogo extends Cena {
           this.aRemover.push(b);
         }
 
-        if (a.tags.has("pc") && b.tags.has("enemy")) {
+        if (
+          (a.tags.has("pc") && b.tags.has("enemy")) ||
+          (a.tags.has("pc") && b.tags.has("tiroXama")) ||
+          (a.tags.has("pc") && b.tags.has("espadaORC")) ||
+          (a.tags.has("pc") && b.tags.has("orcBase")) ||
+          (a.tags.has("pc") && b.tags.has("orcXama"))
+        ) {
           this.rodando = false;
           this.assets.play("derrota");
           this.game.selecionaCena("fim");
@@ -60,17 +66,17 @@ export default class CenaJogo extends Cena {
     this.mapa?.draw(this.ctx);
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
-      sprite.draw(
-        this.ctx,
-        this.dt,
-        this.acaoNoMomento,
-        this.acaoNoMomentoORC
-      );
-      if (sprite.aplicaRestricoes()) {
-        this.onColisao(sprite, sprite);
-      }
-    });
-  }
+        sprite.draw(
+          this.ctx,
+          this.dt,
+          this.acaoNoMomento,
+          this.acaoNoMomentoORC
+        );
+        if (sprite.aplicaRestricoes()) {
+          this.onColisao(sprite, sprite);
+        }
+      });
+    }
   }
 
   checaFim() {
@@ -111,7 +117,6 @@ export default class CenaJogo extends Cena {
 
     orc.controlar = function (dt) {
       if (cena.pcCenaJogo.x >= this.x) {
-        
         cena.acaoNoMomentoORC = "PARA_DIREITA";
       } else {
         cena.acaoNoMomentoORC = "PARADO";
@@ -159,14 +164,16 @@ export default class CenaJogo extends Cena {
           if (this.vx < 0) {
             var tiro = new Magia({
               x: this.x - 50,
-              y: this.y,
+              y: this.y - 10,
               vx: -100,
+              lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
               x: this.x + 50,
-              y: this.y,
+              y: this.y - 10,
               vx: +100,
+              lado: "Direita",
             });
           }
           tiro.tags.add("tiro");

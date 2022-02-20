@@ -19,10 +19,11 @@ const instrucoes = document.getElementById("instruction-container");
 
 assets.carregaImagem("tiles", "assets/tileset.png");
 assets.carregaImagem("pc", "assets/PC.png");
-assets.carregaImagem("tiro", "assets/tiro.png");
+assets.carregaImagem("tiro", "assets/tiro2.png");
+assets.carregaImagem("tiro2", "assets/tiro.png");
 assets.carregaImagem("back1", "assets/backCena1.jpg");
 assets.carregaImagem("orcBase", "assets/OrcsBasicos.png");
-assets.carregaImagem("orcXama", "assets/OrcsXama.png");
+assets.carregaImagem("orcXama", "assets/OrcXama.png");
 
 instrucoes.style.visibility = "hidden";
 

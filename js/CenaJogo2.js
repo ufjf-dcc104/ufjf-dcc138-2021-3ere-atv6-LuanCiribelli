@@ -36,7 +36,13 @@ export default class CenaJogo2 extends Cena {
           this.aRemover.push(b);
         }
 
-        if (a.tags.has("pc") && b.tags.has("enemy")) {
+        if (
+          (a.tags.has("pc") && b.tags.has("enemy")) ||
+          (a.tags.has("pc") && b.tags.has("tiroXama")) ||
+          (a.tags.has("pc") && b.tags.has("espadaORC")) ||
+          (a.tags.has("pc") && b.tags.has("orcBase")) ||
+          (a.tags.has("pc") && b.tags.has("orcXama"))
+        ) {
           this.rodando = false;
           this.assets.play("derrota");
           this.game.selecionaCena("fim");
@@ -69,11 +75,12 @@ export default class CenaJogo2 extends Cena {
           this.acaoNoMomentoORC
         );
         if (sprite.aplicaRestricoes()) {
-          if(sprite.tags.has("pc")){
+          if (sprite.tags.has("pc")) {
             this.game.selecionaCena("fim", 0);
-          }else{
-          this.onColisao(sprite, sprite);
-        }}
+          } else {
+            this.onColisao(sprite, sprite);
+          }
+        }
       });
     }
   }
@@ -83,7 +90,7 @@ export default class CenaJogo2 extends Cena {
     } else if (this.pcCenaJogo.x < 17) {
       this.game.selecionaCena("fase1", 2);
     }
-    if (this.sprites.length == 0 ) {
+    if (this.sprites.length == 0) {
       this.game.selecionaCena("fim", 0);
     }
   }
@@ -117,35 +124,35 @@ export default class CenaJogo2 extends Cena {
     const cena = this;
 
     orc.controlar = function (dt) {
-
-      cena.OrcCD += -1*dt
+      cena.OrcCD += -1 * dt;
 
       if (this.x - 64 < cena.pcCenaJogo.x && this.x + 64 > cena.pcCenaJogo.x) {
         this.vx = 20 * Math.sign(cena.pcCenaJogo.x - this.x);
-        if(cena.OrcCD <=0){
-        if (this.x > cena.pcCenaJogo.x) {
-          cena.acaoNoMomentoORC = "BATENDO"
-          var batidaORC = new Lancada({
-            x: this.x - 32,
-            y: this.y+32,
-            h: 10,
-            w: 32,
-            color: "rgba(255, 0, 0, 1)",
-          });
-          batidaORC.tags.add("espadaORC");
-        } else {
-          cena.acaoNoMomentoORC = "BATENDO"
-          var batidaORC = new Lancada({
-            x: this.x + 32,
-            y: this.y+32,
-            h: 10,
-            w: 32,
-            color: "rgba(255, 0, 0, 1)",
-          });
-          batidaORC.tags.add("espadaORC");
+        if (cena.OrcCD <= 0) {
+          if (this.x > cena.pcCenaJogo.x) {
+            cena.acaoNoMomentoORC = "BATENDO";
+            var batidaORC = new Lancada({
+              x: this.x - 32,
+              y: this.y + 32,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 1)",
+            });
+            batidaORC.tags.add("espadaORC");
+          } else {
+            cena.acaoNoMomentoORC = "BATENDO";
+            var batidaORC = new Lancada({
+              x: this.x + 32,
+              y: this.y + 32,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 1)",
+            });
+            batidaORC.tags.add("espadaORC");
+          }
+          cena.OrcCD = 2;
+          this.cena.adicionar(batidaORC);
         }
-        cena.OrcCD=2;
-        this.cena.adicionar(batidaORC);}
       } else {
         if (this.x >= 16 * 32) {
           cena.dirOrc = "esquerda";
@@ -205,14 +212,16 @@ export default class CenaJogo2 extends Cena {
           if (this.vx < 0) {
             var tiro = new Magia({
               x: this.x - 50,
-              y: this.y,
+              y: this.y - 10,
               vx: -100,
+              lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
               x: this.x + 50,
-              y: this.y,
+              y: this.y - 10,
               vx: +100,
+              lado: "Direita",
             });
           }
           tiro.tags.add("tiro");
@@ -222,7 +231,6 @@ export default class CenaJogo2 extends Cena {
         }
       }
       if (cena.input.comandos.get("BATER")) {
-       
         if (cena.CoolDown <= 0) {
           cena.acaoNoMomento = "BATENDO";
           if (this.vx < 0) {

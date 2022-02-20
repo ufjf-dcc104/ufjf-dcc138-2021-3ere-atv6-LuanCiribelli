@@ -6,6 +6,8 @@ import Magia from "./Magia.js";
 import Machadada from "./Machadada.js";
 import Lancada from "./Lancada.js";
 import OrcSoldado from "./OrcSoldado.js";
+import OrcXama from "./OrcXama.js";
+import MagiaInimigo from "./MagiaInimigo.js";
 
 import { mapa3 as modeloMapa3 } from "../maps/mapa3.js";
 
@@ -28,6 +30,12 @@ export default class CenaJogo2 extends Cena {
         (a.tags.has("orcBase") && b.tags.has("espadaORC")) ||
         (a.tags.has("espadaORC") && b.tags.has("orcBase"))
       ) {
+      } else if (
+        (a.tags.has("orcBase") && b.tags.has("tiroXama")) ||
+        (a.tags.has("tiroXama") && b.tags.has("orcBase")) ||
+        (a.tags.has("tiroXama") && b.tags.has("orcXama")) ||
+        (a.tags.has("orcXama") && b.tags.has("tiroXama"))
+      ) {
       } else {
         if (!this.aRemover.includes(a)) {
           this.aRemover.push(a);
@@ -36,7 +44,13 @@ export default class CenaJogo2 extends Cena {
           this.aRemover.push(b);
         }
 
-        if (a.tags.has("pc") && b.tags.has("enemy")) {
+        if (
+          (a.tags.has("pc") && b.tags.has("enemy")) ||
+          (a.tags.has("pc") && b.tags.has("tiroXama")) ||
+          (a.tags.has("pc") && b.tags.has("espadaORC")) ||
+          (a.tags.has("pc") && b.tags.has("orcBase")) ||
+          (a.tags.has("pc") && b.tags.has("orcXama"))
+        ) {
           this.rodando = false;
           this.assets.play("derrota");
           this.game.selecionaCena("fim");
@@ -66,14 +80,16 @@ export default class CenaJogo2 extends Cena {
           this.ctx,
           this.dt,
           this.acaoNoMomento,
-          this.acaoNoMomentoORC
+          this.acaoNoMomentoORC,
+          this.orcXamaAcaoNoMomento
         );
         if (sprite.aplicaRestricoes()) {
-          if(sprite.tags.has("pc")){
+          if (sprite.tags.has("pc")) {
             this.game.selecionaCena("fim", 0);
-          }else{
-          this.onColisao(sprite, sprite);
-        }}
+          } else {
+            this.onColisao(sprite, sprite);
+          }
+        }
       });
     }
   }
@@ -110,58 +126,73 @@ export default class CenaJogo2 extends Cena {
     let orc = new OrcSoldado({ x: 32 * 11, y: 32 * 10, h: 32, w: 32 });
     orc.tags.add("orcBase");
 
+    let orcXama = new OrcXama({ x: 32 * 18, y: 32 * 10, h: 16, w: 16 });
+    orcXama.tags.add("orcXama");
+
     this.pcCenaJogo = pc;
     this.CoolDown = 0;
 
-    this.dirOrc = "direita";
+    this.dirOrc = "esquerda";
     this.OrcCD = 4;
+    this.MagiaOrcCd = 0;
+    this.orcXamaAcaoNoMomento;
     const cena = this;
 
     orc.controlar = function (dt) {
-
-      cena.OrcCD += -1*dt
-
       if (this.x - 64 < cena.pcCenaJogo.x && this.x + 64 > cena.pcCenaJogo.x) {
-        this.vx = 20 * Math.sign(cena.pcCenaJogo.x - this.x);
-        if(cena.OrcCD <=0){
-        if (this.x > cena.pcCenaJogo.x) {
-          cena.acaoNoMomentoORC = "BATENDO"
-          var batidaORC = new Lancada({
-            x: this.x - 32,
-            y: this.y+32,
-            h: 10,
-            w: 32,
-            color: "rgba(255, 0, 0, 1)",
-          });
-          batidaORC.tags.add("espadaORC");
-        } else {
-          cena.acaoNoMomentoORC = "BATENDO"
-          var batidaORC = new Lancada({
-            x: this.x + 32,
-            y: this.y+32,
-            h: 10,
-            w: 32,
-            color: "rgba(255, 0, 0, 1)",
-          });
-          batidaORC.tags.add("espadaORC");
+        if (cena.OrcCD <= 0) {
+          if (this.x > cena.pcCenaJogo.x) {
+            cena.acaoNoMomentoORC = "BATENDO";
+            var batidaORC = new Lancada({
+              x: this.x - 32,
+              y: this.y + 32,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 1)",
+            });
+            batidaORC.tags.add("espadaORC");
+          } else {
+            cena.acaoNoMomentoORC = "BATENDO";
+            var batidaORC = new Lancada({
+              x: this.x + 32,
+              y: this.y + 32,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 1)",
+            });
+            batidaORC.tags.add("espadaORC");
+          }
+          cena.OrcCD = 2;
+          this.cena.adicionar(batidaORC);
         }
-        cena.OrcCD=2;
-        this.cena.adicionar(batidaORC);}
       } else {
-        if (this.x >= 16 * 32) {
-          cena.dirOrc = "esquerda";
-        }
-        if (this.x <= 10 * 32) {
-          cena.dirOrc = "direita";
-        }
-        if (cena.dirOrc == "direita") {
-          this.vx = +30;
+        this.vx = 20 * Math.sign(pc.x - this.x);
+        if (this.vx > 0) {
           cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
-        } else if (cena.dirOrc == "esquerda") {
-          this.vx = -30;
+        } else if (this.vx < 0) {
           cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
         }
       }
+      cena.OrcCD += -1 * dt;
+    };
+    orcXama.controlar = function (dt) {
+      if (cena.MagiaOrcCd <= 0) {
+        cena.orcXamaAcaoNoMomento = "ATIRANDO";
+
+        var tiroXama = new MagiaInimigo({
+          x: this.x - 5,
+          y: this.y + 10,
+          vx: -100,
+        });
+        tiroXama.tags.add("tiroXama");
+        this.cena.adicionar(tiroXama);
+        tiroXama.mover(0);
+
+        cena.MagiaOrcCd = 5;
+      } else {
+        cena.orcXamaAcaoNoMomento = "PARADO_ESQUERDA";
+      }
+      cena.MagiaOrcCd += -1 * dt;
     };
 
     pc.controlar = function (dt) {
@@ -206,14 +237,16 @@ export default class CenaJogo2 extends Cena {
           if (this.vx < 0) {
             var tiro = new Magia({
               x: this.x - 50,
-              y: this.y,
+              y: this.y - 10,
               vx: -100,
+              lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
               x: this.x + 50,
-              y: this.y,
+              y: this.y - 10,
               vx: +100,
+              lado: "Direita",
             });
           }
           tiro.tags.add("tiro");
@@ -223,7 +256,7 @@ export default class CenaJogo2 extends Cena {
         }
       }
       if (cena.input.comandos.get("BATER")) {
-        console.log(cena.CoolDown);
+        
         if (cena.CoolDown <= 0) {
           cena.acaoNoMomento = "BATENDO";
           if (this.vx < 0) {
@@ -247,6 +280,7 @@ export default class CenaJogo2 extends Cena {
       }
     };
     this.adicionar(orc);
+    this.adicionar(orcXama);
     this.adicionar(pc);
   }
 }

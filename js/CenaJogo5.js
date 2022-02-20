@@ -111,13 +111,13 @@ export default class CenaJogo5 extends Cena {
           if (this.vx < 0) {
             var tiro = new Magia({
               x: this.x - 50,
-              y: this.y,
+              y: this.y-10,
               vx: -100,
             });
           } else {
             var tiro = new Magia({
               x: this.x + 50,
-              y: this.y,
+              y: this.y-10,
               vx: +100,
             });
           }
