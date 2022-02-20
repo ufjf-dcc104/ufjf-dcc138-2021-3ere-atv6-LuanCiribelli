@@ -5,7 +5,7 @@ import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 import PC from "./PC.js";
 import Magia from "./Magia.js";
 import Espadada from "./Espadada.js";
-import OrcBasic from "./OrcBasic.js";
+import OrcDistraido from "./OrcDistraido.js";
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -60,12 +60,17 @@ export default class CenaJogo extends Cena {
     this.mapa?.draw(this.ctx);
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
-        sprite.draw(this.ctx, this.dt, this.acaoNoMomento);
-        if (sprite.aplicaRestricoes()) {
-          this.onColisao(sprite, sprite);
-        }
-      });
-    }
+      sprite.draw(
+        this.ctx,
+        this.dt,
+        this.acaoNoMomento,
+        this.acaoNoMomentoORC
+      );
+      if (sprite.aplicaRestricoes()) {
+        this.onColisao(sprite, sprite);
+      }
+    });
+  }
   }
 
   checaFim() {
@@ -98,7 +103,7 @@ export default class CenaJogo extends Cena {
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
 
-    let orc = new OrcBasic({ x: 32 * 10, y: 32 * 10, h: 32, w: 32 });
+    let orc = new OrcDistraido({ x: 32 * 10, y: 32 * 10, h: 32, w: 32 });
     orc.tags.add("orcBase");
 
     this.CoolDown = 0;
@@ -106,22 +111,8 @@ export default class CenaJogo extends Cena {
 
     orc.controlar = function (dt) {
       if (cena.pcCenaJogo.x >= this.x) {
-        cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
-        this.vx = +50;
-        if ((cena.pcCenaJogo.x = this.x + 32)) {
-          cena.acaoNoMomentoORC = "BATENDO";
-
-          var batidaOrc = new Espadada({
-            x: this.x + 10,
-            y: this.y,
-            w: 24,
-            h: 16,
-            color: "rgba(255, 0, 0, 0)",
-          });
-          batidaOrc.tags.add("espadaORC");
-
-          this.cena.adicionar(batidaOrc);
-        }
+        
+        cena.acaoNoMomentoORC = "PARA_DIREITA";
       } else {
         cena.acaoNoMomentoORC = "PARADO";
       }

@@ -18,8 +18,13 @@ export default class Cena {
 
     this.mapa?.draw(this.ctx);
     if (this.assets.acabou()) {
-      this.sprites.forEach((sprite) => {
-        sprite.draw(this.ctx, this.dt, this.acaoNoMomento,this.acaoNoMomentoORC);
+        this.sprites.forEach((sprite) => {
+        sprite.draw(
+          this.ctx,
+          this.dt,
+          this.acaoNoMomento,
+          this.acaoNoMomentoORC
+        );
         if (sprite.aplicaRestricoes()) {
           this.onColisao(sprite, sprite);
         }
