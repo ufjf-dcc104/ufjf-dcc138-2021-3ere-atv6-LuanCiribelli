@@ -97,7 +97,7 @@ export default class CenaJogo extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 16, w: 16 });
+    const pc = new PC({ h: 16, w: 16,mana: 2 });
 
     if (porta == 1) {
       pc.x = 32 * 1;
@@ -159,7 +159,8 @@ export default class CenaJogo extends Cena {
         }
       }
       if (cena.input.comandos.get("ATIRAR")) {
-        if (cena.CoolDown <= 0) {
+        console.log(this.mana)
+        if (cena.CoolDown <= 0 && this.mana > 0) {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
@@ -180,6 +181,7 @@ export default class CenaJogo extends Cena {
           this.cena.adicionar(tiro);
           tiro.mover(0);
           cena.CoolDown = 0.4;
+          this.mana += -1;
         }
       }
       if (cena.input.comandos.get("BATER")) {
