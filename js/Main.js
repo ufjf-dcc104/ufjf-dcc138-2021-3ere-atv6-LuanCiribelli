@@ -21,11 +21,11 @@ assets.carregaImagem("tiles", "assets/tileset.png");
 assets.carregaImagem("pc", "assets/PC.png");
 assets.carregaImagem("tiro", "assets/tiro.png");
 assets.carregaImagem("back1", "assets/backCena1.jpg");
+assets.carregaImagem("orcBase", "assets/OrcsBasicos.png");
 
 instrucoes.style.visibility = "hidden";
 
-assets.carregaAudio("colisaoInimigos", "assets/jump.wav");
-assets.carregaAudio("boom", "assets/boom.wav");
+
 assets.carregaAudio("derrota", "assets/lose.wav");
 assets.carregaAudio("vitoria", "assets/victory.wav");
 assets.carregaAudio("gameOver", "assets/GAMEOVER.wav");
@@ -80,7 +80,7 @@ document.addEventListener("keydown", (e) => {
 
     case "r":
       game.timer = new Date();
-      game.cena.preparar();
+      game.cena.preparar(1);
       break;
     case "h":
       if (instrucoes.style.visibility == "hidden") {

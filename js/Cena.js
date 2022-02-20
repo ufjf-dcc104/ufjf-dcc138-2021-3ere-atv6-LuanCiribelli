@@ -8,6 +8,7 @@ export default class Cena {
     this.game = null;
     this.preparar();
     this.acaoNoMomento = "PARADO";
+    this.acaoNoMomentoORC = "PARADO";
     this.CoolDown = 0;
   }
 
@@ -18,7 +19,7 @@ export default class Cena {
     this.mapa?.draw(this.ctx);
     if (this.assets.acabou()) {
       this.sprites.forEach((sprite) => {
-        sprite.draw(this.ctx, this.dt, this.acaoNoMomento);
+        sprite.draw(this.ctx, this.dt, this.acaoNoMomento,this.acaoNoMomentoORC);
         if (sprite.aplicaRestricoes()) {
           this.onColisao(sprite, sprite);
         }

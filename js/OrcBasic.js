@@ -1,6 +1,6 @@
 import Sprite from "./Sprite.js";
 
-export default class PC extends Sprite {
+export default class OrcBasic extends Sprite {
 
    
     constructor({
@@ -31,13 +31,13 @@ export default class PC extends Sprite {
         tags.forEach((tag) => {
           this.tags.add(tag);
         });
-        this.quadroPC = 0;
-        this.posePC = 0;
+        this.quadroORC = 0;
+        this.poseORC = 0;
         this.quadroMagia = 0;
         this.contadorDePose = 0;
       }
     
-      draw(ctx, dt, acao) {
+      draw(ctx, dt, a,acao) {
         const POSES = [
           { qmax: 7, pv: 7 },
           { qmax: 7, pv: 7 },
@@ -63,41 +63,41 @@ export default class PC extends Sprite {
         
         ];
     
-        this.quadroPC =
-          this.quadroPC >= POSES[this.posePC].qmax - 1
+        this.quadroORC =
+          this.quadroORC >= POSES[this.poseORC].qmax - 1
             ? 0
-            : this.quadroPC + POSES[this.posePC].pv * dt;
+            : this.quadroORC + POSES[this.poseORC].pv * dt;
     
         if (this.contadorDePose == 0) {
           if (acao == null || acao == "PARADO") {
-            this.posePC = 10;
-            this.quadroPC = 0;
+            this.poseORC = 7;
+            this.quadroORC = 0;
           } else if (acao == "MOVENDO_PARA_ESQUERDA") {
-            this.posePC = 9;
+            this.poseORC = 9;
           } else if (acao == "MOVENDO_PARA_DIREITA") {
-            this.posePC = 11;
+            this.poseORC = 11;
           } else if (acao == "ATIRANDO") {
-            this.posePC = 7;
-            this.contadorDePose = 7 * POSES[this.posePC].pv;
+            this.poseORC = 7;
+            this.contadorDePose = 7 * POSES[this.poseORC].pv;
           } else if (acao == "BATENDO") {
             if (this.vx < 0) {
-              this.posePC = 13;
-              this.contadorDePose = 7 * POSES[this.posePC].pv;
+              this.poseORC = 13;
+              this.contadorDePose = 7 * POSES[this.poseORC].pv;
           
             } else {
-              this.posePC = 15;
-              this.contadorDePose = 7 * POSES[this.posePC].pv;
+              this.poseORC = 15;
+              this.contadorDePose = 7 * POSES[this.poseORC].pv;
       
             }
-          }
+          }  
         }
         if (this.contadorDePose > 0) {
           this.contadorDePose += -1;
         }
         ctx.drawImage(
-          this.cena.assets.img("pc"),
-          64 * Math.floor(this.quadroPC),
-          64 * Math.floor(this.posePC),
+          this.cena.assets.img("orcBase"),
+          64 * Math.floor(this.quadroORC),
+          64 * Math.floor(this.poseORC),
           64,
           64,
           this.x - this.w / 2,
@@ -106,10 +106,7 @@ export default class PC extends Sprite {
           this.h +16,
         );
     
-        ctx.strokeRect(this.x - this.w / 2,
-          this.y - this.h / 2,
-          this.w,
-          this.h)
+ 
       }
     
       mover(dt) {
