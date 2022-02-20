@@ -4,8 +4,8 @@ import Sprite from "./Sprite.js";
 import { mapa1 as modeloMapa1 } from "../maps/mapa1.js";
 import PC from "./PC.js";
 import Magia from "./Magia.js";
-import Espadada from "./Espadada.js";
-import OrcDistraido from "./OrcDistraido.js";
+import Machadada from "./Machadada.js";
+import OrcSoldado from "./OrcSoldado.js";
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -103,7 +103,7 @@ export default class CenaJogo extends Cena {
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
 
-    let orc = new OrcDistraido({ x: 32 * 10, y: 32 * 10, h: 32, w: 32 });
+    let orc = new OrcSoldado({ x: 32 * 10, y: 32 * 10, h: 32, w: 32 });
     orc.tags.add("orcBase");
 
     this.CoolDown = 0;
@@ -179,14 +179,14 @@ export default class CenaJogo extends Cena {
         if (cena.CoolDown <= 0) {
           cena.acaoNoMomento = "BATENDO";
           if (this.vx < 0) {
-            var batida = new Espadada({
+            var batida = new Machadada({
               x: this.x - 32,
               y: this.y,
               color: "rgba(255, 0, 0, 0)",
             });
             batida.tags.add("espada");
           } else {
-            var batida = new Espadada({
+            var batida = new Machadada({
               x: this.x + 32,
               y: this.y,
               color: "rgba(255, 0, 0, 0)",

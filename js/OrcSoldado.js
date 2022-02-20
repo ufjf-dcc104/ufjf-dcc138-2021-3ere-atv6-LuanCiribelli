@@ -1,6 +1,6 @@
 import Sprite from "./Sprite.js";
 
-export default class OrcDistraido extends Sprite {
+export default class OrcSoldado  extends Sprite {
   constructor({
     x = 100,
     y = 32 * 10,
@@ -31,6 +31,7 @@ export default class OrcDistraido extends Sprite {
     });
     this.quadroORC = 0;
     this.poseORC = 0;
+    this.contadorDePose = 0;
   }
 
   draw(ctx, dt, a, acao) {
@@ -58,15 +59,38 @@ export default class OrcDistraido extends Sprite {
       { qmax: 6, pv: 6 },
     ];
 
-  
-    
+    this.quadroORC =
+      this.quadroORC >= POSES[this.poseORC].qmax - 1
+        ? 0
+        : this.quadroORC + POSES[this.poseORC].pv * dt;
+
+      
+    if (this.contadorDePose == 0) {
       if (acao == null || acao == "PARADO") {
         this.poseORC = 7;
         this.quadroORC = 0;
       } else if (acao == "PARA_DIREITA") {
         this.poseORC = 5;
         this.quadroORC = 0;
+      } else if (acao == "MOVENDO_PARA_ESQUERDA") {
+   
+        this.poseORC = 9;
+      } else if (acao == "MOVENDO_PARA_DIREITA") {
+      
+        this.poseORC = 11;
+      } else if (acao == "BATENDO") {
+        if (this.vx < 0) {
+          this.poseORC = 5;
+          this.contadorDePose = 10 * POSES[this.poseORC].pv;
+        } else {
+          this.poseORC = 7;
+          this.contadorDePose = 10 * POSES[this.poseORC].pv;
+        }
       }
+    }
+    if (this.contadorDePose > 0) {
+      this.contadorDePose += -1;
+    }
 
     ctx.drawImage(
       this.cena.assets.img("orcBase"),
@@ -77,7 +101,7 @@ export default class OrcDistraido extends Sprite {
       this.x - this.w / 2,
       this.y - this.h / 2,
       this.w + 32,
-      this.h + 32,
+      this.h + 32
     );
   }
 }

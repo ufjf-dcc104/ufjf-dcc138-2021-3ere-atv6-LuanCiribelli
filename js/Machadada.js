@@ -1,6 +1,6 @@
 import Sprite from "./Sprite.js";
 
-export default class Espadada extends Sprite {
+export default class Machadada extends Sprite {
   constructor({
     x = 100,
     y = 100,
@@ -28,7 +28,7 @@ export default class Espadada extends Sprite {
     tags.forEach((tag) => {
       this.tags.add(tag);
     });
-    this.coolDownEsp = 0.5;
+    this.coolDownEsp = 1;
   }
 
   aplicaRestricoes(dt) {

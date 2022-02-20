@@ -42,18 +42,6 @@ export default class {
               this.SIZE,
               this.SIZE
             ); break;
-            case 5: 
-            ctx.drawImage(
-              this.cena.assets.img("tiles"),
-              32 * 18,
-              32 * 8,
-              32,
-              31,
-              c * this.SIZE,
-              l * this.SIZE,
-              this.SIZE,
-              this.SIZE
-            ); break;
             case 6: 
             ctx.drawImage(
               this.cena.assets.img("tiles"),

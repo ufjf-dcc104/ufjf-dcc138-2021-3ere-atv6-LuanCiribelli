@@ -3,7 +3,7 @@ import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
 import PC from "./PC.js";
 import Magia from "./Magia.js";
-import Espadada from "./Espadada.js";
+import Machadada from "./Machadada.js";
 import { mapa4 as modeloMapa4 } from "../maps/mapa4.js";
 
 function getRandomIntInclusive(min, max) {
@@ -33,7 +33,7 @@ export default class CenaJogo4 extends Cena {
         this.assets.play("derrota");
         this.game.selecionaCena("fim");
       } else {
-        this.assets.play("colisaoInimigos");
+      //  this.assets.play("colisaoInimigos");
       }
     }
   }
@@ -133,14 +133,14 @@ export default class CenaJogo4 extends Cena {
         if (cena.CoolDown <= 0) {
           cena.acaoNoMomento = "BATENDO";
           if (this.vx < 0) {
-            var batida = new Espadada({
+            var batida = new Machadada({
               x: this.x - 32,
               y: this.y,
               color: "rgba(255, 0, 0, 0)",
             });
             batida.tags.add("espada");
           } else {
-            var batida = new Espadada({
+            var batida = new Machadada({
               x: this.x + 32,
               y: this.y,
               color: "rgba(255, 0, 0, 0)",

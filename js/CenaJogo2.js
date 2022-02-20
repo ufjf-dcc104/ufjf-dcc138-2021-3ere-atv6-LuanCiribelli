@@ -3,7 +3,10 @@ import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
 import PC from "./PC.js";
 import Magia from "./Magia.js";
-import Espadada from "./Espadada.js";
+import Machadada from "./Machadada.js";
+import Lancada from "./Lancada.js";
+import OrcSoldado from "./OrcSoldado.js";
+
 import { mapa2 as modeloMapa2 } from "../maps/mapa2.js";
 
 function getRandomIntInclusive(min, max) {
@@ -21,20 +24,57 @@ export default class CenaJogo2 extends Cena {
       (b.tags.has("pc") && a.tags.has("espada"))
     ) {
     } else {
-      if (!this.aRemover.includes(a)) {
-        this.aRemover.push(a);
-      }
-      if (!this.aRemover.includes(b)) {
-        this.aRemover.push(b);
-      }
-
-      if (a.tags.has("pc") && b.tags.has("enemy")) {
-        this.rodando = false;
-        this.assets.play("derrota");
-        this.game.selecionaCena("fim");
+      if (
+        (a.tags.has("orcBase") && b.tags.has("espadaORC")) ||
+        (a.tags.has("espadaORC") && b.tags.has("orcBase"))
+      ) {
       } else {
-        this.assets.play("colisaoInimigos");
+        if (!this.aRemover.includes(a)) {
+          this.aRemover.push(a);
+        }
+        if (!this.aRemover.includes(b)) {
+          this.aRemover.push(b);
+        }
+
+        if (a.tags.has("pc") && b.tags.has("enemy")) {
+          this.rodando = false;
+          this.assets.play("derrota");
+          this.game.selecionaCena("fim");
+        } else {
+          // this.assets.play("colisaoInimigos");
+        }
       }
+    }
+  }
+
+  draw() {
+    this.ctx.fillStyle = "lightblue";
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.ctx.drawImage(
+      this.assets.img("back1"),
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
+
+    this.mapa?.draw(this.ctx);
+    if (this.assets.acabou()) {
+      this.sprites.forEach((sprite) => {
+        sprite.draw(
+          this.ctx,
+          this.dt,
+          this.acaoNoMomento,
+          this.acaoNoMomentoORC
+        );
+        if (sprite.aplicaRestricoes()) {
+          if(sprite.tags.has("pc")){
+            this.game.selecionaCena("fim", 0);
+          }else{
+          this.onColisao(sprite, sprite);
+        }}
+      });
     }
   }
   checaFim() {
@@ -43,7 +83,7 @@ export default class CenaJogo2 extends Cena {
     } else if (this.pcCenaJogo.x < 17) {
       this.game.selecionaCena("fase1", 2);
     }
-    if (this.sprites.length == 0) {
+    if (this.sprites.length == 0 ) {
       this.game.selecionaCena("fim", 0);
     }
   }
@@ -65,9 +105,63 @@ export default class CenaJogo2 extends Cena {
       pc.y = 32 * 10;
     }
     pc.tags.add("pc");
+
+    let orc = new OrcSoldado({ x: 32 * 11, y: 32 * 10, h: 32, w: 32 });
+    orc.tags.add("orcBase");
+
     this.pcCenaJogo = pc;
     this.CoolDown = 0;
+
+    this.dirOrc = "direita";
+    this.OrcCD = 4;
     const cena = this;
+
+    orc.controlar = function (dt) {
+
+      cena.OrcCD += -1*dt
+
+      if (this.x - 64 < cena.pcCenaJogo.x && this.x + 64 > cena.pcCenaJogo.x) {
+        this.vx = 20 * Math.sign(cena.pcCenaJogo.x - this.x);
+        if(cena.OrcCD <=0){
+        if (this.x > cena.pcCenaJogo.x) {
+          cena.acaoNoMomentoORC = "BATENDO"
+          var batidaORC = new Lancada({
+            x: this.x - 32,
+            y: this.y+32,
+            h: 10,
+            w: 32,
+            color: "rgba(255, 0, 0, 1)",
+          });
+          batidaORC.tags.add("espadaORC");
+        } else {
+          cena.acaoNoMomentoORC = "BATENDO"
+          var batidaORC = new Lancada({
+            x: this.x + 32,
+            y: this.y+32,
+            h: 10,
+            w: 32,
+            color: "rgba(255, 0, 0, 1)",
+          });
+          batidaORC.tags.add("espadaORC");
+        }
+        cena.OrcCD=2;
+        this.cena.adicionar(batidaORC);}
+      } else {
+        if (this.x >= 16 * 32) {
+          cena.dirOrc = "esquerda";
+        }
+        if (this.x <= 10 * 32) {
+          cena.dirOrc = "direita";
+        }
+        if (cena.dirOrc == "direita") {
+          this.vx = +30;
+          cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
+        } else if (cena.dirOrc == "esquerda") {
+          this.vx = -30;
+          cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
+        }
+      }
+    };
 
     pc.controlar = function (dt) {
       if (cena.input.comandos.get("MOVE_ESQUERDA")) {
@@ -128,18 +222,18 @@ export default class CenaJogo2 extends Cena {
         }
       }
       if (cena.input.comandos.get("BATER")) {
-        console.log(cena.CoolDown);
+       
         if (cena.CoolDown <= 0) {
           cena.acaoNoMomento = "BATENDO";
           if (this.vx < 0) {
-            var batida = new Espadada({
+            var batida = new Machadada({
               x: this.x - 32,
               y: this.y,
               color: "rgba(255, 0, 0, 0)",
             });
             batida.tags.add("espada");
           } else {
-            var batida = new Espadada({
+            var batida = new Machadada({
               x: this.x + 32,
               y: this.y,
               color: "rgba(255, 0, 0, 0)",
@@ -151,7 +245,7 @@ export default class CenaJogo2 extends Cena {
         }
       }
     };
-
+    this.adicionar(orc);
     this.adicionar(pc);
   }
 }
