@@ -37,13 +37,26 @@ export default class Magia extends Sprite {
       }
     
   
-      draw(ctx, dt, acao) {
-        if (this.quadroMagia <= 4) {
-          this.quadroMagia += 1;
+     draw(ctx, dt, acao) {
+              if (this.quadroMagia <= 4) {
+
     
           ctx.drawImage(
             this.cena.assets.img("tiro"),
             32 * Math.floor(this.quadroMagia),
+            32 * 1,
+            32,
+            32,
+            this.x - this.w / 2,
+            this.y - this.h / 2,
+            this.w,
+            this.h
+          );
+          this.quadroMagia += 1;
+        } else {
+          ctx.drawImage(
+            this.cena.assets.img("tiro"),
+            32 * 2,
             32 * 2,
             32,
             32,
@@ -52,20 +65,8 @@ export default class Magia extends Sprite {
             this.w,
             this.h
           );
-        } else {
-          ctx.drawImage(
-            this.cena.assets.img("tiro"),
-            32 * 3,
-            32 * 3,
-            32,
-            32,
-            this.x - this.w / 2,
-            this.y - this.h / 2,
-            this.w,
-            this.h
-          );
-        }
-      }
+       
+      } }
 
 }
 
