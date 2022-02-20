@@ -181,7 +181,7 @@ export default class CenaJogo4 extends Cena {
     };
     orc2.controlar = function (dt) {
       if (this.x - 64 < cena.pcCenaJogo.x && this.x + 64 > cena.pcCenaJogo.x) {
-        if (cena.OrcCD <= 0) {
+        if (cena.OrcCD <= 0 ) {
           if (this.x > cena.pcCenaJogo.x) {
             cena.acaoNoMomentoORC = "BATENDO";
             var batidaORC = new Lancada({
@@ -253,7 +253,7 @@ export default class CenaJogo4 extends Cena {
         }
       }
       if (cena.input.comandos.get("ATIRAR")) {
-        if (cena.CoolDown <= 0) {
+        if (cena.CoolDown <= 0 && this.mana >0) {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
@@ -274,6 +274,7 @@ export default class CenaJogo4 extends Cena {
           this.cena.adicionar(tiro);
           tiro.mover(0);
           cena.CoolDown = 0.4;
+          this.mana -= 1;
         }
       }
       if (cena.input.comandos.get("BATER")) {

@@ -11,6 +11,7 @@ export default class PC extends Sprite {
     color = "white",
     controlar = () => {},
     tags = [],
+    mana = 2,
   } = {}) {
     super();
     this.x = x;
@@ -32,6 +33,7 @@ export default class PC extends Sprite {
     this.quadroPC = 0;
     this.posePC = 0;
     this.contadorDePose = 0;
+    this.mana= mana;
   }
 
   draw(ctx, dt, acao) {
