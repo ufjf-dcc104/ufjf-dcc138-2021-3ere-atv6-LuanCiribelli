@@ -136,7 +136,7 @@ export default class CenaJogo2 extends Cena {
               y: this.y + 32,
               h: 10,
               w: 32,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batidaORC.tags.add("espadaORC");
           } else {
@@ -146,7 +146,7 @@ export default class CenaJogo2 extends Cena {
               y: this.y + 32,
               h: 10,
               w: 32,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batidaORC.tags.add("espadaORC");
           }

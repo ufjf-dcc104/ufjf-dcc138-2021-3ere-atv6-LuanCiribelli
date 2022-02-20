@@ -11,7 +11,7 @@ export default class PC extends Sprite {
     color = "white",
     controlar = () => {},
     tags = [],
-    mana = 2,
+    mana = 4,
   } = {}) {
     super();
     this.x = x;
