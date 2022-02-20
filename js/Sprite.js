@@ -12,6 +12,7 @@ export default class Sprite {
     color = "white",
     controlar = () => {},
     tags = [],
+    vidas = 1
   } = {}) {
     this.x = x;
     this.y = y;
@@ -24,7 +25,7 @@ export default class Sprite {
     this.color = color;
     this.cena = null;
     this.controlar = controlar;
-
+    this.vidas = vidas,
     this.tags = new Set();
     tags.forEach((tag) => {
       this.tags.add(tag);

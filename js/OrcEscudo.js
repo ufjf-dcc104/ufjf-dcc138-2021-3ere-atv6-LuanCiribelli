@@ -10,6 +10,7 @@ export default class OrcEscudo  extends Sprite {
     vy = 0,
     color = "white",
     controlar = () => {},
+    vidas=4,
     tags = [],
   } = {}) {
     super();
@@ -25,6 +26,7 @@ export default class OrcEscudo  extends Sprite {
     this.cena = null;
     this.controlar = controlar;
     this.gravidade = 100;
+    this.vidas = vidas;
     this.tags = new Set();
     tags.forEach((tag) => {
       this.tags.add(tag);
