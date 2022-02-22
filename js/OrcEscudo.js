@@ -1,6 +1,6 @@
 import Sprite from "./Sprite.js";
 
-export default class OrcEscudo  extends Sprite {
+export default class OrcEscudo extends Sprite {
   constructor({
     x = 100,
     y = 32 * 10,
@@ -10,7 +10,7 @@ export default class OrcEscudo  extends Sprite {
     vy = 0,
     color = "white",
     controlar = () => {},
-    vidas=4,
+    vidas = 4,
     tags = [],
   } = {}) {
     super();
@@ -66,7 +66,6 @@ export default class OrcEscudo  extends Sprite {
         ? 0
         : this.quadroORC + POSES[this.poseORC].pv * dt;
 
-      
     if (this.contadorDePose == 0) {
       if (acao == null || acao == "PARADO") {
         this.poseORC = 7;
@@ -75,10 +74,8 @@ export default class OrcEscudo  extends Sprite {
         this.poseORC = 5;
         this.quadroORC = 0;
       } else if (acao == "MOVENDO_PARA_ESQUERDA") {
-   
         this.poseORC = 9;
       } else if (acao == "MOVENDO_PARA_DIREITA") {
-      
         this.poseORC = 11;
       } else if (acao == "BATENDO") {
         if (this.vx < 0) {
@@ -100,10 +97,20 @@ export default class OrcEscudo  extends Sprite {
       64 * Math.floor(this.poseORC),
       64,
       64,
-      this.x - this.w / 2,
-      this.y - this.h / 2,
-      this.w + 32,
-      this.h + 32
+      this.x - 64 / 2,
+      this.y - 64 / 2 - 12,
+      64,
+      64
     );
+   // ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+  }
+
+  mover(dt) {
+    //y = y + vydt +gdt*dt
+    this.vy += this.gravidade * dt;
+    this.y = +this.y + this.vy * dt;
+    this.x = this.x + this.vx * dt;
+    this.mx = Math.floor(this.x / this.cena.mapa.SIZE);
+    this.my = Math.floor(this.y / this.cena.mapa.SIZE);
   }
 }

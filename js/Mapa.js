@@ -21,7 +21,7 @@ export default class {
             ctx.drawImage(
               this.cena.assets.img("tiles"),
               32 * 2,
-              32 * 5.7,
+              188,
               32,
               32,
               c * this.SIZE,

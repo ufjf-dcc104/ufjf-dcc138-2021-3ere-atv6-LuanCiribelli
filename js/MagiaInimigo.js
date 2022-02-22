@@ -59,6 +59,7 @@ export default class MagiaInimigo extends Sprite {
         this.h
       );
     }
+  //  ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
   aplicaRestricoes(dt) {
     if (this.aplicaRestricoesDireita(this.mx + 1, this.my)) {
@@ -104,6 +105,7 @@ export default class MagiaInimigo extends Sprite {
         }
       }
     }
+    
   }
   aplicaRestricoesEsquerda(pmx, pmy) {
     const SIZE = this.cena.mapa.SIZE;

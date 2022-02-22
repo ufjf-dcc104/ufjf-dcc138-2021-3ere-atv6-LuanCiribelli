@@ -11,68 +11,101 @@ import OrcXama from "./OrcXama.js";
 import MagiaInimigo from "./MagiaInimigo.js";
 import { mapa5 as modeloMapa5 } from "../maps/mapa5.js";
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+function comparaClasse(a, b, ca, cb) {
+  return (
+    (a.tags.has(ca) && b.tags.has(cb)) || (a.tags.has(cb) && b.tags.has(ca))
+  );
+}
+
+function marcaParaRemover(a, aRemover) {
+  if (!aRemover.includes(a)) {
+    aRemover.push(a);
+  }
 }
 
 export default class CenaJogo5 extends Cena {
   onColisao(a, b) {
-    if (
-      (a.tags.has("pc") && b.tags.has("tiro")) ||
-      (a.tags.has("pc") && b.tags.has("espada")) ||
-      (b.tags.has("pc") && a.tags.has("tiro")) ||
-      (b.tags.has("pc") && a.tags.has("espada"))
-    ) {
-    } else {
-      if (
-        (a.tags.has("pc") && b.tags.has("npc")) ||
-        (a.tags.has("npc") && b.tags.has("pc"))
-      ) {
-        this.rodando = false;
-        this.assets.play("vitoria");
-        this.game.selecionaCena("vitoria");
-      } else if (
-        (a.tags.has("orcBase") && b.tags.has("espadaORC")) ||
-        (a.tags.has("espadaORC") && b.tags.has("orcBase"))
-      ) {
-      } else if (
-        (a.tags.has("orcBase") && b.tags.has("tiroXama")) ||
-        (a.tags.has("tiroXama") && b.tags.has("orcBase")) ||
-        (a.tags.has("tiroXama") && b.tags.has("orcXama")) ||
-        (a.tags.has("orcXama") && b.tags.has("tiroXama"))
-      ) {
-      } else {
-        if (!this.aRemover.includes(a)) {
-          a.vidas -= 1;
-          if (a.vidas <= 0) {
-            this.aRemover.push(a);
-          }
-        }
-        if (!this.aRemover.includes(b)) {
-          b.vidas -= 1;
-          if (b.vidas <= 0) {
-            this.aRemover.push(b);
-          }
-        }
-
-        if (
-          (a.tags.has("pc") && b.tags.has("enemy")) ||
-          (a.tags.has("pc") && b.tags.has("tiroXama")) ||
-          (a.tags.has("pc") && b.tags.has("espadaORC")) ||
-          (a.tags.has("pc") && b.tags.has("orcBase")) ||
-          (a.tags.has("pc") && b.tags.has("orcXama")) ||
-          a.tags.has("npc") ||
-          b.tags.has("npc")
-        ) {
-          this.rodando = false;
-          this.assets.play("derrota");
-          this.game.selecionaCena("fim");
+    if (comparaClasse(a, b, "pc", "npc")) {
+      this.rodando = false;
+      this.assets.play("vitoria");
+      this.game.selecionaCena("vitoria");
+    }
+    if (comparaClasse(a, b, "espada", "orcXama")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
+    if (comparaClasse(a, b, "espada", "orcBase")) {
+      if (a.tags.has("orcBase")) {
+        if (a.vidas > 0) {
+          a.vidas += -1;
+          marcaParaRemover(b, this.aRemover);
         } else {
-          // this.assets.play("colisaoInimigos");
+          marcaParaRemover(a, this.aRemover);
+          marcaParaRemover(b, this.aRemover);
+        }
+      } else {
+        if (b.tags.has("orcBase")) {
+          if (b.vidas > 0) {
+            b.vidas += -1;
+            marcaParaRemover(a, this.aRemover);
+          } else {
+            marcaParaRemover(a, this.aRemover);
+            marcaParaRemover(b, this.aRemover);
+          }
         }
       }
+    }
+    if (comparaClasse(a, b, "tiro", "orcBase")) {
+      if (a.tags.has("orcBase")) {
+        if (a.vidas > 0) {
+          a.vidas += -1;
+          marcaParaRemover(b, this.aRemover);
+        } else {
+          marcaParaRemover(a, this.aRemover);
+          marcaParaRemover(b, this.aRemover);
+        }
+      } else {
+        if (b.tags.has("orcBase")) {
+          if (b.vidas > 0) {
+            b.vidas += -1;
+            marcaParaRemover(a, this.aRemover);
+          } else {
+            marcaParaRemover(a, this.aRemover);
+            marcaParaRemover(b, this.aRemover);
+          }
+        }
+      }
+    }
+    if (comparaClasse(a, b, "tiro", "orcXama")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
+    if (comparaClasse(a, b, "tiro", "tiroXama")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
+    if (comparaClasse(a, b, "espada", "tiroXama")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
+    if (
+      comparaClasse(a, b, "pc", "enemy") ||
+      comparaClasse(a, b, "pc", "tiroXama") ||
+      comparaClasse(a, b, "pc", "espadaORC") ||
+      comparaClasse(a, b, "pc", "orcBase") ||
+      comparaClasse(a, b, "pc", "orcXama") ||
+      comparaClasse(a, b, "npc", "enemy") ||
+      comparaClasse(a, b, "npc", "tiroXama") ||
+      comparaClasse(a, b, "npc", "espadaORC") ||
+      comparaClasse(a, b, "npc", "orcBase") ||
+      comparaClasse(a, b, "npc", "orcXama") ||
+      comparaClasse(a, b, "npc", "tiro") ||
+      comparaClasse(a, b, "npc", "espada") 
+  
+    ) {
+      this.rodando = false;
+      this.assets.play("derrota");
+      this.game.selecionaCena("fim");
     }
   }
 
@@ -102,7 +135,7 @@ export default class CenaJogo5 extends Cena {
           if (sprite.tags.has("pc")) {
             this.game.selecionaCena("fim", 0);
           } else {
-            this.onColisao(sprite, sprite);
+            marcaParaRemover(sprite, this.aRemover);
           }
         }
       });
@@ -126,7 +159,7 @@ export default class CenaJogo5 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 16, w: 16 });
+    const pc = new PC({ h: 20, w: 8 });
     if (porta == 1) {
       pc.x = 32 * 1;
       pc.y = 32 * 10;
@@ -146,12 +179,12 @@ export default class CenaJogo5 extends Cena {
     });
     npcResgatar.tags.add("npc");
 
-    let orc = new OrcEscudo({ x: 32 * 10, y: 32 * 10, h: 32, w: 32, vidas: 3 });
+    let orc = new OrcEscudo({ x: 32 * 10, y: 32 * 10.3, h: 40, w: 16, vidas: 2 });
     orc.tags.add("orcBase");
-    let orcXama = new OrcXama({ x: 32 * 16, y: 32 * 10, h: 16, w: 16 });
+    let orcXama = new OrcXama({ x: 32 * 16, y: 32 * 10.3, h: 40, w: 16 });
     orcXama.tags.add("orcXama");
 
-    this.OrcCD = 4;
+    this.OrcCD = 2;
     this.MagiaOrcCd = 0;
     this.orcXamaAcaoNoMomento;
     const cena = this;
@@ -161,30 +194,42 @@ export default class CenaJogo5 extends Cena {
         if (cena.OrcCD <= 0) {
           if (this.x > cena.pcCenaJogo.x) {
             cena.acaoNoMomentoORC = "BATENDO";
+            if (Math.round(this.quadroORC) == 5) {
             var batidaORC = new Lancada({
-              x: this.x - 32,
-              y: this.y + 32,
+              x: this.x - 20,
+              y: this.y ,
               h: 10,
               w: 32,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batidaORC.tags.add("espadaORC");
+            cena.OrcCD = 2;
+          this.cena.adicionar(batidaORC);
+          }
           } else {
             cena.acaoNoMomentoORC = "BATENDO";
+            if (Math.round(this.quadroORC) == 5) {
             var batidaORC = new Lancada({
-              x: this.x + 32,
-              y: this.y + 32,
+              x: this.x + 20,
+              y: this.y ,
               h: 10,
               w: 32,
-              color: "rgba(255, 0, 0, 1)",
+              color: "rgba(255, 0, 0, 0)",
             });
             batidaORC.tags.add("espadaORC");
-          }
-          cena.OrcCD = 2;
+            cena.OrcCD = 2;
           this.cena.adicionar(batidaORC);
-        }
+            }
+          }
+          
+        }else { this.vx = 20 * Math.sign(pc.x - this.x);
+          if (this.vx > 0) {
+            cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
+          } else if (this.vx < 0) {
+            cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
+          }}
       } else {
-        this.vx = 30 * Math.sign(pc.x - this.x);
+        this.vx = 20 * Math.sign(pc.x - this.x);
         if (this.vx > 0) {
           cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
         } else if (this.vx < 0) {
@@ -199,8 +244,8 @@ export default class CenaJogo5 extends Cena {
         cena.orcXamaAcaoNoMomento = "ATIRANDO";
 
         var tiroXama = new MagiaInimigo({
-          x: this.x - 5,
-          y: this.y + 10,
+          x: this.x,
+          y: this.y,
           vx: -100,
         });
         tiroXama.tags.add("tiroXama");
@@ -251,18 +296,18 @@ export default class CenaJogo5 extends Cena {
         }
       }
       if (cena.input.comandos.get("ATIRAR")) {
-        if (cena.CoolDown <= 0 && this.mana >0) {
+        if (cena.CoolDown <= 0 && this.mana > 0) {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
-              x: this.x - 50,
-              y: this.y - 10,
+              x: this.x ,
+              y: this.y ,
               vx: -100,
             });
           } else {
             var tiro = new Magia({
-              x: this.x + 50,
-              y: this.y - 10,
+              x: this.x ,
+              y: this.y ,
               vx: +100,
             });
           }
@@ -274,7 +319,6 @@ export default class CenaJogo5 extends Cena {
         }
       }
       if (cena.input.comandos.get("BATER")) {
-        console.log(cena.CoolDown);
         if (cena.CoolDown <= 0) {
           cena.acaoNoMomento = "BATENDO";
           if (this.vx < 0) {

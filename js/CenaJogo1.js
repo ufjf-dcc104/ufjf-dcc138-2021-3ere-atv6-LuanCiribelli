@@ -7,47 +7,37 @@ import Magia from "./Magia.js";
 import Machadada from "./Machadada.js";
 import OrcSoldado from "./OrcSoldado.js";
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+function comparaClasse(a, b, ca, cb) {
+  return (
+    (a.tags.has(ca) && b.tags.has(cb)) || (a.tags.has(cb) && b.tags.has(ca))
+  );
 }
 
+function marcaParaRemover(a, aRemover) {
+  if (!aRemover.includes(a)) {
+    aRemover.push(a);
+  }
+}
 export default class CenaJogo extends Cena {
   onColisao(a, b) {
+    if (comparaClasse(a, b, "espada", "orcBase")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
+    if (comparaClasse(a, b, "tiro", "orcBase")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
     if (
-      (a.tags.has("pc") && b.tags.has("tiro")) ||
-      (a.tags.has("pc") && b.tags.has("espada")) ||
-      (b.tags.has("pc") && a.tags.has("tiro")) ||
-      (b.tags.has("pc") && a.tags.has("espada"))
+      comparaClasse(a, b, "pc", "enemy") ||
+      comparaClasse(a, b, "pc", "tiroXama") ||
+      comparaClasse(a, b, "pc", "espadaORC") ||
+      comparaClasse(a, b, "pc", "orcBase") ||
+      comparaClasse(a, b, "pc", "orcXama")
     ) {
-    } else {
-      if (
-        (a.tags.has("orcBase") && b.tags.has("espadaORC")) ||
-        (a.tags.has("espadaORC") && b.tags.has("orcBase"))
-      ) {
-      } else {
-        if (!this.aRemover.includes(a)) {
-          this.aRemover.push(a);
-        }
-        if (!this.aRemover.includes(b)) {
-          this.aRemover.push(b);
-        }
-
-        if (
-          (a.tags.has("pc") && b.tags.has("enemy")) ||
-          (a.tags.has("pc") && b.tags.has("tiroXama")) ||
-          (a.tags.has("pc") && b.tags.has("espadaORC")) ||
-          (a.tags.has("pc") && b.tags.has("orcBase")) ||
-          (a.tags.has("pc") && b.tags.has("orcXama"))
-        ) {
-          this.rodando = false;
-          this.assets.play("derrota");
-          this.game.selecionaCena("fim");
-        } else {
-          // this.assets.play("colisaoInimigos");
-        }
-      }
+      this.rodando = false;
+      this.assets.play("derrota");
+      this.game.selecionaCena("fim");
     }
   }
 
@@ -73,7 +63,7 @@ export default class CenaJogo extends Cena {
           this.acaoNoMomentoORC
         );
         if (sprite.aplicaRestricoes()) {
-          this.onColisao(sprite, sprite);
+          marcaParaRemover(sprite, this.aRemover);
         }
       });
     }
@@ -97,7 +87,7 @@ export default class CenaJogo extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 16, w: 16,mana: 2 });
+    const pc = new PC({ h: 20, w: 8 });
 
     if (porta == 1) {
       pc.x = 32 * 1;
@@ -109,7 +99,7 @@ export default class CenaJogo extends Cena {
     pc.tags.add("pc");
     this.pcCenaJogo = pc;
 
-    let orc = new OrcSoldado({ x: 32 * 10, y: 32 * 10, h: 32, w: 32 });
+    let orc = new OrcSoldado({ x: 32 * 11, y: 32 * 10.3, h: 40, w: 16 });
     orc.tags.add("orcBase");
 
     this.CoolDown = 0;
@@ -159,20 +149,19 @@ export default class CenaJogo extends Cena {
         }
       }
       if (cena.input.comandos.get("ATIRAR")) {
-        console.log(this.mana)
         if (cena.CoolDown <= 0 && this.mana > 0) {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
-              x: this.x - 50,
-              y: this.y - 10,
+              x: this.x ,
+              y: this.y ,
               vx: -100,
               lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
-              x: this.x + 50,
-              y: this.y - 10,
+              x: this.x ,
+              y: this.y ,
               vx: +100,
               lado: "Direita",
             });

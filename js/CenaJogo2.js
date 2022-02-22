@@ -9,50 +9,39 @@ import OrcSoldado from "./OrcSoldado.js";
 
 import { mapa2 as modeloMapa2 } from "../maps/mapa2.js";
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+function comparaClasse(a, b, ca, cb) {
+  return (
+    (a.tags.has(ca) && b.tags.has(cb)) || (a.tags.has(cb) && b.tags.has(ca))
+  );
 }
 
+function marcaParaRemover(a, aRemover) {
+  if (!aRemover.includes(a)) {
+    aRemover.push(a);
+  }
+}
 export default class CenaJogo2 extends Cena {
   onColisao(a, b) {
+    if (comparaClasse(a, b, "espada", "orcBase")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
+    if (comparaClasse(a, b, "tiro", "orcBase")) {
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
+    }
     if (
-      (a.tags.has("pc") && b.tags.has("tiro")) ||
-      (a.tags.has("pc") && b.tags.has("espada")) ||
-      (b.tags.has("pc") && a.tags.has("tiro")) ||
-      (b.tags.has("pc") && a.tags.has("espada"))
+      comparaClasse(a, b, "pc", "enemy") ||
+      comparaClasse(a, b, "pc", "tiroXama") ||
+      comparaClasse(a, b, "pc", "espadaORC") ||
+      comparaClasse(a, b, "pc", "orcBase") ||
+      comparaClasse(a, b, "pc", "orcXama")
     ) {
-    } else {
-      if (
-        (a.tags.has("orcBase") && b.tags.has("espadaORC")) ||
-        (a.tags.has("espadaORC") && b.tags.has("orcBase"))
-      ) {
-      } else {
-        if (!this.aRemover.includes(a)) {
-          this.aRemover.push(a);
-        }
-        if (!this.aRemover.includes(b)) {
-          this.aRemover.push(b);
-        }
-
-        if (
-          (a.tags.has("pc") && b.tags.has("enemy")) ||
-          (a.tags.has("pc") && b.tags.has("tiroXama")) ||
-          (a.tags.has("pc") && b.tags.has("espadaORC")) ||
-          (a.tags.has("pc") && b.tags.has("orcBase")) ||
-          (a.tags.has("pc") && b.tags.has("orcXama"))
-        ) {
-          this.rodando = false;
-          this.assets.play("derrota");
-          this.game.selecionaCena("fim");
-        } else {
-          // this.assets.play("colisaoInimigos");
-        }
-      }
+      this.rodando = false;
+      this.assets.play("derrota");
+      this.game.selecionaCena("fim");
     }
   }
-
   draw() {
     this.ctx.fillStyle = "lightblue";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -78,7 +67,7 @@ export default class CenaJogo2 extends Cena {
           if (sprite.tags.has("pc")) {
             this.game.selecionaCena("fim", 0);
           } else {
-            this.onColisao(sprite, sprite);
+            marcaParaRemover(sprite, this.aRemover);
           }
         }
       });
@@ -103,7 +92,7 @@ export default class CenaJogo2 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 16, w: 16 });
+    const pc = new PC({ h: 20, w: 8 });
     if (porta == 1) {
       pc.x = 32 * 1;
       pc.y = 32 * 10;
@@ -113,45 +102,58 @@ export default class CenaJogo2 extends Cena {
     }
     pc.tags.add("pc");
 
-    let orc = new OrcSoldado({ x: 32 * 11, y: 32 * 10, h: 32, w: 32 });
+    let orc = new OrcSoldado({ x: 32 * 11, y: 32 * 10.3, h: 40, w: 16 });
     orc.tags.add("orcBase");
 
     this.pcCenaJogo = pc;
     this.CoolDown = 0;
 
     this.dirOrc = "direita";
-    this.OrcCD = 4;
+    this.OrcCD = 2;
     const cena = this;
 
     orc.controlar = function (dt) {
       cena.OrcCD += -1 * dt;
 
       if (this.x - 64 < cena.pcCenaJogo.x && this.x + 64 > cena.pcCenaJogo.x) {
-        this.vx = 20 * Math.sign(cena.pcCenaJogo.x - this.x);
         if (cena.OrcCD <= 0) {
           if (this.x > cena.pcCenaJogo.x) {
             cena.acaoNoMomentoORC = "BATENDO";
-            var batidaORC = new Lancada({
-              x: this.x - 32,
-              y: this.y + 32,
-              h: 10,
-              w: 32,
-              color: "rgba(255, 0, 0, 0)",
-            });
-            batidaORC.tags.add("espadaORC");
+
+            if (Math.round(this.quadroORC) == 5) {
+              var batidaORC = new Lancada({
+                x: this.x - 20,
+                y: this.y,
+                h: 10,
+                w: 32,
+                color: "rgba(255, 0, 0, 0)",
+              });
+              batidaORC.tags.add("espadaORC");
+              this.cena.adicionar(batidaORC);
+              cena.OrcCD = 2;
+            }
           } else {
             cena.acaoNoMomentoORC = "BATENDO";
-            var batidaORC = new Lancada({
-              x: this.x + 32,
-              y: this.y + 32,
-              h: 10,
-              w: 32,
-              color: "rgba(255, 0, 0, 0)",
-            });
-            batidaORC.tags.add("espadaORC");
+            if (Math.round(this.quadroORC) == 5) {
+              var batidaORC = new Lancada({
+                x: this.x + 20,
+                y: this.y,
+                h: 10,
+                w: 32,
+                color: "rgba(255, 0, 0, 0)",
+              });
+              batidaORC.tags.add("espadaORC");
+              this.cena.adicionar(batidaORC);
+              cena.OrcCD = 2;
+            }
           }
-          cena.OrcCD = 2;
-          this.cena.adicionar(batidaORC);
+        } else {
+          this.vx = 20 * Math.sign(pc.x - this.x);
+          if (this.vx > 0) {
+            cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
+          } else if (this.vx < 0) {
+            cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
+          }
         }
       } else {
         if (this.x >= 16 * 32) {
@@ -211,15 +213,15 @@ export default class CenaJogo2 extends Cena {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
-              x: this.x - 50,
-              y: this.y - 10,
+              x: this.x,
+              y: this.y,
               vx: -100,
               lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
-              x: this.x + 50,
-              y: this.y - 10,
+              x: this.x,
+              y: this.y,
               vx: +100,
               lado: "Direita",
             });

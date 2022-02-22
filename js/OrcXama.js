@@ -34,7 +34,7 @@ export default class OrcXama extends Sprite {
     this.contadorDePose = 0;
   }
 
-  draw(ctx, dt, a, b,acao ) {
+  draw(ctx, dt, a, b, acao) {
     const POSES = [
       { qmax: 7, pv: 7 },
       { qmax: 7, pv: 7 },
@@ -102,10 +102,19 @@ export default class OrcXama extends Sprite {
       64 * Math.floor(this.poseORC),
       64,
       64,
-      this.x - this.w / 2,
-      this.y - this.h / 2,
-      this.w + 32,
-      this.h + 32
+      this.x - 64/ 2,
+      this.y - 64 / 2 -12,
+      64,
+      64
     );
+   // ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+  }
+  mover(dt) {
+    //y = y + vydt +gdt*dt
+    this.vy += this.gravidade * dt;
+    this.y = +this.y + this.vy * dt;
+    this.x = this.x + this.vx * dt;
+    this.mx = Math.floor(this.x / this.cena.mapa.SIZE);
+    this.my = Math.floor(this.y / this.cena.mapa.SIZE);
   }
 }

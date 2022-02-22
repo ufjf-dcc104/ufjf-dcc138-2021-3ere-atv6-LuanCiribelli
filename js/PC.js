@@ -99,10 +99,10 @@ export default class PC extends Sprite {
       64 * Math.floor(this.posePC),
       64,
       64,
-      this.x - this.w / 2,
-      this.y - this.h / 2,
-      this.w + 16,
-      this.h + 16
+      this.x - 32 / 2,
+      this.y - 32 / 2 - 6,
+      32,
+      32
     );
 
    // ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);

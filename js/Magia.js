@@ -90,7 +90,9 @@ export default class Magia extends Sprite {
           this.h,
         );
       }
+     
     }
+  //  ctx.strokeRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
   }
 
   aplicaRestricoes(dt) {
