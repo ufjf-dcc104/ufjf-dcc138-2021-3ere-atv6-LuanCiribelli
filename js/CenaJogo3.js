@@ -91,6 +91,134 @@ export default class CenaJogo2 extends Cena {
             marcaParaRemover(sprite, this.aRemover);
           }
         }
+        switch(this.pcCenaJogo?.mana){
+          case 1: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+          break;
+          case 2: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+  
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          break;
+          case 3: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+  
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            32,
+            0,
+            16,
+            16
+          );
+          break;
+          case 4: 
+          case 3: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+  
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            32,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            48,
+            0,
+            16,
+            16
+          );
+          default:
+  
+            break;
+  
+        }
+  
       });
     }
   }

@@ -66,6 +66,131 @@ export default class CenaJogo extends Cena {
           marcaParaRemover(sprite, this.aRemover);
         }
       });
+      switch (this.pcCenaJogo?.mana) {
+        case 1:
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+          break;
+        case 2:
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          break;
+        case 3:
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            32,
+            0,
+            16,
+            16
+          );
+          break;
+        case 4:
+        case 3:
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            32,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            48,
+            0,
+            16,
+            16
+          );
+        default:
+          break;
+      }
     }
   }
 
@@ -153,15 +278,15 @@ export default class CenaJogo extends Cena {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
-              x: this.x ,
-              y: this.y ,
+              x: this.x,
+              y: this.y,
               vx: -100,
               lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
-              x: this.x ,
-              y: this.y ,
+              x: this.x,
+              y: this.y,
               vx: +100,
               lado: "Direita",
             });
