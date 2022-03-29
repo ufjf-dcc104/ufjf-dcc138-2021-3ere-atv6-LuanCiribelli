@@ -8,7 +8,7 @@ body {
   margin-top: 50px;
   position: relative;
   width: 300px;
-  height: 200px;
+  height: 300px;
   background-color: whitesmoke;
   color: #333;
   text-align: center;
@@ -39,11 +39,7 @@ body {
   animation: pulse 6s linear infinite;
 }
 
-@keyframes pulse {
-  50% {
-    transform: scale(1.1);
-  }
-}
+
 
 #startScreen p {
   font-weight: bold;
@@ -56,15 +52,57 @@ body {
   animation-delay: 3s;
 }
 
-@keyframes up {
-  25% {
-    top: -4px;
-  }
+#instrucoes {
+  margin: auto;
+  margin-top: 50px;
+  position: relative;
+  width: 300px;
+  height: 280px;
+  background-color: whitesmoke;
+  color: #333;
+  text-align: center;
+  border: 8px solid;
+  border-radius: 10px;
+  box-shadow: 0 1px 32px white;
+  transform: rotate(0) scale(0);
+  animation: boom 1s linear;
+  animation-fill-mode: forwards;
 }
 
-#gameOn {
-  font-size: 100px;
-  text-align: center;
-  text-shadow: 0 2px 0 limegreen, 0 1px 64px white;
-  animation: pulse 1.5s linear infinite;
+
+#instrucoes div {
+  height: 40%;
 }
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+#instEspecial{
+  font-size: 11px;
+  color: rgb(41, 18, 18);
+  animation: blinker 0.8s step-start infinite;
+}
+
+#instrucoes h1 {
+  position:absolute;
+  width: 100%;
+  color: #222;
+  font-size: 40px;
+  text-shadow: 0 1px 2px;
+  animation: pulse 6s linear infinite;
+}
+
+#instrucoes p {
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+#instrucoes span {
+  position: relative;
+  font-size: 18px;
+  animation: up 2s linear infinite;
+  animation-delay: 3s;
+}
+

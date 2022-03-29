@@ -15,7 +15,9 @@ import CenaVitoria from "./CenaVitoria.js";
 const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
+
 const menuInicial = document.getElementById("startScreen");
+const instrucoes = document.getElementById("instrucoes");
 
 assets.carregaImagem("tiles", "assets/tileset.png");
 assets.carregaImagem("pc", "assets/PC.png");
@@ -40,6 +42,7 @@ canvas.width = 19 * 32;
 canvas.height = 12 * 32;
 
 canvas.style.display = "none";
+
 
 input.configurarTeclado({
   ArrowLeft: "MOVE_ESQUERDA",
@@ -74,7 +77,7 @@ game.adicionarCena("vitoria", cena3);
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "Enter":
-      menuInicial.style.visibility = "hidden";
+      menuInicial.style.display = "none";
       canvas.style.display = "block";
       game.iniciar();
       break;
@@ -91,6 +94,17 @@ document.addEventListener("keydown", (e) => {
       game.cena.preparar(1);
       break;
 
+      break;
+    case "i":
+      if (menuInicial.style.visibility != "hidden") {
+        menuInicial.style.display = "none";
+        instrucoes.style.display = "block";
+      }
+      break;
+    case "C":
+      if (menuInicial.style.visibility != "hidden") {
+        menuInicial.style.visibility = "hidden";
+      }
       break;
     default:
       break;
