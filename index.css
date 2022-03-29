@@ -106,3 +106,52 @@ body {
   animation-delay: 3s;
 }
 
+
+#creditos {
+  margin: auto;
+  margin-top: 50px;
+  position: relative;
+  width: 350px;
+  height: 350px;
+  background-color: whitesmoke;
+  color: #333;
+  text-align: center;
+  border: 8px solid;
+  border-radius: 10px;
+  box-shadow: 0 1px 32px white;
+  transform: rotate(0) scale(0);
+  animation: boom 1s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes boom {
+  100% {
+    transform: rotate(1080deg) scale(1);
+  }
+}
+
+#creditos div {
+  height: 30%;
+}
+
+#creditos h1 {
+  position:absolute;
+  width: 100%;
+  color: #222;
+  font-size: 40px;
+  text-shadow: 0 1px 2px;
+  animation: pulse 6s linear infinite;
+}
+
+
+
+#creditos p {
+  font-weight: bold;
+}
+
+#creditos span {
+  position: relative;
+  font-size: 18px;
+  animation: up 2s linear infinite;
+  animation-delay: 3s;
+}

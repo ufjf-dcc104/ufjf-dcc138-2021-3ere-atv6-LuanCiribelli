@@ -18,6 +18,7 @@ const assets = new AssetManager(mixer);
 
 const menuInicial = document.getElementById("startScreen");
 const instrucoes = document.getElementById("instrucoes");
+const creditos = document.getElementById("creditos");
 
 assets.carregaImagem("tiles", "assets/tileset.png");
 assets.carregaImagem("pc", "assets/PC.png");
@@ -101,9 +102,10 @@ document.addEventListener("keydown", (e) => {
         instrucoes.style.display = "block";
       }
       break;
-    case "C":
+    case "c":
       if (menuInicial.style.visibility != "hidden") {
-        menuInicial.style.visibility = "hidden";
+        menuInicial.style.display = "none";
+        creditos.style.display = "block";
       }
       break;
     default:
