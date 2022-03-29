@@ -13,27 +13,16 @@ export default class CenaCarregando extends Cena {
       this.canvas.width / 2,
       this.canvas.height / 2
     );
-
-    if (this.assets.acabou()) {
-      this.ctx.fillText(
-        "Aperte espaço para continuar",
-        this.canvas.width / 2,
-        this.canvas.height / 2 + 40
-      );
-
-    }
   }
 
   quadro(t) {
     this.t0 = this.t0 ?? t;
     this.dt = (t - this.t0) / 1000;
 
-    if (this.assets.acabou())
-      if (this.input.comandos.get("PROXIMA_CENA")) {
-        this.game.selecionaCena("fase1",1);
-        return;
-      }
-
+    if (this.assets.acabou()) {
+      this.game.selecionaCena("fase1", 1);
+      return;
+    }
     this.draw();
 
     this.iniciar();

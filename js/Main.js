@@ -15,7 +15,7 @@ import CenaVitoria from "./CenaVitoria.js";
 const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
-const instrucoes = document.getElementById("instruction-container");
+const menuInicial = document.getElementById("startScreen");
 
 assets.carregaImagem("tiles", "assets/tileset.png");
 assets.carregaImagem("pc", "assets/PC.png");
@@ -31,9 +31,6 @@ assets.carregaImagem("orcEscudo", "assets/OrcEscudo.png");
 assets.carregaImagem("MagiaInimigo", "assets/magiaInimigo.png");
 assets.carregaImagem("flames", "assets/flame.png");
 
-instrucoes.style.visibility = "hidden";
-
-
 assets.carregaAudio("derrota", "assets/lose.wav");
 assets.carregaAudio("vitoria", "assets/victory.wav");
 assets.carregaAudio("gameOver", "assets/GAMEOVER.wav");
@@ -42,14 +39,16 @@ const canvas = document.querySelector("canvas");
 canvas.width = 19 * 32;
 canvas.height = 12 * 32;
 
+canvas.style.display = "none";
+
 input.configurarTeclado({
   ArrowLeft: "MOVE_ESQUERDA",
   ArrowRight: "MOVE_DIREITA",
   ArrowUp: "PULA",
   " ": "PROXIMA_CENA",
-  "g": "BATER",
-  "f": "ATIRAR",
-  "d": "DASH",
+  g: "BATER",
+  f: "ATIRAR",
+  d: "DASH",
 });
 
 const game = new Game(canvas, assets, input);
@@ -63,7 +62,6 @@ const cena1_5 = new CenaJogo5();
 const cena2 = new CenaFim();
 const cena3 = new CenaVitoria();
 
-
 game.adicionarCena("carregando", cena0);
 game.adicionarCena("fase1", cena1_1);
 game.adicionarCena("fase2", cena1_2);
@@ -73,11 +71,13 @@ game.adicionarCena("fase5", cena1_5);
 game.adicionarCena("fim", cena2);
 game.adicionarCena("vitoria", cena3);
 
-
-game.iniciar();
-
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
+    case "Enter":
+      menuInicial.style.visibility = "hidden";
+      canvas.style.display = "block";
+      game.iniciar();
+      break;
     case "p":
       if (game.cena.rodando) {
         game.parar();
@@ -90,12 +90,6 @@ document.addEventListener("keydown", (e) => {
       game.timer = new Date();
       game.cena.preparar(1);
       break;
-    case "h":
-      if (instrucoes.style.visibility == "hidden") {
-        instrucoes.style.visibility = "visible";
-      } else {
-        instrucoes.style.visibility = "hidden";
-      }
 
       break;
     default:
