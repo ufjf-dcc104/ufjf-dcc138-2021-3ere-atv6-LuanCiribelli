@@ -44,7 +44,6 @@ canvas.height = 12 * 32;
 
 canvas.style.display = "none";
 
-
 input.configurarTeclado({
   ArrowLeft: "MOVE_ESQUERDA",
   ArrowRight: "MOVE_DIREITA",
@@ -80,6 +79,8 @@ document.addEventListener("keydown", (e) => {
     case "Enter":
       menuInicial.style.display = "none";
       canvas.style.display = "block";
+      instrucoes.style.display = "none";
+      creditos.style.display = "none";
       game.iniciar();
       break;
     case "p":
@@ -97,13 +98,13 @@ document.addEventListener("keydown", (e) => {
 
       break;
     case "i":
-      if (menuInicial.style.visibility != "hidden") {
+      if (canvas.style.display == "none") {
         menuInicial.style.display = "none";
         instrucoes.style.display = "block";
       }
       break;
     case "c":
-      if (menuInicial.style.visibility != "hidden") {
+      if (canvas.style.display == "none") {
         menuInicial.style.display = "none";
         creditos.style.display = "block";
       }

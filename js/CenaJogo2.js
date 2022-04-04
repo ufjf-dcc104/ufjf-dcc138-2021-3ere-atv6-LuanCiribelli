@@ -227,7 +227,7 @@ export default class CenaJogo2 extends Cena {
     }
     pc.tags.add("pc");
 
-    let orc = new OrcSoldado({ x: 32 * 11, y: 32 * 10.3, h: 40, w: 16 });
+    let orc = new OrcSoldado({ x: 32 * 15, y: 32 * 10.3, h: 40, w: 16 });
     orc.tags.add("orcBase");
 
     this.pcCenaJogo = pc;
@@ -281,10 +281,10 @@ export default class CenaJogo2 extends Cena {
           }
         }
       } else {
-        if (this.x >= 16 * 32) {
+        if (this.x >= 18 * 32) {
           cena.dirOrc = "esquerda";
         }
-        if (this.x <= 10 * 32) {
+        if (this.x <= 14 * 32) {
           cena.dirOrc = "direita";
         }
         if (cena.dirOrc == "direita") {
