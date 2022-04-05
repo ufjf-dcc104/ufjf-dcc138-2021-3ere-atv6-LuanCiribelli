@@ -11,6 +11,7 @@ import CenaJogo5 from "./CenaJogo5.js";
 import CenaCarregando from "./CenaCarregando.js";
 import CenaFim from "./CenaFim.js";
 import CenaVitoria from "./CenaVitoria.js";
+import CenaJogo6 from "./CenaJogo6.js";
 
 const input = new InputManager();
 const mixer = new Mixer(10);
@@ -62,6 +63,7 @@ const cena1_2 = new CenaJogo2();
 const cena1_3 = new CenaJogo3();
 const cena1_4 = new CenaJogo4();
 const cena1_5 = new CenaJogo5();
+const cena1_6 = new CenaJogo6();
 const cena2 = new CenaFim();
 const cena3 = new CenaVitoria();
 
@@ -71,6 +73,7 @@ game.adicionarCena("fase2", cena1_2);
 game.adicionarCena("fase3", cena1_3);
 game.adicionarCena("fase4", cena1_4);
 game.adicionarCena("fase5", cena1_5);
+game.adicionarCena("fase6", cena1_6);
 game.adicionarCena("fim", cena2);
 game.adicionarCena("vitoria", cena3);
 

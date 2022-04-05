@@ -5,11 +5,8 @@ import PC from "./PC.js";
 import Magia from "./Magia.js";
 import Machadada from "./Machadada.js";
 import Lancada from "./Lancada.js";
-import NPCResgatar from "./NPC_Resgatar.js";
-import OrcEscudo from "./OrcEscudo.js";
-import OrcXama from "./OrcXama.js";
-import MagiaInimigo from "./MagiaInimigo.js";
 import { mapa5 as modeloMapa5 } from "../maps/mapa5.js";
+import OrcEscudo from "./OrcEscudo.js";
 
 function comparaClasse(a, b, ca, cb) {
   return (
@@ -100,7 +97,8 @@ export default class CenaJogo5 extends Cena {
       comparaClasse(a, b, "npc", "orcBase") ||
       comparaClasse(a, b, "npc", "orcXama") ||
       comparaClasse(a, b, "npc", "tiro") ||
-      comparaClasse(a, b, "npc", "espada")
+      comparaClasse(a, b, "npc", "espada") 
+  
     ) {
       this.rodando = false;
       this.assets.play("derrota");
@@ -137,137 +135,143 @@ export default class CenaJogo5 extends Cena {
             marcaParaRemover(sprite, this.aRemover);
           }
         }
-        switch (this.pcCenaJogo?.mana) {
-          case 1:
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              0,
-              0,
-              16,
-              16
-            );
-            break;
-          case 2:
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              0,
-              0,
-              16,
-              16
-            );
-
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              16,
-              0,
-              16,
-              16
-            );
-            break;
-          case 3:
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              0,
-              0,
-              16,
-              16
-            );
-
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              16,
-              0,
-              16,
-              16
-            );
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              32,
-              0,
-              16,
-              16
-            );
-            break;
-          case 4:
-          case 3:
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              0,
-              0,
-              16,
-              16
-            );
-
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              16,
-              0,
-              16,
-              16
-            );
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              32,
-              0,
-              16,
-              16
-            );
-            this.ctx.drawImage(
-              this.assets.img("flames"),
-              150,
-              195,
-              32,
-              45,
-              48,
-              0,
-              16,
-              16
-            );
+        switch(this.pcCenaJogo?.mana){
+          case 1: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+          break;
+          case 2: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+  
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          break;
+          case 3: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+  
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            32,
+            0,
+            16,
+            16
+          );
+          break;
+          case 4: 
+          case 3: 
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            0,
+            0,
+            16,
+            16
+          );
+  
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            16,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            32,
+            0,
+            16,
+            16
+          );
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            150,
+            195,
+            32,
+            45,
+            48,
+            0,
+            16,
+            16
+          );
           default:
+  
             break;
+  
         }
+  
       });
     }
   }
+
   checaFim() {
-    if (this.pcCenaJogo.x < 17) {
-      this.game.selecionaCena("fase4", 2);
+    if (this.pcCenaJogo.x > 591) {
+      this.game.selecionaCena("fase5", 1);
+    } else if (this.pcCenaJogo.x < 17) {
+      this.game.selecionaCena("fase3", 2);
     }
     if (this.sprites.length == 0) {
       this.game.selecionaCena("fim", 0);
@@ -284,6 +288,8 @@ export default class CenaJogo5 extends Cena {
     this.contador = 0;
     const acao = null;
     const pc = new PC({ h: 20, w: 8 });
+    pc.tags.add("pc");
+
     if (porta == 1) {
       pc.x = 32 * 1;
       pc.y = 32 * 10;
@@ -291,32 +297,23 @@ export default class CenaJogo5 extends Cena {
       pc.x = 32 * 18;
       pc.y = 32 * 10;
     }
-    pc.tags.add("pc");
-    this.pcCenaJogo = pc;
-    this.CoolDown = 0;
 
-    let npcResgatar = new NPCResgatar({
-      x: 18 * 32,
-      y: 10.5 * 32,
-      h: 16,
-      w: 16,
-    });
-    npcResgatar.tags.add("npc");
-
-    let orc = new OrcEscudo({
-      x: 32 * 10,
+    let orc = new OrcEscudo({ x: 32 * 10, y: 32 * 10.3, h: 40, w: 16, vidas: 2 });
+    orc.tags.add("orcBase");
+    let orc2 = new OrcEscudo({
+      x: 32 * 16,
       y: 32 * 10.3,
       h: 40,
       w: 16,
       vidas: 2,
     });
-    orc.tags.add("orcBase");
-    let orcXama = new OrcXama({ x: 32 * 16, y: 32 * 10.3, h: 40, w: 16 });
-    orcXama.tags.add("orcXama");
+    orc2.tags.add("orcBase");
+
+    this.pcCenaJogo = pc;
+    this.CoolDown = 0;
 
     this.OrcCD = 2;
-    this.MagiaOrcCd = 0;
-    this.orcXamaAcaoNoMomento;
+    this.OrcCD2 = 2;
     const cena = this;
 
     orc.controlar = function (dt) {
@@ -325,40 +322,39 @@ export default class CenaJogo5 extends Cena {
           if (this.x > cena.pcCenaJogo.x) {
             cena.acaoNoMomentoORC = "BATENDO";
             if (Math.round(this.quadroORC) == 5) {
-              var batidaORC = new Lancada({
-                x: this.x - 20,
-                y: this.y,
-                h: 10,
-                w: 32,
-                color: "rgba(255, 0, 0, 0)",
-              });
-              batidaORC.tags.add("espadaORC");
-              cena.OrcCD = 2;
-              this.cena.adicionar(batidaORC);
-            }
+            var batidaORC = new Lancada({
+              x: this.x - 20,
+              y: this.y ,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 0)",
+            });
+            batidaORC.tags.add("espadaORC");
+            cena.OrcCD = 2;
+          this.cena.adicionar(batidaORC);
+          }
           } else {
             cena.acaoNoMomentoORC = "BATENDO";
             if (Math.round(this.quadroORC) == 5) {
-              var batidaORC = new Lancada({
-                x: this.x + 20,
-                y: this.y,
-                h: 10,
-                w: 32,
-                color: "rgba(255, 0, 0, 0)",
-              });
-              batidaORC.tags.add("espadaORC");
-              cena.OrcCD = 2;
-              this.cena.adicionar(batidaORC);
+            var batidaORC = new Lancada({
+              x: this.x + 20,
+              y: this.y ,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 0)",
+            });
+            batidaORC.tags.add("espadaORC");
+            cena.OrcCD = 2;
+          this.cena.adicionar(batidaORC);
             }
           }
-        } else {
-          this.vx = 20 * Math.sign(pc.x - this.x);
+          
+        }else { this.vx = 20 * Math.sign(pc.x - this.x);
           if (this.vx > 0) {
             cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
           } else if (this.vx < 0) {
             cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
-          }
-        }
+          }}
       } else {
         this.vx = 20 * Math.sign(pc.x - this.x);
         if (this.vx > 0) {
@@ -370,26 +366,56 @@ export default class CenaJogo5 extends Cena {
       cena.OrcCD += -1 * dt;
     };
 
-    orcXama.controlar = function (dt) {
-      if (cena.MagiaOrcCd <= 0) {
-        cena.orcXamaAcaoNoMomento = "ATIRANDO";
-
-        var tiroXama = new MagiaInimigo({
-          x: this.x,
-          y: this.y,
-          vx: -100,
-        });
-        tiroXama.tags.add("tiroXama");
-        this.cena.adicionar(tiroXama);
-        tiroXama.mover(0);
-
-        cena.MagiaOrcCd = 5;
+    orc2.controlar = function (dt) {
+      if (this.x - 64 < cena.pcCenaJogo.x && this.x + 64 > cena.pcCenaJogo.x) {
+        if (cena.OrcCD2 <= 0) {
+          
+          if (this.x > cena.pcCenaJogo.x) {
+            cena.acaoNoMomentoORC = "BATENDO";
+            if (Math.round(this.quadroORC) == 5) {
+            var batidaORC = new Lancada({
+              x: this.x - 20,
+              y: this.y ,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 0)",
+            });
+            batidaORC.tags.add("espadaORC");
+            cena.OrcCD2 = 2;
+          this.cena.adicionar(batidaORC);
+          }
+          } else {
+            cena.acaoNoMomentoORC = "BATENDO";
+            if (Math.round(this.quadroORC) == 5) {
+            var batidaORC = new Lancada({
+              x: this.x + 20,
+              y: this.y ,
+              h: 10,
+              w: 32,
+              color: "rgba(255, 0, 0, 0)",
+            });
+            batidaORC.tags.add("espadaORC");
+            cena.OrcCD2 = 2;
+          this.cena.adicionar(batidaORC);
+            }
+          }
+          
+        }else { this.vx = 20 * Math.sign(pc.x - this.x);
+          if (this.vx > 0) {
+            cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
+          } else if (this.vx < 0) {
+            cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
+          }}
       } else {
-        cena.orcXamaAcaoNoMomento = "PARADO_ESQUERDA";
+        this.vx = 20 * Math.sign(pc.x - this.x);
+        if (this.vx > 0) {
+          cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
+        } else if (this.vx < 0) {
+          cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
+        }
       }
-      cena.MagiaOrcCd += -1 * dt;
+      cena.OrcCD2 += -1 * dt;
     };
-
     pc.controlar = function (dt) {
       if (cena.input.comandos.get("MOVE_ESQUERDA")) {
         this.vx = -50;
@@ -431,15 +457,17 @@ export default class CenaJogo5 extends Cena {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
-              x: this.x,
-              y: this.y,
+              x: this.x ,
+              y: this.y ,
               vx: -100,
+              lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
-              x: this.x,
-              y: this.y,
+              x: this.x ,
+              y: this.y ,
               vx: +100,
+              lado: "Direita",
             });
           }
           tiro.tags.add("tiro");
@@ -473,9 +501,8 @@ export default class CenaJogo5 extends Cena {
       }
     };
 
-    this.adicionar(npcResgatar);
     this.adicionar(orc);
-    this.adicionar(orcXama);
+    this.adicionar(orc2);
     this.adicionar(pc);
   }
 }
