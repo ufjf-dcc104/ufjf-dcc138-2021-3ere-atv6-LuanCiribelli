@@ -199,6 +199,176 @@ export default class {
               this.SIZE
             );
             break;
+          case 41:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              326,
+              48,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 42:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              351,
+              48,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 43:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              448,
+              48,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 44:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              326,
+              64,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 45:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              351,
+              64,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 46:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              448,
+              64,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 47:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              326,
+              96,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 48:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              351,
+              96,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+          case 49:
+            ctx.drawImage(
+              this.cena.assets.img("tiles"),
+              448,
+              96,
+              32,
+              32,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
+            break;
+            case 50:
+              ctx.drawImage(
+                this.cena.assets.img("tiles"),
+                351,
+                129,
+                32,
+                32,
+                c * this.SIZE,
+                l * this.SIZE,
+                this.SIZE,
+                this.SIZE
+              );
+              break;
+              case 51:
+                ctx.drawImage(
+                  this.cena.assets.img("tiles"),
+                  481,
+                  46,
+                  32,
+                  32,
+                  c * this.SIZE,
+                  l * this.SIZE,
+                  this.SIZE,
+                  this.SIZE
+                );
+                break;
+                case 52:
+                  ctx.drawImage(
+                    this.cena.assets.img("tiles"),
+                    481,
+                    64,
+                    32,
+                    32,
+                    c * this.SIZE,
+                    l * this.SIZE,
+                    this.SIZE,
+                    this.SIZE
+                  );
+                  break;
+                  case 53:
+                    ctx.drawImage(
+                      this.cena.assets.img("tiles"),
+                      481,
+                      96,
+                      32,
+                      32,
+                      c * this.SIZE,
+                      l * this.SIZE,
+                      this.SIZE,
+                      this.SIZE
+                    );
+                    break;
+            
           default:
             ctx.fillStyle = "grey";
             ctx.lineWidth = 1;
