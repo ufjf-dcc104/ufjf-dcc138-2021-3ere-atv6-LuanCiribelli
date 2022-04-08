@@ -96,7 +96,7 @@ export default class CenaJogo2 extends Cena {
               16,
               16
             );
-
+  
             this.ctx.drawImage(
               this.assets.img("flames"),
               150,
@@ -121,7 +121,7 @@ export default class CenaJogo2 extends Cena {
               16,
               16
             );
-
+  
             this.ctx.drawImage(
               this.assets.img("flames"),
               150,
@@ -146,7 +146,6 @@ export default class CenaJogo2 extends Cena {
             );
             break;
           case 4:
-          case 3:
             this.ctx.drawImage(
               this.assets.img("flames"),
               150,
@@ -158,7 +157,7 @@ export default class CenaJogo2 extends Cena {
               16,
               16
             );
-
+  
             this.ctx.drawImage(
               this.assets.img("flames"),
               150,
@@ -192,6 +191,65 @@ export default class CenaJogo2 extends Cena {
               16,
               16
             );
+            break
+            case 5:
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                0,
+                0,
+                16,
+                16
+              );
+    
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                16,
+                0,
+                16,
+                16
+              );
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                32,
+                0,
+                16,
+                16
+              );
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                48,
+                0,
+                16,
+                16
+              );
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                64,
+                0,
+                16,
+                16
+              );
+              break
           default:
             break;
         }
@@ -217,7 +275,7 @@ export default class CenaJogo2 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 20, w: 8 });
+    const pc = new PC({ h: 20, w: 8,mana:this.magiaTotal });
     if (porta == 1) {
       pc.x = 20;
       pc.y = 32 * 10;
@@ -356,6 +414,7 @@ export default class CenaJogo2 extends Cena {
           tiro.mover(0);
           cena.CoolDown = 0.4;
           this.mana -= 1;
+          this.magiaTotal-=1;
         }
       }
       if (cena.input.comandos.get("BATER")) {

@@ -7,6 +7,8 @@ import Machadada from "./Machadada.js";
 import Lancada from "./Lancada.js";
 import { mapa4 as modeloMapa4 } from "../maps/mapa4.js";
 import OrcXama from "./OrcXama.js";
+import OrcXama2 from "./OrcXama2.js";
+import MagiaInimigo from "./MagiaInimigo.js";
 
 function comparaClasse(a, b, ca, cb) {
   return (
@@ -22,56 +24,17 @@ function marcaParaRemover(a, aRemover) {
 
 export default class CenaJogo4 extends Cena {
   onColisao(a, b) {
-    if (comparaClasse(a, b, "pc", "npc")) {
-      this.rodando = false;
-      this.assets.play("vitoria");
-      this.game.selecionaCena("vitoria");
-    }
     if (comparaClasse(a, b, "espada", "orcXama")) {
       marcaParaRemover(a, this.aRemover);
       marcaParaRemover(b, this.aRemover);
     }
     if (comparaClasse(a, b, "espada", "orcBase")) {
-      if (a.tags.has("orcBase")) {
-        if (a.vidas > 0) {
-          a.vidas += -1;
-          marcaParaRemover(b, this.aRemover);
-        } else {
-          marcaParaRemover(a, this.aRemover);
-          marcaParaRemover(b, this.aRemover);
-        }
-      } else {
-        if (b.tags.has("orcBase")) {
-          if (b.vidas > 0) {
-            b.vidas += -1;
-            marcaParaRemover(a, this.aRemover);
-          } else {
-            marcaParaRemover(a, this.aRemover);
-            marcaParaRemover(b, this.aRemover);
-          }
-        }
-      }
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
     }
     if (comparaClasse(a, b, "tiro", "orcBase")) {
-      if (a.tags.has("orcBase")) {
-        if (a.vidas > 0) {
-          a.vidas += -1;
-          marcaParaRemover(b, this.aRemover);
-        } else {
-          marcaParaRemover(a, this.aRemover);
-          marcaParaRemover(b, this.aRemover);
-        }
-      } else {
-        if (b.tags.has("orcBase")) {
-          if (b.vidas > 0) {
-            b.vidas += -1;
-            marcaParaRemover(a, this.aRemover);
-          } else {
-            marcaParaRemover(a, this.aRemover);
-            marcaParaRemover(b, this.aRemover);
-          }
-        }
-      }
+      marcaParaRemover(a, this.aRemover);
+      marcaParaRemover(b, this.aRemover);
     }
     if (comparaClasse(a, b, "tiro", "orcXama")) {
       marcaParaRemover(a, this.aRemover);
@@ -90,21 +53,13 @@ export default class CenaJogo4 extends Cena {
       comparaClasse(a, b, "pc", "tiroXama") ||
       comparaClasse(a, b, "pc", "espadaORC") ||
       comparaClasse(a, b, "pc", "orcBase") ||
-      comparaClasse(a, b, "pc", "orcXama") ||
-      comparaClasse(a, b, "npc", "enemy") ||
-      comparaClasse(a, b, "npc", "tiroXama") ||
-      comparaClasse(a, b, "npc", "espadaORC") ||
-      comparaClasse(a, b, "npc", "orcBase") ||
-      comparaClasse(a, b, "npc", "orcXama") ||
-      comparaClasse(a, b, "npc", "tiro") ||
-      comparaClasse(a, b, "npc", "espada")
+      comparaClasse(a, b, "pc", "orcXama")
     ) {
       this.rodando = false;
       this.assets.play("derrota");
       this.game.selecionaCena("fim");
     }
   }
-
   draw() {
     this.ctx.fillStyle = "lightblue";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -125,7 +80,8 @@ export default class CenaJogo4 extends Cena {
           this.dt,
           this.acaoNoMomento,
           this.acaoNoMomentoORC,
-          this.orcXamaAcaoNoMomento
+          this.orcXamaAcaoNoMomento,
+          this.orcXamaAcaoNoMomento2
         );
         if (sprite.aplicaRestricoes()) {
           if (sprite.tags.has("pc")) {
@@ -210,7 +166,6 @@ export default class CenaJogo4 extends Cena {
             );
             break;
           case 4:
-          case 3:
             this.ctx.drawImage(
               this.assets.img("flames"),
               150,
@@ -256,10 +211,116 @@ export default class CenaJogo4 extends Cena {
               16,
               16
             );
+            break;
+          case 5:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
+
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              32,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              48,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              64,
+              0,
+              16,
+              16
+            );
+            break;
           default:
             break;
         }
       });
+    }
+
+    if (this.armadilha == false) {
+      if (this.brilho < 10) {
+        this.ctx.drawImage(
+          this.assets.img("flames"),
+          437,
+          197,
+          35,
+          32,
+          290,
+          220,
+          16,
+          16
+        );
+      } else if (this.brilho < 20) {
+        this.ctx.drawImage(
+          this.assets.img("flames"),
+          479,
+          197,
+          35,
+          32,
+          290,
+          220,
+          16,
+          16
+        );
+      } else {
+        if (this.brilho < 30) {
+          this.ctx.drawImage(
+            this.assets.img("flames"),
+            535,
+            197,
+            35,
+            32,
+            290,
+            220,
+            16,
+            16
+          );
+        } else {
+          
+            this.brilho = 0;
+         
+        }
+      }
+      this.brilho++;
     }
   }
 
@@ -274,38 +335,44 @@ export default class CenaJogo4 extends Cena {
     }
   }
 
-  preparar(porta) {
-    super.preparar();
-    const mapa4 = new Mapa(19, 12, 32);
-    mapa4.carregaMapa(modeloMapa4);
-    this.configuraMapa(mapa4);
-    this.mapa = mapa4;
-    this.contaMapa = 1;
-    this.contador = 0;
-    const acao = null;
-    const pc = new PC({ h: 20, w: 8 });
-    pc.tags.add("pc");
+  quadro(t) {
+    this.t0 = this.t0 ?? t;
+    this.dt = (t - this.t0) / 1000;
 
-    if (porta == 1) {
-      pc.x = 32 * 1;
-      pc.y = 32 * 10;
-    } else {
-      pc.x = 32 * 18;
-      pc.y = 32 * 10;
+    this.passo(this.dt);
+    this.draw();
+    this.checaColisao();
+    this.removerSprites();
+    this.checaFim();
+    this.mudaMapa();
+
+    if (
+      this.pcCenaJogo.x >= 280 &&
+      this.pcCenaJogo.x <= 290 &&
+      this.armadilha == false
+    ) {
+      this.criaInimigo();
+      this.armadilha = true;
+      this.magiaTotal = 5;
+      this.pcCenaJogo.mana = 5;
     }
+    if (this.rodando) {
+      this.contador += 1 * this.dt;
+      this.CoolDown += -1 * this.dt;
+      this.iniciar();
+    }
+    this.t0 = t;
+  }
 
-    let orcXama = new OrcXama({ x: 32 * 11, y: 32 * 6.5, h: 40, w: 16 });
+  criaInimigo() {
+    let orcXama = new OrcXama({ x: 32 * 11, y: 32 * 6.5, h: 20, w: 16 });
     orcXama.tags.add("orcXama");
-    let orcXama2 = new OrcXama({ x: 32 * 7, y: 32 * 6.5, h: 40, w: 16 });
+    let orcXama2 = new OrcXama2({ x: 32 * 7, y: 32 * 6.5, h: 20, w: 16 });
     orcXama2.tags.add("orcXama");
 
-    this.pcCenaJogo = pc;
-    this.CoolDown = 0;
-
-    this.OrcCD = 2;
-    this.OrcCD2 = 2;
+    this.MagiaOrcCd = 0;
+    this.MagiaOrcCd2 = 0;
     const cena = this;
-
     orcXama.controlar = function (dt) {
       if (cena.MagiaOrcCd <= 0) {
         cena.orcXamaAcaoNoMomento = "ATIRANDO";
@@ -319,31 +386,60 @@ export default class CenaJogo4 extends Cena {
         this.cena.adicionar(tiroXama);
         tiroXama.mover(0);
 
-        cena.MagiaOrcCd = 5;
+        cena.MagiaOrcCd = 2;
       } else {
         cena.orcXamaAcaoNoMomento = "PARADO_ESQUERDA";
       }
       cena.MagiaOrcCd += -1 * dt;
     };
-    orcXama2.controlar = function (dt) {
-      if (cena.MagiaOrcCd <= 0) {
-        cena.orcXamaAcaoNoMomento = "ATIRANDO";
 
+    orcXama2.controlar = function (dt) {
+      if (cena.MagiaOrcCd2 <= 0) {
+        cena.orcXamaAcaoNoMomento2 = "ATIRANDO";
         var tiroXama = new MagiaInimigo({
           x: this.x,
           y: this.y,
-          vx: -100,
+          vx: 100,
         });
         tiroXama.tags.add("tiroXama");
         this.cena.adicionar(tiroXama);
         tiroXama.mover(0);
 
-        cena.MagiaOrcCd = 5;
+        cena.MagiaOrcCd2 = 2;
       } else {
-        cena.orcXamaAcaoNoMomento = "PARADO_DIREITA";
+        cena.orcXamaAcaoNoMomento2 = "PARADO";
       }
-      cena.MagiaOrcCd += -1 * dt;
+      cena.MagiaOrcCd2 += -1 * dt;
     };
+    this.adicionar(orcXama);
+    this.adicionar(orcXama2);
+  }
+  preparar(porta) {
+    super.preparar();
+    this.brilho = 0;
+    const mapa4 = new Mapa(19, 12, 32);
+    mapa4.carregaMapa(modeloMapa4);
+    this.configuraMapa(mapa4);
+    this.mapa = mapa4;
+    this.contaMapa = 1;
+    this.contador = 0;
+    const acao = null;
+    this.armadilha = false;
+    const pc = new PC({ h: 20, w: 8, mana: this.magiaTotal });
+    pc.tags.add("pc");
+
+    if (porta == 1) {
+      pc.x = 32 * 1;
+      pc.y = 32 * 10;
+    } else {
+      pc.x = 32 * 18;
+      pc.y = 32 * 10;
+    }
+
+    this.pcCenaJogo = pc;
+    this.CoolDown = 0;
+    const cena = this;
+
     pc.controlar = function (dt) {
       if (cena.input.comandos.get("MOVE_ESQUERDA")) {
         this.vx = -50;
@@ -403,6 +499,7 @@ export default class CenaJogo4 extends Cena {
           tiro.mover(0);
           cena.CoolDown = 0.4;
           this.mana -= 1;
+          cena.magiaTotal -= 1;
         }
       }
       if (cena.input.comandos.get("BATER")) {
@@ -429,8 +526,6 @@ export default class CenaJogo4 extends Cena {
       }
     };
 
-    this.adicionar(orcXama);
-    this.adicionar(orcXama2);
     this.adicionar(pc);
   }
 }

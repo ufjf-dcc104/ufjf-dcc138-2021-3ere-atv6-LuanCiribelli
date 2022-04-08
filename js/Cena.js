@@ -10,6 +10,7 @@ export default class Cena {
     this.acaoNoMomento = "PARADO";
     this.acaoNoMomentoORC = "PARADO";
     this.CoolDown = 0;
+    this.magiaTotal = 5;
   }
 
   draw() {
@@ -18,7 +19,7 @@ export default class Cena {
 
     this.mapa?.draw(this.ctx);
     if (this.assets.acabou()) {
-        this.sprites.forEach((sprite) => {
+      this.sprites.forEach((sprite) => {
         sprite.draw(
           this.ctx,
           this.dt,
@@ -53,10 +54,7 @@ export default class Cena {
     this.removerSprites();
     this.checaFim();
     this.mudaMapa();
-    if (this.contador > 10) {
-      this.criaInimigo();
-      this.contador = 0;
-    }
+
     if (this.rodando) {
       this.contador += 1 * this.dt;
       this.CoolDown += -1 * this.dt;

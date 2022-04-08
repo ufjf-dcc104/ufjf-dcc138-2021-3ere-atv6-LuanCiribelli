@@ -135,132 +135,188 @@ export default class CenaJogo5 extends Cena {
             marcaParaRemover(sprite, this.aRemover);
           }
         }
-        switch(this.pcCenaJogo?.mana){
-          case 1: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-          break;
-          case 2: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-  
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            16,
-            0,
-            16,
-            16
-          );
-          break;
-          case 3: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-  
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            16,
-            0,
-            16,
-            16
-          );
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            32,
-            0,
-            16,
-            16
-          );
-          break;
-          case 4: 
-          case 3: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-  
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            16,
-            0,
-            16,
-            16
-          );
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            32,
-            0,
-            16,
-            16
-          );
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            48,
-            0,
-            16,
-            16
-          );
-          default:
-  
+        switch (this.pcCenaJogo?.mana) {
+          case 1:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
             break;
+          case 2:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
   
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            break;
+          case 3:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
+  
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              32,
+              0,
+              16,
+              16
+            );
+            break;
+          case 4:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
+  
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              32,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              48,
+              0,
+              16,
+              16
+            );
+            break
+            case 5:
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                0,
+                0,
+                16,
+                16
+              );
+    
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                16,
+                0,
+                16,
+                16
+              );
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                32,
+                0,
+                16,
+                16
+              );
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                48,
+                0,
+                16,
+                16
+              );
+              this.ctx.drawImage(
+                this.assets.img("flames"),
+                150,
+                195,
+                32,
+                45,
+                64,
+                0,
+                16,
+                16
+              );
+              break
+          default:
+            break;
         }
   
       });
@@ -269,9 +325,9 @@ export default class CenaJogo5 extends Cena {
 
   checaFim() {
     if (this.pcCenaJogo.x > 591) {
-      this.game.selecionaCena("fase5", 1);
+      this.game.selecionaCena("fase6", 1);
     } else if (this.pcCenaJogo.x < 17) {
-      this.game.selecionaCena("fase3", 2);
+      this.game.selecionaCena("fase4", 2);
     }
     if (this.sprites.length == 0) {
       this.game.selecionaCena("fim", 0);
@@ -287,7 +343,7 @@ export default class CenaJogo5 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 20, w: 8 });
+    const pc = new PC({ h: 20, w: 8,mana:this.magiaTotal });
     pc.tags.add("pc");
 
     if (porta == 1) {
@@ -475,6 +531,7 @@ export default class CenaJogo5 extends Cena {
           tiro.mover(0);
           cena.CoolDown = 0.4;
           this.mana -= 1;
+          cena.magiaTotal-=1;
         }
       }
       if (cena.input.comandos.get("BATER")) {

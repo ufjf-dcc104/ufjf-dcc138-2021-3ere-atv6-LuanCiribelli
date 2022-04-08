@@ -91,134 +91,189 @@ export default class CenaJogo2 extends Cena {
             marcaParaRemover(sprite, this.aRemover);
           }
         }
-        switch(this.pcCenaJogo?.mana){
-          case 1: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-          break;
-          case 2: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-  
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            16,
-            0,
-            16,
-            16
-          );
-          break;
-          case 3: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-  
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            16,
-            0,
-            16,
-            16
-          );
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            32,
-            0,
-            16,
-            16
-          );
-          break;
-          case 4: 
-          case 3: 
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            0,
-            0,
-            16,
-            16
-          );
-  
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            16,
-            0,
-            16,
-            16
-          );
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            32,
-            0,
-            16,
-            16
-          );
-          this.ctx.drawImage(
-            this.assets.img("flames"),
-            150,
-            195,
-            32,
-            45,
-            48,
-            0,
-            16,
-            16
-          );
-          default:
-  
+        switch (this.pcCenaJogo?.mana) {
+          case 1:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
             break;
-  
+          case 2:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
+
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            break;
+          case 3:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
+
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              32,
+              0,
+              16,
+              16
+            );
+            break;
+          case 4:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
+
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              32,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              48,
+              0,
+              16,
+              16
+            );
+            break;
+          case 5:
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              0,
+              0,
+              16,
+              16
+            );
+
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              16,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              32,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              48,
+              0,
+              16,
+              16
+            );
+            this.ctx.drawImage(
+              this.assets.img("flames"),
+              150,
+              195,
+              32,
+              45,
+              64,
+              0,
+              16,
+              16
+            );
+            break;
+          default:
+            break;
         }
-  
       });
     }
   }
@@ -242,7 +297,7 @@ export default class CenaJogo2 extends Cena {
     this.contaMapa = 1;
     this.contador = 0;
     const acao = null;
-    const pc = new PC({ h: 20, w: 8 });
+    const pc = new PC({ h: 20, w: 8,mana:this.magiaTotal });
     if (porta == 1) {
       pc.x = 32 * 1;
       pc.y = 32 * 10;
@@ -270,43 +325,43 @@ export default class CenaJogo2 extends Cena {
     orc.controlar = function (dt) {
       if (this.x - 64 < cena.pcCenaJogo.x && this.x + 64 > cena.pcCenaJogo.x) {
         if (cena.OrcCD <= 0) {
-          
           if (this.x > cena.pcCenaJogo.x) {
             cena.acaoNoMomentoORC = "BATENDO";
             if (Math.round(this.quadroORC) == 5) {
-            var batidaORC = new Lancada({
-              x: this.x - 20,
-              y: this.y ,
-              h: 10,
-              w: 32,
-              color: "rgba(255, 0, 0, 0)",
-            });
-            batidaORC.tags.add("espadaORC");
-            cena.OrcCD = 2;
-          this.cena.adicionar(batidaORC);
-          }
+              var batidaORC = new Lancada({
+                x: this.x - 20,
+                y: this.y,
+                h: 10,
+                w: 32,
+                color: "rgba(255, 0, 0, 0)",
+              });
+              batidaORC.tags.add("espadaORC");
+              cena.OrcCD = 2;
+              this.cena.adicionar(batidaORC);
+            }
           } else {
             cena.acaoNoMomentoORC = "BATENDO";
             if (Math.round(this.quadroORC) == 5) {
-            var batidaORC = new Lancada({
-              x: this.x + 20,
-              y: this.y ,
-              h: 10,
-              w: 32,
-              color: "rgba(255, 0, 0, 0)",
-            });
-            batidaORC.tags.add("espadaORC");
-            cena.OrcCD = 2;
-          this.cena.adicionar(batidaORC);
+              var batidaORC = new Lancada({
+                x: this.x + 20,
+                y: this.y,
+                h: 10,
+                w: 32,
+                color: "rgba(255, 0, 0, 0)",
+              });
+              batidaORC.tags.add("espadaORC");
+              cena.OrcCD = 2;
+              this.cena.adicionar(batidaORC);
             }
           }
-          
-        }else { this.vx = 20 * Math.sign(pc.x - this.x);
+        } else {
+          this.vx = 20 * Math.sign(pc.x - this.x);
           if (this.vx > 0) {
             cena.acaoNoMomentoORC = "MOVENDO_PARA_DIREITA";
           } else if (this.vx < 0) {
             cena.acaoNoMomentoORC = "MOVENDO_PARA_ESQUERDA";
-          }}
+          }
+        }
       } else {
         this.vx = 20 * Math.sign(pc.x - this.x);
         if (this.vx > 0) {
@@ -322,8 +377,8 @@ export default class CenaJogo2 extends Cena {
         cena.orcXamaAcaoNoMomento = "ATIRANDO";
 
         var tiroXama = new MagiaInimigo({
-          x: this.x ,
-          y: this.y ,
+          x: this.x,
+          y: this.y,
           vx: -100,
         });
         tiroXama.tags.add("tiroXama");
@@ -378,15 +433,15 @@ export default class CenaJogo2 extends Cena {
           cena.acaoNoMomento = "ATIRANDO";
           if (this.vx < 0) {
             var tiro = new Magia({
-              x: this.x ,
-              y: this.y ,
+              x: this.x,
+              y: this.y,
               vx: -100,
               lado: "Esquerda",
             });
           } else {
             var tiro = new Magia({
-              x: this.x ,
-              y: this.y ,
+              x: this.x,
+              y: this.y,
               vx: +100,
               lado: "Direita",
             });
@@ -396,6 +451,7 @@ export default class CenaJogo2 extends Cena {
           tiro.mover(0);
           cena.CoolDown = 0.4;
           this.mana -= 1;
+          cena.magiaTotal-=1;
         }
       }
       if (cena.input.comandos.get("BATER")) {

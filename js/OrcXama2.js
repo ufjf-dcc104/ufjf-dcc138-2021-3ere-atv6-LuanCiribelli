@@ -34,7 +34,7 @@ export default class OrcXama extends Sprite {
     this.contadorDePose = 0;
   }
 
-  draw(ctx, dt, a, b, acao) {
+  draw(ctx, dt, a, b, c,acao) {
     const POSES = [
       { qmax: 7, pv: 7 },
       { qmax: 7, pv: 7 },
@@ -84,11 +84,9 @@ export default class OrcXama extends Sprite {
           this.contadorDePose = 10 * POSES[this.poseORC].pv;
         }
       } else if (acao == "ATIRANDO") {
-        if (this.vx <= 0) {
-          this.poseORC = 1;
-        } else {
+      
           this.poseORC = 3;
-        }
+        
         this.contadorDePose = 10 * POSES[this.poseORC].pv;
       }
     }
